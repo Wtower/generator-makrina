@@ -11,6 +11,12 @@ module.exports = yeoman.Base.extend({
     ));
 
     var prompts = [{
+      type: 'input',
+      name: 'name',
+      message: 'Project name',
+      default: this.appname,
+      store: true
+    }, {
       type: 'confirm',
       name: 'someAnswer',
       message: 'Would you like to enable this option?',
@@ -24,9 +30,12 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+    this.fs.copyTpl(
+      this.templatePath(),
+      this.destinationPath(), {
+        name: this.props.name,
+        someAnswer: this.props.someAnswer
+      }
     );
   },
 
