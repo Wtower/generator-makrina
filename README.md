@@ -1,9 +1,14 @@
-# generator-makrina [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Generate MEAN boilerplate
+generator-makrina 
+=================
+
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+
+Generate MEAN boilerplate
 
 **UNDER DEVELOPMENT**
 
-## Installation
+Installation
+------------
 
 First, install [Yeoman](http://yeoman.io) and generator-makrina using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
@@ -18,14 +23,21 @@ Then generate your new project:
 yo makrina
 ```
 
-## Getting To Know Yeoman
+Sub-generators
+--------------
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+- `ansible-core-service`: Generate a `core.object` module containing an `ngResource` factory.
+- `ansible-list-component`: Generate a component for displaying a list (in progress)
 
-## License
+Useful links
+------------
+
+- https://scotch.io/tutorials/create-a-custom-yeoman-generator-in-4-easy-steps
+- http://yeoman.io/authoring/
+- http://yeoman.io/authoring/composability.html
+
+License
+-------
 
 MIT © [Wtower](https://github.com/Wtower)
 
