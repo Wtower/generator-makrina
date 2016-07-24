@@ -1,1 +1,4 @@
 <%= name %>
+<%- header(name, '=') %>
+
+<%= description %>

@@ -1,0 +1,3 @@
+Private repository
+(c) <%- today.getFullYear() %> <%= author %>
+All rights reserved
