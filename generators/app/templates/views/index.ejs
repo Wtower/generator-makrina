@@ -9,14 +9,35 @@
 
   <meta name="description" content="<%= description %>">
   <meta name="author" content="<%= author %>">
-  <meta name="generator" content="<%= author %>">
+  <meta name="generator" content="<%= organization %>">
 
-  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <!--<link rel="shortcut icon" type="image/png" href="/images/favicon.ico"/>-->
+  <link rel="stylesheet" href="/build/fonts/fonts.css">
+  <link rel="stylesheet" href="/build/css/style.min.css">
+  <script src="/build/js/index.min.js"></script>
 </head>
 
 <body>
-<h1><%%= title %></h1>
-<p>Welcome to <%%= title %></p>
-</body>
+<div id="loader">
+  <div class="loader-container">
+    <div class="wow pulse" data-wow-iteration="infinite" data-wow-duration="3s">
+      <!--<img src="/images/logo.png">-->
+    </div>
+  </div>
+</div>
 
+<!--[if lt IE 9]><div id="ie8" class="alert alert-warning">Your browser version is deprecated</div><![endif]-->
+
+<div id="page">
+  <div id="content" class="container-fluid">
+    <div class="page-header hide">
+      <h1><%%= title %></h1>
+    </div>
+    <div class="page-content row">
+      <p>Welcome to <%%= title %></p>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>

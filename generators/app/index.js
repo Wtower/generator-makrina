@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var uuid = require('node-uuid');
+var randomString = require('randomstring');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -18,7 +19,7 @@ module.exports = yeoman.Base.extend({
       message: 'Project name',
       default: this.appname
     }, {
-      // newrelic.js, routes/index.js
+      // newrelic.js, routes/index.js, routes/admin.js
       type: 'input',
       name: 'verboseName',
       message: 'Verbose name',
@@ -39,6 +40,18 @@ module.exports = yeoman.Base.extend({
       type: 'input',
       name: 'author',
       message: 'Author',
+      store: true
+    }, {
+      // views/index.ejs, views/login.ejs, views/admin.ejs
+      type: 'input',
+      name: 'organization',
+      message: 'Organization',
+      store: true
+    }, {
+      // views/login.ejs, views/admin.ejs
+      type: 'input',
+      name: 'organizationUrl',
+      message: 'Organization URL',
       store: true
     }, {
       // package.json
@@ -64,6 +77,8 @@ module.exports = yeoman.Base.extend({
     var templatePaths = [
       'bin/',
       'e2e-tests/protractor.conf.js',
+      'public/',
+      'routes/',
       'services/session-config.js',
       'services/i18n-config.js',
       'views/',
@@ -95,6 +110,9 @@ module.exports = yeoman.Base.extend({
       today: today,
       date: [today.getDate(), today.getMonth() + 1, today.getFullYear()].join('/'),
       uuid: uuid.v4(),
+      pass: randomString.generate(12),
+      organization: this.props.organization,
+      organizationUrl: this.props.organizationUrl,
       header: function(val, char) {
         // return an underline of `char`s for markdown based on `val` length
         return new Array(val.length + 1).join(char);
