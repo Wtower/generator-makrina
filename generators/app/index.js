@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var path = require('path');
 var uuid = require('node-uuid');
 var randomString = require('randomstring');
 
@@ -77,7 +78,9 @@ module.exports = yeoman.Base.extend({
     var templatePaths = [
       'bin/',
       'e2e-tests/protractor.conf.js',
-      'public/',
+      'public/images/',
+      'public/javascripts/_name_.js',
+      'public/stylesheets/_name_.sass',
       'routes/',
       'services/session-config.js',
       'services/i18n-config.js',
@@ -121,13 +124,13 @@ module.exports = yeoman.Base.extend({
     var $this = this;
 
     // Copy all templates
-    templatePaths.forEach(function (path) {
-      // check if should be hidden
-      var output = path;
-      if (path.startsWith('_')) output = '.' + path.substring(1, path.length);
+    templatePaths.forEach(function (templatePath) {
+      var output = templatePath.replace('_name_', $this.props.name);
+      output = output.replace(path.sep + '_', path.sep + '.');
+      if (output.startsWith('_')) output = '.' + output.substring(1, output.length);
 
       $this.fs.copyTpl(
-        $this.templatePath(path),
+        $this.templatePath(templatePath),
         $this.destinationPath(output),
         context
       );
