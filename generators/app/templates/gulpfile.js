@@ -52,6 +52,7 @@ var paths = {
       'node_modules/angular-route/angular-route.js',
       'node_modules/angular-resource/angular-resource.js',
       'node_modules/angular-animate/angular-animate.js',
+      'node_modules/angular-sanitize/angular-sanitize.js',
       'node_modules/ng-file-upload/dist/ng-file-upload.js',
       'node_modules/gentelella/vendors/fastclick/lib/fastclick.js',
       'node_modules/gentelella/vendors/nprogress/nprogress.js',
@@ -77,12 +78,14 @@ var paths = {
       'public/javascripts/admin/*.module.js',
       'public/javascripts/admin/*.config.js',
       'public/javascripts/admin/core/*.module.js',
+      'public/javascripts/admin/core/*.filter.js',
       'public/javascripts/admin/core/**/*.module.js',
       'public/javascripts/admin/core/**/*.service.js',
       'public/javascripts/admin/*list/*.module.js',
       'public/javascripts/admin/*list/*.component.js',
       'public/javascripts/admin/*detail/*.module.js',
-      'public/javascripts/admin/*detail/*.component.js'
+      'public/javascripts/admin/*detail/*.component.js',
+      'public/javascripts/admin/*detail/*.filter.js'
     ],
     build: 'public/build/admin/'
   }

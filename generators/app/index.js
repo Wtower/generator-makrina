@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var uuid = require('node-uuid');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -11,19 +12,19 @@ module.exports = yeoman.Base.extend({
     ));
 
     var prompts = [{
-      // package.json, README.md, newrelic.js
+      // package.json, README.md, newrelic.js, services/mongoose.js
       type: 'input',
       name: 'name',
       message: 'Project name',
       default: this.appname
     }, {
-      // newrelic.js
+      // newrelic.js, routes/index.js
       type: 'input',
       name: 'verboseName',
       message: 'Verbose name',
       default: this.appname
     }, {
-      // package.json, README.md
+      // package.json, README.md, routes/index.js, views/index.ejs
       type: 'input',
       name: 'description',
       message: 'Description',
@@ -34,7 +35,7 @@ module.exports = yeoman.Base.extend({
       name: 'git',
       message: 'Git repository URL'
     }, {
-      // package.json, LICENSE, CONTRIBUTING.md
+      // package.json, LICENSE, CONTRIBUTING.md, views/index.ejs
       type: 'input',
       name: 'author',
       message: 'Author',
@@ -51,11 +52,6 @@ module.exports = yeoman.Base.extend({
       name: 'newRelicLicense',
       message: 'New Relic license key',
       store: true
-    }, {
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
     }];
 
     return this.prompt(prompts).then(function (props) {
@@ -66,6 +62,11 @@ module.exports = yeoman.Base.extend({
   writing: function () {
     // explicitly define paths to manipulate output file names
     var templatePaths = [
+      'bin/',
+      'e2e-tests/protractor.conf.js',
+      'services/session-config.js',
+      'services/i18n-config.js',
+      'views/',
       '_gitignore',
       'CHANGELOG',
       'CONTRIBUTING.md',
@@ -93,6 +94,7 @@ module.exports = yeoman.Base.extend({
       newRelicLicense: this.props.newRelicLicense,
       today: today,
       date: [today.getDate(), today.getMonth() + 1, today.getFullYear()].join('/'),
+      uuid: uuid.v4(),
       header: function(val, char) {
         // return an underline of `char`s for markdown based on `val` length
         return new Array(val.length + 1).join(char);
