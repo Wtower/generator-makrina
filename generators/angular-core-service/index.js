@@ -34,13 +34,12 @@ module.exports = yeoman.Base.extend({
     }];
 
     return this.prompt(prompts).then(function (props) {
-      // To access props later use this.props.someAnswer;
       this.props = props;
     }.bind(this));
   },
 
   writing: function () {
-    var files = [
+    var templatePaths = [
       'module.js',
       'service.js',
       'service.spec.js'
@@ -54,8 +53,8 @@ module.exports = yeoman.Base.extend({
       date: [today.getDate(), today.getMonth() + 1, today.getFullYear()].join('/')
     };
     var $this = this;
-    
-    files.forEach(function (file) {
+
+    templatePaths.forEach(function (file) {
       $this.fs.copyTpl(
         $this.templatePath(file),
         $this.destinationPath(destinationPrefix + file),
