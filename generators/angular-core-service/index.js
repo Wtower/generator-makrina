@@ -13,7 +13,6 @@ var path = require('path');
 module.exports = yeoman.Base.extend({
   prompting: function () {
     this.log('Generating ' + chalk.red('angular-core-service') + ' module');
-    this.log('Attention: add the generated module to the core module.');
 
     return this.prompt(this.options.objectName? []: buildPrompts(this))
       .then(function (props) {

@@ -1,5 +1,5 @@
 /**
- * Created by yeoman generator-makrina:angular-app on <%= date %>.
+ * Created by yeoman generator-makrina:angular-app <%= version %> on <%= date %>.
  */
 
 angular
@@ -7,5 +7,6 @@ angular
   .config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
       $locationProvider.hashPrefix('!');
+      // @todo add providers
     }
   ]);

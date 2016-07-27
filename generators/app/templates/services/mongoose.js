@@ -1,5 +1,5 @@
 /**
- * Created by yeoman generator-makrina on <%= date %>.
+ * Created by yeoman generator-makrina <%= version %> on <%= date %>.
  */
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');

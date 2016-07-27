@@ -1,3 +1,6 @@
+/**
+ * Created by yeoman generator-makrina <%= version %> on <%= date %>.
+ */
 // require('newrelic');
 var express = require('express');
 var path = require('path');

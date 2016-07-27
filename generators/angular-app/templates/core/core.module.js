@@ -1,5 +1,5 @@
 /**
- * Created by yeoman generator-makrina:angular-app on <%= date %>.
+ * Created by yeoman generator-makrina:angular-app <%= version %> on <%= date %>.
  */
 
 angular.module('core', [

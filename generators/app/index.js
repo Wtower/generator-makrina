@@ -51,6 +51,7 @@ module.exports = yeoman.Base.extend({
       'services/i18n-config.js',
       'views/',
       '_gitignore',
+      'app.js',
       'CHANGELOG',
       'CONTRIBUTING.md',
       'fonts.list',
@@ -79,6 +80,7 @@ module.exports = yeoman.Base.extend({
       pass: randomString.generate(12),
       organization: this.props.organization,
       organizationUrl: this.props.organizationUrl,
+      angularAppFullName: this.props.angularAppFullName,
       header: function(val, char) {
         // return an underline of `char`s for markdown based on `val` length
         return new Array(val.length + 1).join(char);
