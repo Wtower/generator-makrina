@@ -2,7 +2,7 @@
  * Created by yeoman generator-makrina:angular-app on <%= date %>.
  */
 
-angular.module('<%= angularAppName %>', [
+angular.module('<%= angularAppFullName %>', [
   'ngRoute',
   'ngAnimate'
 ]);

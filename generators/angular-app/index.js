@@ -4,9 +4,10 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
+var lodash = require('lodash');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
-var lodash = require('lodash');
+var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -15,11 +16,17 @@ module.exports = yeoman.Base.extend({
     var prompts = [];
     if (lodash.isEmpty(this.options)) {
       prompts.concat([{
-        // makrina:angular-app
+        // destinationPrefix
         type: 'input',
         name: 'angularAppName',
+        message: 'Angular app short name',
+        default: 'admin'
+      }, {
+        // _angular-app-name_.module.js
+        type: 'input',
+        name: 'angularAppFullName',
         message: 'Angular app name',
-        default: this.options.angularAppName
+        default: this.appname + 'AdminApp'
       }]);
     }
 
@@ -30,27 +37,29 @@ module.exports = yeoman.Base.extend({
 
   writing: function () {
     var templatePaths = [
+      '_angular-app-name_.animations.sass',
+      '_angular-app-name_.config.js',
+      '_angular-app-name_.generic.sass',
+      '_angular-app-name_.jquery.js',
       '_angular-app-name_.module.js'
     ];
 
     if (!lodash.isEmpty(this.options)) lodash.extend(this.props, this.options);
     // Template context variables
     var context = buildContext({
-      angularAppName: this.props.angularAppName
+      angularAppName: this.props.angularAppName,
+      angularAppFullName: this.props.angularAppFullName
     });
     var $this = this;
-    // var destinationPrefix = 'public/javascripts/admin/core/' + this.props.objectUrl + '/' + this.props.objectUrl + '.';
+    var destinationPrefix = path.join('public/javascripts/', this.props.angularAppName);
 
     // Copy all templates
     templatePaths.forEach(function (templatePath) {
       $this.fs.copyTpl(
         $this.templatePath(templatePath),
-        $this.destinationPath(pathNames(templatePath, $this.props)),
+        $this.destinationPath(path.join(destinationPrefix, pathNames(templatePath, $this.props))),
         context
       );
     });
   }
 });
-
-// https://github.com/yeoman/generator/issues/552
-// http://stackoverflow.com/questions/19178523/can-yeoman-generators-update-existing-files

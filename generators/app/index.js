@@ -71,6 +71,11 @@ module.exports = yeoman.Base.extend({
       // makrina:angular-app
       type: 'input',
       name: 'angularAppName',
+      message: 'Angular app short name',
+      default: 'admin'
+    }, {
+      type: 'input',
+      name: 'angularAppFullName',
       message: 'Angular app name',
       default: this.appname + 'AdminApp'
     }];
@@ -84,7 +89,8 @@ module.exports = yeoman.Base.extend({
   composing: function() {
     this.composeWith('makrina:angular-app', {
       options: {
-        angularAppName: this.props.angularAppName
+        angularAppName: this.props.angularAppName,
+        angularAppFullName: this.props.angularAppFullName
       }
     });
   },
