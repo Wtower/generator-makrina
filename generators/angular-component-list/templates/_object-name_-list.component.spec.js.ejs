@@ -1,0 +1,27 @@
+/**
+ * Created by yeoman generator-makrina:angular-component-list <%= version %> on <%= date %>.
+ */
+
+describe('<%= objectName %>List', function() {
+  beforeEach(module('<%= objectName %>List'));
+
+  describe('<%= objectTitle %>ListController', function() {
+    var $httpBackend, ctrl;
+
+    beforeEach(inject(function($componentController, _$httpBackend_) {
+      $httpBackend = _$httpBackend_;
+      var <%= objectName %>sData = [];
+      $httpBackend
+        .expectGET('api/<%= objectName %>s')
+        .respond(<%= objectName %>sData);
+      ctrl = $componentController('<%= objectName %>List');
+    }));
+
+    it('should create a `<%= objectName %>s` model with 2 <%= objectName %>s', function() {
+      jasmine.addCustomEqualityTester(angular.equals);
+      expect(ctrl.<%= objectName %>s).toEqual([]);
+      $httpBackend.flush();
+      expect(ctrl.<%= objectName %>s.length).toBe(2);
+    });
+  });
+});

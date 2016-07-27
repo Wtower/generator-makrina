@@ -5,5 +5,4 @@
 angular.module('<%= angularAppFullName %>', [
   'ngRoute',
   'ngAnimate'
-  // @todo add routes after angular modules
 ]);

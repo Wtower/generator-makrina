@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var lodash = require('lodash');
 var uuid = require('node-uuid');
 var randomString = require('randomstring');
 var buildContext = require('../../services/build-context');
@@ -21,21 +22,18 @@ module.exports = yeoman.Base.extend({
 
   // non-standard method matches to (4) default in run loop before writing
   composing: function() {
-    this.composeWith('makrina:angular-app', {
-      options: {
-        angularAppName: this.props.angularAppName,
-        angularAppFullName: this.props.angularAppFullName
-      }
+    var options = {
+      angularAppName: this.props.angularAppName,
+      angularAppFullName: this.props.angularAppFullName
+    };
+    this.composeWith('makrina:angular-app', { options: options });
+    lodash.extend(options, {
+      objectName: this.props.objectName,
+      objectTitle: this.props.objectTitle,
+      objectUrl: this.props.objectUrl
     });
-    this.composeWith('makrina:angular-core-service', {
-      options: {
-        angularAppName: this.props.angularAppName,
-        angularAppFullName: this.props.angularAppFullName,
-        objectName: this.props.objectName,
-        objectTitle: this.props.objectTitle,
-        objectUrl: this.props.objectUrl
-      }
-    });
+    this.composeWith('makrina:angular-core-service', { options: options });
+    this.composeWith('makrina:angular-component-list', { options: options });
   },
 
   writing: function () {
@@ -81,6 +79,7 @@ module.exports = yeoman.Base.extend({
       organization: this.props.organization,
       organizationUrl: this.props.organizationUrl,
       angularAppFullName: this.props.angularAppFullName,
+      objectUrl: this.props.objectUrl,
       header: function(val, char) {
         // return an underline of `char`s for markdown based on `val` length
         return new Array(val.length + 1).join(char);

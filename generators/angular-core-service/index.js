@@ -52,15 +52,17 @@ module.exports = yeoman.Base.extend({
         process: function (content) {
           content = content.toString();
           // first cover case where the dependencies are empty: replace `[\n]);` with `[\n  'core.object'\n]);`
+          // http://regexr.com/3dt1l
           var newContent = content.replace(
-            new RegExp("[[]\n][)];", 'gm'),
-            "[\n  'core." + $this.props.objectName + "'\n]);"
+            new RegExp("[[](\n][)];)", 'gm'),
+            "[\n  'core." + $this.props.objectName + "'$1"
           );
           if (content == newContent) {
             // otherwise if dependencies are not empty: replace `'\n]);` with `',\n  'core.object'\n]);`
+            // http://regexr.com/3dt19
             newContent = content.replace(
-              new RegExp("'\n][)];", 'gm'),
-              "',\n  'core." + $this.props.objectName + "'\n]);"
+              new RegExp("'(\n][)];)", 'gm'),
+              "',\n  'core." + $this.props.objectName + "'$1"
             );
           }
           return newContent;

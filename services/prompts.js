@@ -76,14 +76,14 @@ var prompts = function($this) {
   }];
 
 
-  var angularCoreServicePrompts = [{
-    // _object-name_.module.js, _object-name_.service.js, _object-name_.service.spec.js
+  var angularObjectPrompts = [{
+    // angular-core-service: _object-name_.module.js, _object-name_.service.js, _object-name_.service.spec.js
     type: 'input',
     name: 'objectName',
     message: 'Object name (recommended camelCase)',
     default: 'node'
   }, {
-    // _object-name_.service.js
+    // angular-core-service: _object-name_.service.js
     type: 'input',
     name: 'objectTitle',
     message: 'Object title (recommended PascalCase)',
@@ -92,7 +92,7 @@ var prompts = function($this) {
       return response.objectName.charAt(0).toUpperCase() + response.objectName.slice(1);
     }
   }, {
-    // _object-name_.service.js
+    // angular-core-service: _object-name_.service.js
     type: 'input',
     name: 'objectUrl',
     message: 'Object API URL and directory name (recommended kebab-case)',
@@ -106,11 +106,12 @@ var prompts = function($this) {
 
   switch ($this.options.namespace) {
     case 'makrina:app':
-      return mainPrompts.concat(angularAppPrompts, angularCoreServicePrompts);
+      return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);
     case 'makrina:angular-app':
       return angularAppPrompts;
     case 'makrina:angular-core-service':
-      return angularAppPrompts.concat(angularCoreServicePrompts);
+    case 'makrina:angular-component-list':
+      return angularAppPrompts.concat(angularObjectPrompts);
   }
 };
 

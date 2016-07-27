@@ -1,0 +1,15 @@
+/**
+ * Created by yeoman generator-makrina:angular-component-list <%= version %> on <%= date %>.
+ */
+
+angular
+  .module('<%= objectName %>List')
+  .component('<%= objectName %>List', {
+    templateUrl: 'javascripts/<%= angularAppName %>/<%= objectName %>-list/<%= objectName %>-list.template.html',
+    controller: ['<%= objectTitle %>',
+      function <%= objectTitle %>ListController(<%= objectTitle %>) {
+        this.<%= objectName %>s = <%= objectTitle %>.query();<% if (angularAppName == 'admin') { %>
+        panelToolbox();<% } %>
+      }
+    ]
+  });

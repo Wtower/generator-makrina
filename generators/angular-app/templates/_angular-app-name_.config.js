@@ -7,6 +7,5 @@ angular
   .config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
       $locationProvider.hashPrefix('!');
-      // @todo add providers
     }
   ]);

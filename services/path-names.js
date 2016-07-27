@@ -10,6 +10,7 @@ var pathNames = function (templatePath, props) {
   output = output.replace('_name_', props.name);
   output = output.replace('_angular-app-name_', props.angularAppName);
   output = output.replace('_object-name_', props.objectUrl);
+  output = output.replace('.js.ejs', '.js');
 
   output = output.replace(path.sep + '_', path.sep + '.');
   if (output.startsWith('_')) output = '.' + output.substring(1, output.length);
