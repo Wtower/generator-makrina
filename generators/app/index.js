@@ -2,9 +2,10 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
-var path = require('path');
 var uuid = require('node-uuid');
 var randomString = require('randomstring');
+var buildContext = require('../../services/build-context');
+var pathNames = require('../../services/path-names');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -66,11 +67,26 @@ module.exports = yeoman.Base.extend({
       name: 'newRelicLicense',
       message: 'New Relic license key',
       store: true
+    }, {
+      // makrina:angular-app
+      type: 'input',
+      name: 'angularAppName',
+      message: 'Angular app name',
+      default: this.appname + 'AdminApp'
     }];
 
     return this.prompt(prompts).then(function (props) {
       this.props = props;
     }.bind(this));
+  },
+
+  // non-standard method matches to (4) default in run loop before writing
+  composing: function() {
+    this.composeWith('makrina:angular-app', {
+      options: {
+        angularAppName: this.props.angularAppName
+      }
+    });
   },
 
   writing: function () {
@@ -101,8 +117,8 @@ module.exports = yeoman.Base.extend({
     var git = this.props.git;
     // Remove suffix from git repo to add in template
     if (git.endsWith('.git')) git = git.substring(0, git.length - 4);
-    var today = new Date();
-    var context = {
+
+    var context = buildContext({
       name: this.props.name,
       verboseName: this.props.verboseName,
       description: this.props.description,
@@ -110,8 +126,6 @@ module.exports = yeoman.Base.extend({
       author: this.props.author,
       deployHost: this.props.deployHost,
       newRelicLicense: this.props.newRelicLicense,
-      today: today,
-      date: [today.getDate(), today.getMonth() + 1, today.getFullYear()].join('/'),
       uuid: uuid.v4(),
       pass: randomString.generate(12),
       organization: this.props.organization,
@@ -120,18 +134,14 @@ module.exports = yeoman.Base.extend({
         // return an underline of `char`s for markdown based on `val` length
         return new Array(val.length + 1).join(char);
       }
-    };
+    });
     var $this = this;
 
     // Copy all templates
     templatePaths.forEach(function (templatePath) {
-      var output = templatePath.replace('_name_', $this.props.name);
-      output = output.replace(path.sep + '_', path.sep + '.');
-      if (output.startsWith('_')) output = '.' + output.substring(1, output.length);
-
       $this.fs.copyTpl(
         $this.templatePath(templatePath),
-        $this.destinationPath(output),
+        $this.destinationPath(pathNames(templatePath, $this.props)),
         context
       );
     });
