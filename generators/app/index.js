@@ -10,7 +10,6 @@ var buildPrompts = require('../../services/prompts');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
-    // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the ' + chalk.red('generator-makrina') + ' MEAN generator'
     ));
@@ -26,6 +25,15 @@ module.exports = yeoman.Base.extend({
       options: {
         angularAppName: this.props.angularAppName,
         angularAppFullName: this.props.angularAppFullName
+      }
+    });
+    this.composeWith('makrina:angular-core-service', {
+      options: {
+        angularAppName: this.props.angularAppName,
+        angularAppFullName: this.props.angularAppFullName,
+        objectName: this.props.objectName,
+        objectTitle: this.props.objectTitle,
+        objectUrl: this.props.objectUrl
       }
     });
   },

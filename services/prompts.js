@@ -62,7 +62,7 @@ var prompts = function($this) {
 
 
   var angularAppPrompts = [{
-    // destinationPrefix
+    // angular-app destinationPrefix, angular-core-service destinationPrefix
     type: 'input',
     name: 'angularAppName',
     message: 'Angular app short name',
@@ -77,11 +77,13 @@ var prompts = function($this) {
 
 
   var angularCoreServicePrompts = [{
+    // _object-name_.module.js, _object-name_.service.js, _object-name_.service.spec.js
     type: 'input',
     name: 'objectName',
     message: 'Object name (recommended camelCase)',
     default: 'node'
   }, {
+    // _object-name_.service.js
     type: 'input',
     name: 'objectTitle',
     message: 'Object title (recommended PascalCase)',
@@ -90,6 +92,7 @@ var prompts = function($this) {
       return response.objectName.charAt(0).toUpperCase() + response.objectName.slice(1);
     }
   }, {
+    // _object-name_.service.js
     type: 'input',
     name: 'objectUrl',
     message: 'Object API URL and directory name (recommended kebab-case)',
@@ -107,7 +110,7 @@ var prompts = function($this) {
     case 'makrina:angular-app':
       return angularAppPrompts;
     case 'makrina:angular-core-service':
-      return angularCoreServicePrompts;
+      return angularAppPrompts.concat(angularCoreServicePrompts);
   }
 };
 

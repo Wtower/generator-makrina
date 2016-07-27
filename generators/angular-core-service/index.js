@@ -39,10 +39,33 @@ module.exports = yeoman.Base.extend({
 
     templatePaths.forEach(function (templatePath) {
       $this.fs.copyTpl(
-        $this.templatePath(file),
+        $this.templatePath(templatePath),
         $this.destinationPath(path.join(destinationPrefix, pathNames(templatePath, $this.props))),
         context
       );
     });
+
+    // Modify files: append core.object to core
+    // http://stackoverflow.com/questions/19178523/can-yeoman-generators-update-existing-files
+    var templatePath = path.join('public/javascripts/', this.props.angularAppName, 'core', 'core.module.js');
+    this.fs.copy(
+      this.destinationPath(templatePath), this.destinationPath(templatePath), {
+        process: function (content) {
+          content = content.toString();
+          // first cover case where the dependencies are empty: replace `[\n]);` with `[\n  'core.object'\n]);`
+          var newContent = content.replace(
+            new RegExp("[[]\n][)];", 'gm'),
+            "[\n  'core." + $this.props.objectName + "'\n]);"
+          );
+          if (content == newContent) {
+            // otherwise if dependencies are not empty: replace `'\n]);` with `',\n  'core.object'\n]);`
+            newContent = content.replace(
+              new RegExp("'\n][)];", 'gm'),
+              "',\n  'core." + $this.props.objectName + "'\n]);"
+            );
+          }
+          return newContent;
+        }
+      });
   }
 });

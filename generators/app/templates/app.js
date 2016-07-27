@@ -14,6 +14,7 @@ var routes = require('./routes/index');
 // var routesApi = require('./routes/api');
 var routesAdmin = require('./routes/admin');
 // var users = require('./routes/users');
+// @todo add routes after angular modules
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/', routes);
 // app.use('/api', routesApi);
 app.use('/admin', routesAdmin);
 // app.use('/users', users);
+// @todo add routes after angular modules
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
