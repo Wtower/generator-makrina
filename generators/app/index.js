@@ -6,6 +6,7 @@ var uuid = require('node-uuid');
 var randomString = require('randomstring');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
+var buildPrompts = require('../../services/prompts');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -14,73 +15,7 @@ module.exports = yeoman.Base.extend({
       'Welcome to the ' + chalk.red('generator-makrina') + ' MEAN generator'
     ));
 
-    var prompts = [{
-      // package.json, README.md, newrelic.js, services/mongoose.js
-      type: 'input',
-      name: 'name',
-      message: 'Project name',
-      default: this.appname
-    }, {
-      // newrelic.js, routes/index.js, routes/admin.js
-      type: 'input',
-      name: 'verboseName',
-      message: 'Verbose name',
-      default: this.appname
-    }, {
-      // package.json, README.md, routes/index.js, views/index.ejs
-      type: 'input',
-      name: 'description',
-      message: 'Description',
-      default: this.appname
-    }, {
-      // package.json
-      type: 'input',
-      name: 'git',
-      message: 'Git repository URL'
-    }, {
-      // package.json, LICENSE, CONTRIBUTING.md, views/index.ejs
-      type: 'input',
-      name: 'author',
-      message: 'Author',
-      store: true
-    }, {
-      // views/index.ejs, views/login.ejs, views/admin.ejs
-      type: 'input',
-      name: 'organization',
-      message: 'Organization',
-      store: true
-    }, {
-      // views/login.ejs, views/admin.ejs
-      type: 'input',
-      name: 'organizationUrl',
-      message: 'Organization URL',
-      store: true
-    }, {
-      // package.json
-      type: 'input',
-      name: 'deployHost',
-      message: 'Deploy host',
-      store: true
-    }, {
-      // newrelic.js
-      type: 'input',
-      name: 'newRelicLicense',
-      message: 'New Relic license key',
-      store: true
-    }, {
-      // makrina:angular-app
-      type: 'input',
-      name: 'angularAppName',
-      message: 'Angular app short name',
-      default: 'admin'
-    }, {
-      type: 'input',
-      name: 'angularAppFullName',
-      message: 'Angular app name',
-      default: this.appname + 'AdminApp'
-    }];
-
-    return this.prompt(prompts).then(function (props) {
+    return this.prompt(buildPrompts(this)).then(function (props) {
       this.props = props;
     }.bind(this));
   },
