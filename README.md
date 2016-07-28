@@ -1,7 +1,7 @@
 generator-makrina 
 =================
 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status](https://coveralls.io/repos/github/Wtower/generator-makrina/badge.svg?branch=master)](https://coveralls.io/github/Wtower/generator-makrina?branch=master) [![Dependency Status][daviddm-image]][daviddm-url]
 
 Generate MEAN boilerplate
 
