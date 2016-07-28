@@ -1,0 +1,58 @@
+/**
+ * Created by yeoman generator-makrina:model <%= version %> on <%= date %>.
+ */
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
+var <%= objectTitle %> = mongoose.model('<%= objectTitle %>');
+var Promise = require('bluebird');
+
+var status = {
+  ok: 200,
+  multipleChoices: 300,
+  unauthorized: 401,
+  accessDenied: 403,
+  notFound: 404,
+  notPermitted: 409,
+  requestEntityTooLarge: 419,
+  badGateway: 502 // database error
+};
+
+router.get('/', function(req, res, next) {
+  if (req.query.<%= objectName %>Id) {
+    <%= objectTitle %>.findById(req.query.<%= objectName %>Id).exec(function(err, <%= objectName %>) {
+      if (err || !<%= objectName %>) return res.status(status.notFound).send('Not found.');
+      res.json(<%= objectName %>);
+    });
+  }
+  else {
+    <%= objectTitle %>.find().populate('parent').exec(function(err, <%= objectName %>s) {
+      if (err) return next(err);
+      res.json(<%= objectName %>s);
+    });
+  }
+});
+
+router.post('/', function(req, res, next) {
+  if (!req.session.login) return res.redirect('/admin/login');
+  <%= objectTitle %>.findByIdAndUpdate(req.body._id, req.body).exec()
+    .then(function (<%= objectName %>) {
+      if (!<%= objectName %>) {
+        <%= objectName %> = new <%= objectTitle %>(req.body);
+        return <%= objectName %>.save();
+      }
+      return new Promise.resolve(<%= objectName %>);
+    })
+    .then(function (<%= objectName %>) {
+      res.json(<%= objectName %>);
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+});
+
+router.delete('/', function(req, res, next) {
+  if (!req.session.login) return res.redirect('/admin/login');
+});
+
+module.exports = router;

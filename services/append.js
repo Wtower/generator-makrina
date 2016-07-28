@@ -25,8 +25,8 @@ var append = {
     return newContent;
   },
 
-  // append a route to a route provider
-  route: function (content, url, name) {
+  // append a route to an angular route provider
+  angularRoute: function (content, url, name) {
     content = content.toString();
     // http://regexr.com/3dt32
     var newContent = content.replace(
@@ -47,6 +47,32 @@ var append = {
       );
     }
     return newContent;
+  },
+
+  // append a route to an express app
+  expressRoute: function(content, name, title, url) {
+    var newContent = content.toString();
+    // http://regexr.com/3dt49
+    newContent = newContent.replace(
+      new RegExp("(var routes = require\\('.\\/routes\\/index'\\);\n)", 'gm'),
+      "$1var api" + title + "s = require('./routes/api/" + name + "s);\n"
+    );
+    // http://regexr.com/3dt4c
+    newContent = newContent.replace(
+      new RegExp("(app.use\\('\\/', routes\\);\n)", 'gm'),
+      "$1app.use('/api/" + url + "s', api" + title + "s);\n"
+    );
+    return newContent;
+  },
+
+  // append a model to mongoose service
+  mongoose: function(content, name) {
+    var newContent = content.toString();
+    // http://regexr.com/3dt57
+    return newContent.replace(
+      new RegExp("(mongoose.Promise = require\\('bluebird'\\);\n)", 'gm'),
+      "$1require('../models/" + name + "');\n"
+    );
   }
 };
 

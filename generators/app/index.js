@@ -35,6 +35,7 @@ module.exports = yeoman.Base.extend({
     this.composeWith('makrina:angular-core-service', { options: options });
     this.composeWith('makrina:angular-component-list', { options: options });
     this.composeWith('makrina:angular-component-detail', { options: options });
+    this.composeWith('makrina:model', { options: options });
   },
 
   writing: function () {
@@ -46,8 +47,7 @@ module.exports = yeoman.Base.extend({
       'public/javascripts/_name_.js',
       'public/stylesheets/_name_.sass',
       'routes/',
-      'services/session-config.js',
-      'services/i18n-config.js',
+      'services/',
       'views/',
       '_gitignore',
       'app.js',

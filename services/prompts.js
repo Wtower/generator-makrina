@@ -2,6 +2,7 @@
  * Keep a single config of prompts
  * Created by gkarak on 27/7/2016.
  */
+var lodash = require('lodash');
 
 var prompts = function($this) {
 
@@ -85,6 +86,7 @@ var prompts = function($this) {
     // angular-component-detail: _object-name_-detail.module.js, _object-name_-detail.component.js.ejs,
     //   _object-name_-detail.component.spec.js.ejs, _object-name_-detail.template.html,
     //   angular-app: _angular-app-name_.module.js, angular-app: _angular-app-name_.config.js
+    // model: models/_object-name_.js.ejs, routes/api/_object-name_s.js.ejs, app: app.js
     type: 'input',
     name: 'objectName',
     message: 'Object name (recommended camelCase)',
@@ -93,12 +95,12 @@ var prompts = function($this) {
     // angular-core-service: _object-name_.service.js
     // angular-component-list: _object-name_-list.component.js.ejs, _object-name_-list.component.spec.js.ejs
     // angular-component-detail: _object-name_-detail.component.js.ejs, _object-name_-detail.component.spec.js.ejs
+    // model: models/_object-name_.js.ejs, routes/api/_object-name_s.js.ejs, app: app.js
     type: 'input',
     name: 'objectTitle',
     message: 'Object title (recommended PascalCase)',
     default: function (response) {
-      // http://stackoverflow.com/questions/7225407/convert-camelcasetext-to-camel-case-text
-      return response.objectName.charAt(0).toUpperCase() + response.objectName.slice(1);
+      return lodash.upperFirst(lodash.camelCase(response.objectName));
     }
   }, {
     // angular-core-service: _object-name_.service.js
@@ -106,13 +108,12 @@ var prompts = function($this) {
     //   angular-app: _angular-app-name_.config.js
     // angular-component-detail: _object-name_-detail.component.js.ejs, _object-name_-detail.template.html,
     //   angular-app: _angular-app-name_.config.js
+    // model: app: app.js, app: services/mongoose.js
     type: 'input',
     name: 'objectUrl',
     message: 'Object API URL and directory name (recommended kebab-case)',
     default: function (response) {
-      // http://stackoverflow.com/questions/30521224/javascript-convert-pascalcase-to-underscore-case
-      return response.objectTitle
-        .replace(/(?:^|\.?)([A-Z])/g, function (x,y){return "-" + y.toLowerCase()}).replace(/^-/, "");
+      return lodash.kebabCase(response.objectName);
     }
   }];
 
@@ -126,6 +127,8 @@ var prompts = function($this) {
     case 'makrina:angular-component-list':
     case 'makrina:angular-component-detail':
       return angularAppPrompts.concat(angularObjectPrompts);
+    case 'makrina:model':
+      return angularObjectPrompts;
   }
 };
 
