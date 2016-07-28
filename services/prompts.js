@@ -67,13 +67,13 @@ var prompts = function ($this) {
    * Angular App
    */
   var angularAppPrompts = [{
-    // angular-app: destinationPrefix, angular-core-service: destinationPrefix
+    // destinationPrefix for angular-app, angular-core-service, angular-component-list, angular-component-detail
     type: 'input',
     name: 'angularAppName',
     message: 'Angular app short name',
     default: 'admin'
   }, {
-    // _angular-app-name_.module.js
+    // _angular-app-name_.module.js, views/admin.ejs
     type: 'input',
     name: 'angularAppFullName',
     message: 'Angular app name',
