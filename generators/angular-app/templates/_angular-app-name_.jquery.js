@@ -5,6 +5,7 @@
  * Gentelella adopted theme scripts
  */
 
+/* eslint-disable */
 var CURRENT_URL = window.location.href.split('?')[0],
   $BODY = $('body'),
   $MENU_TOGGLE = $('#menu_toggle'),

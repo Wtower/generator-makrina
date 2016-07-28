@@ -15,7 +15,7 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     this.log('Generating ' + chalk.red('angular-component-detail') + ' module');
 
-    return this.prompt(this.options.objectName? []: buildPrompts(this))
+    return this.prompt(this.options.objectName ? [] : buildPrompts(this))
       .then(function (props) {
         this.props = props;
       }.bind(this));

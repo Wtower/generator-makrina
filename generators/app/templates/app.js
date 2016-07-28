@@ -36,7 +36,7 @@ app.use('/static', express.static(path.join(__dirname, 'node_modules')));
 app.use(sessionConfig());
 app.use(csrf({ cookie: true }));
 app.use(function (req, res, next) {
-  res.cookie("XSRF-TOKEN", req.csrfToken());
+  res.cookie('XSRF-TOKEN', req.csrfToken());
   return next();
 });
 app.use(i18n.init);

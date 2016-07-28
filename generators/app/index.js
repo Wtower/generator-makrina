@@ -21,21 +21,21 @@ module.exports = yeoman.Base.extend({
   },
 
   // non-standard method matches to (4) default in run loop before writing
-  composing: function() {
+  composing: function () {
     var options = {
       angularAppName: this.props.angularAppName,
       angularAppFullName: this.props.angularAppFullName
     };
-    this.composeWith('makrina:angular-app', { options: options });
+    this.composeWith('makrina:angular-app', {options: options});
     lodash.extend(options, {
       objectName: this.props.objectName,
       objectTitle: this.props.objectTitle,
       objectUrl: this.props.objectUrl
     });
-    this.composeWith('makrina:angular-core-service', { options: options });
-    this.composeWith('makrina:angular-component-list', { options: options });
-    this.composeWith('makrina:angular-component-detail', { options: options });
-    this.composeWith('makrina:model', { options: options });
+    this.composeWith('makrina:angular-core-service', {options: options});
+    this.composeWith('makrina:angular-component-list', {options: options});
+    this.composeWith('makrina:angular-component-detail', {options: options});
+    this.composeWith('makrina:model', {options: options});
   },
 
   writing: function () {
@@ -86,7 +86,7 @@ module.exports = yeoman.Base.extend({
       angularAppFullName: this.props.angularAppFullName,
       objectTitle: this.props.objectTitle,
       objectUrl: this.props.objectUrl,
-      header: function(val, char) {
+      header: function (val, char) {
         // return an underline of `char`s for markdown based on `val` length
         return new Array(val.length + 1).join(char);
       }

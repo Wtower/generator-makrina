@@ -4,8 +4,10 @@
  */
 var lodash = require('lodash');
 
-var prompts = function($this) {
-
+var prompts = function ($this) {
+  /*
+   * Main
+   */
   var mainPrompts = [{
     // package.json, README.md, newrelic.js, services/mongoose.js
     type: 'input',
@@ -61,7 +63,9 @@ var prompts = function($this) {
     store: true
   }];
 
-
+  /*
+   * Angular App
+   */
   var angularAppPrompts = [{
     // angular-app: destinationPrefix, angular-core-service: destinationPrefix
     type: 'input',
@@ -76,7 +80,9 @@ var prompts = function($this) {
     default: $this.appname + 'AdminApp'
   }];
 
-
+  /*
+   * Angular Object
+   */
   var angularObjectPrompts = [{
     // angular-core-service: _object-name_.module.js, _object-name_.service.js, _object-name_.service.spec.js,
     //   angular-app: core/core.module.js
@@ -117,10 +123,10 @@ var prompts = function($this) {
     }
   }];
 
-
+  /*
+   * SWITCH
+   */
   switch ($this.options.namespace) {
-    case 'makrina:app':
-      return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);
     case 'makrina:angular-app':
       return angularAppPrompts;
     case 'makrina:angular-core-service':
@@ -129,6 +135,9 @@ var prompts = function($this) {
       return angularAppPrompts.concat(angularObjectPrompts);
     case 'makrina:model':
       return angularObjectPrompts;
+    case 'makrina:app':
+    default:
+      return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);
   }
 };
 

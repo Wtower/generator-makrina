@@ -26,11 +26,11 @@ router.get('/login', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
-  if (req.body.username == "admin" && req.body.password == "<%= pass %>") {
+  if (req.body.username == 'admin' && req.body.password == '<%= pass %>') {
     req.session.login = true;
     req.session.user = {
       id: 'admin',
-      name: "Administrator",
+      name: 'Administrator',
       image: 'images/9dev2sc.png'
     };
     context.user = req.session.user;

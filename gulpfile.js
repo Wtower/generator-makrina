@@ -11,7 +11,16 @@ var plumber = require('gulp-plumber');
 gulp.task('static', function () {
   return gulp.src('**/*.js')
     .pipe(excludeGitignore())
-    .pipe(eslint())
+    .pipe(eslint({
+      rules: {
+        // control characters eg `\n` are required for file appends
+        'no-control-regex': 'off',
+        // allow double quotes to avoid escaping single
+        'quotes': ['error', 'single', {avoidEscape: true}],
+        // relax curly
+        'curly': ['error', 'multi-line']
+      }
+    }))
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });

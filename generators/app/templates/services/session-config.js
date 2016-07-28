@@ -1,9 +1,9 @@
 /**
  * Created by yeoman generator-makrina <%= version %> on <%= date %>.
  */
-const mongoose = require('./mongoose');
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+var mongoose = require('./mongoose');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var sessionConfig = function() {
   return session({
