@@ -32,6 +32,7 @@ module.exports = yeoman.Base.extend({
     if (this.options.objectName) lodash.extend(this.props, this.options);
     var context = buildContext({
       angularAppName: this.props.angularAppName,
+      angularAppFullName: this.props.angularAppFullName,
       objectName: this.props.objectName,
       objectTitle: this.props.objectTitle,
       objectUrl: this.props.objectUrl
@@ -47,8 +48,17 @@ module.exports = yeoman.Base.extend({
       );
     });
 
+    // Copy templates for e2e-tests
+    // Could happen per component, but too much templating for regex append
+    var templatePath = 'e2e-tests/_angular-app-name_.scenarios.js.ejs';
+    this.fs.copyTpl(
+      this.templatePath(templatePath),
+      this.destinationPath(pathNames(templatePath, this.props)),
+      context
+    );
+
     // Modify files: append object-list to app module
-    var templatePath = path.join(
+    templatePath = path.join(
       'public/javascripts/',
       this.props.angularAppName,
       this.props.angularAppName + '.module.js'
