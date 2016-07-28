@@ -1,0 +1,33 @@
+/**
+ * Created by yeoman generator-makrina <%= version %> on <%= date %>.
+ */
+
+//jshint strict: false
+module.exports = function(config) {
+  config.set({
+    basePath: './public/javascripts',
+    files: [
+      '../../node_modules/angular/angular.js',
+      '../../node_modules/angular-route/angular-route.js',
+      '../../node_modules/angular-resource/angular-resource.js',
+      '../../node_modules/angular-mocks/angular-mocks.js',
+      '../../node_modules/gentelella/vendors/jquery/dist/jquery.min.js',
+      '**/*.module.js',
+      '**/*.service.js',
+      '**/*.component.js',
+      '**/*.spec.js',
+      '**/*.jquery.js'
+    ],
+    autoWatch: true,
+    frameworks: ['jasmine'],
+    browsers: [
+      'Chrome'
+      // 'Firefox'
+    ],
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-jasmine'
+    ]
+  });
+};

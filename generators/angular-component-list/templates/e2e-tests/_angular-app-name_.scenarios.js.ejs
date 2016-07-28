@@ -1,0 +1,57 @@
+/**
+ * Created by yeoman generator-makrina <%= version %> on <%= date %>.
+ */
+
+describe('<%= angularAppFullName %>', function() {
+
+  it('should redirect `<%= angularAppName %>` to `<%= angularAppName %>#!/<%= objectUrl %>s', function() {
+    browser.get('<%= angularAppName %>');
+    expect(browser.getLocationAbsUrl()).toBe('/<%= objectUrl %>s');
+  });
+
+  describe('View: <%= objectTitle %> list', function() {
+    beforeEach(function() {
+      browser.get('<%= angularAppName %>#!/<%= objectUrl %>s');
+    });
+
+    it('should filter the <%= objectName %> list as a user types into the search box', function() {
+      var <%= objectName %>List = element.all(by.repeater('<%= objectName %> in $ctrl.<%= objectName %>s'));
+      var query = element(by.model('$ctrl.query'));
+
+      expect(<%= objectName %>List.count()).toBe(2);
+      query.sendKeys('test');
+      expect(<%= objectName %>List.count()).toBe(2);
+      query.clear();
+      query.sendKeys('S65');
+      expect(<%= objectName %>List.count()).toBe(1);
+    });
+
+    it('should retrieve specific titles', function() {
+      var queryField = element(by.model('$ctrl.query'));
+      var <%= objectName %>TitleColumn = element
+        .all(by.repeater('<%= objectName %> in $ctrl.<%= objectName %>s')
+        .column('<%= objectName %>.title'));
+
+      function getNames() {
+        return <%= objectName %>TitleColumn.map(function(elem) {
+          return elem.getText();
+        });
+      }
+
+      queryField.sendKeys('S65');
+      expect(getNames()).toEqual([
+        'S65'
+      ]);
+    });
+  });
+
+  describe('View: <%= objectTitle %> details', function() {
+    beforeEach(function() {
+      browser.get('<%= angularAppName %>#!/<%= objectUrl %>s/57823e46502f353179b8cbcb');
+    });
+
+    it('should display the <%= objectName %> page', function() {
+      expect(element(by.binding('$ctrl.<%= objectName %>.title')).getText()).toBe('S65');
+    });
+  });
+});

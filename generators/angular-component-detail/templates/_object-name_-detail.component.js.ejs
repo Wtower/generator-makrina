@@ -1,0 +1,50 @@
+/**
+ * Created by yeoman generator-makrina:angular-component-detail <%= version %> on <%= date %>.
+ */
+
+angular
+  .module('<%= objectName %>Detail')
+  .component('<%= objectName %>Detail', {
+    templateUrl: 'javascripts/<%= angularAppName %>/<%= objectUrl %>-detail/<%= objectUrl %>-detail.template.html',
+    controller: ['$routeParams', '$location', '<%= objectTitle %>',
+      function <%= objectTitle %>DetailController($routeParams, $location, <%= objectTitle %>) {
+        var self = this;
+
+        if ($routeParams.<%= objectName %>Id != 'add') {
+          self.<%= objectName %>Id = $routeParams.<%= objectName %>Id;
+          self.<%= objectName %> = <%= objectTitle %>.get({<%= objectName %>Id: self.<%= objectName %>Id}, function(data) {
+          }, function(error) {
+            $location.path("/<%= objectUrl %>s");
+            new PNotify({
+              title: '<%= objectTitle %> not found',
+              text: 'The <%= objectName %> cannot be found.',
+              type: 'error',
+              styling: 'bootstrap3'
+            });
+          });
+        }
+        self.delete<%= objectTitle %> = function() {
+          if (!confirm('Are you sure you want to delete this?')) return;
+          <%= objectTitle %>.delete({<%= objectName %>Id: self.<%= objectName %>Id}, function() {
+            $location.path("/<%= objectUrl %>s");
+            new PNotify({
+              title: '<%= objectTitle %> deleted',
+              text: '<%= objectTitle %> deleted successfully.',
+              type: 'success',
+              styling: 'bootstrap3'
+            });
+          }, function(error) {
+            var statusText = error.statusText;
+            new PNotify({
+              title: '<%= objectTitle %> not deleted',
+              text: error.statusText,
+              type: 'error',
+              styling: 'bootstrap3'
+            });
+          });
+        };
+
+        panelToolbox();
+      }
+    ]
+  });

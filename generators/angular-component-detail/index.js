@@ -1,5 +1,5 @@
 /**
- * Created by gkarak on 19/7/2016.
+ * Created by gkarak on 28/7/2016.
  */
 'use strict';
 var yeoman = require('yeoman-generator');
@@ -13,7 +13,7 @@ var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
-    this.log('Generating ' + chalk.red('angular-core-service') + ' module');
+    this.log('Generating ' + chalk.red('angular-component-detail') + ' module');
 
     return this.prompt(this.options.objectName ? [] : buildPrompts(this))
       .then(function (props) {
@@ -23,19 +23,25 @@ module.exports = yeoman.Base.extend({
 
   writing: function () {
     var templatePaths = [
-      '_object-name_.module.js',
-      '_object-name_.service.js',
-      '_object-name_.service.spec.js'
+      '_object-name_-detail.module.js',
+      '_object-name_-detail.component.js.ejs',
+      '_object-name_-detail.component.spec.js.ejs',
+      '_object-name_-detail.template.html'
     ];
 
     if (this.options.objectName) lodash.extend(this.props, this.options);
     var context = buildContext({
+      angularAppName: this.props.angularAppName,
       objectName: this.props.objectName,
       objectTitle: this.props.objectTitle,
       objectUrl: this.props.objectUrl
     });
     var $this = this;
-    var destinationPrefix = path.join('public/javascripts/', this.props.angularAppName, 'core', this.props.objectUrl);
+    var destinationPrefix = path.join(
+      'public/javascripts/',
+      this.props.angularAppName,
+      this.props.objectUrl + '-detail'
+    );
 
     templatePaths.forEach(function (templatePath) {
       $this.fs.copyTpl(
@@ -45,13 +51,32 @@ module.exports = yeoman.Base.extend({
       );
     });
 
-    // Modify files: append core.object to core
-    // http://stackoverflow.com/questions/19178523/can-yeoman-generators-update-existing-files
-    var templatePath = path.join('public/javascripts/', this.props.angularAppName, 'core', 'core.module.js');
+    // Modify files: append object-detail to app module
+    var templatePath = path.join(
+      'public/javascripts/',
+      this.props.angularAppName,
+      this.props.angularAppName + '.module.js'
+    );
     this.fs.copy(
       this.destinationPath(templatePath), this.destinationPath(templatePath), {
         process: function (content) {
-          return append.dependency(content, 'core.' + $this.props.objectName);
+          return append.dependency(content, $this.props.objectName + 'Detail');
+        }
+      });
+
+    // Modify files: append object-list route to app config
+    templatePath = path.join(
+      'public/javascripts/',
+      this.props.angularAppName,
+      this.props.angularAppName + '.config.js'
+    );
+    this.fs.copy(
+      this.destinationPath(templatePath), this.destinationPath(templatePath), {
+        process: function (content) {
+          return append.angularRoute(
+            content,
+            $this.props.objectUrl + 's/:' + $this.props.objectName + 'Id',
+            $this.props.objectName + '-detail');
         }
       });
   }
