@@ -55,7 +55,7 @@ var append = {
     // http://regexr.com/3dt49
     newContent = newContent.replace(
       new RegExp("(var routes = require\\('.\\/routes\\/index'\\);\n)", 'gm'),
-      "$1var api" + title + "s = require('./routes/api/" + name + "s);\n"
+      "$1var api" + title + "s = require('./routes/api/" + name + "s');\n"
     );
     // http://regexr.com/3dt4c
     newContent = newContent.replace(

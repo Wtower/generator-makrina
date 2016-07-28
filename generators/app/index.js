@@ -49,6 +49,7 @@ module.exports = yeoman.Base.extend({
       'routes/',
       'services/',
       'views/',
+      '_editorconfig',
       '_gitignore',
       'app.js',
       'CHANGELOG',
@@ -60,6 +61,9 @@ module.exports = yeoman.Base.extend({
       'newrelic.js',
       'package.json',
       'README.md'
+    ];
+    var copyPaths = [
+      'public/images/'
     ];
 
     // Template context variables
@@ -80,6 +84,7 @@ module.exports = yeoman.Base.extend({
       organization: this.props.organization,
       organizationUrl: this.props.organizationUrl,
       angularAppFullName: this.props.angularAppFullName,
+      objectTitle: this.props.objectTitle,
       objectUrl: this.props.objectUrl,
       header: function(val, char) {
         // return an underline of `char`s for markdown based on `val` length
@@ -96,9 +101,17 @@ module.exports = yeoman.Base.extend({
         context
       );
     });
+
+    // Copy files that do not need template
+    copyPaths.forEach(function (copyPath) {
+      $this.fs.copy(
+        $this.templatePath(copyPath),
+        $this.destinationPath(copyPath)
+      );
+    });
   },
 
   install: function () {
-    // this.installDependencies();
+    this.installDependencies();
   }
 });

@@ -436,15 +436,15 @@ gulp.task('less', req, tasks.less);
 gulp.task('sass', req, tasks.sass);
 gulp.task('browserify', req, tasks.browserify);
 gulp.task('lintjs', tasks.lintjs);
-gulp.task('concatJs', tasks.concatJs);
-gulp.task('images', tasks.images);
-gulp.task('clean_image_opts', tasks.clean_image_opts);
-gulp.task('fonts', tasks.fonts);
+gulp.task('concatJs', req, tasks.concatJs);
+gulp.task('images', req, tasks.images);
+gulp.task('clean_image_opts', req, tasks.clean_image_opts);
+gulp.task('fonts', req, tasks.fonts);
 gulp.task('mocha', tasks.mocha);
 gulp.task('adminAssets', req, tasks.adminAssets);
 gulp.task('adminCss', req.concat(['less', 'sass']), tasks.adminCss);
 gulp.task('adminSass', req, tasks.adminSass);
-gulp.task('adminConcatJs', tasks.adminConcatJs);
+gulp.task('adminConcatJs', req, tasks.adminConcatJs);
 
 // build task
 gulp.task('build', [
