@@ -8,6 +8,7 @@ var lodash = require('lodash');
 var buildPrompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
+var append = require('../../services/append');
 var path = require('path');
 
 module.exports = yeoman.Base.extend({
@@ -59,22 +60,7 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
       this.destinationPath(templatePath), this.destinationPath(templatePath), {
         process: function (content) {
-          content = content.toString();
-          // first cover case where the dependencies are empty: replace `[\n]);` with `[\n  'objectList'\n]);`
-          // http://regexr.com/3dt1l
-          var newContent = content.replace(
-            new RegExp("[[](\n][)];)", 'gm'),
-            "[\n  '" + $this.props.objectName + "Detail'$1"
-          );
-          if (content == newContent) {
-            // otherwise if dependencies are not empty: replace `'\n]);` with `',\n  'objectList'\n]);`
-            // http://regexr.com/3dt19
-            newContent = content.replace(
-              new RegExp("'(\n][)];)", 'gm'),
-              "',\n  '" + $this.props.objectName + "Detail'$1"
-            );
-          }
-          return newContent;
+          return append.dependency(content, $this.props.objectName + 'Detail');
         }
       });
 
@@ -87,26 +73,10 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
       this.destinationPath(templatePath), this.destinationPath(templatePath), {
         process: function (content) {
-          content = content.toString();
-          // http://regexr.com/3dt32
-          var newContent = content.replace(
-            new RegExp("(\\s*\\.otherwise)", 'gm'),
-            "\n        .when('/" + $this.props.objectUrl + "s/:" + $this.props.objectName + "Id', {" +
-            "\n          template: '<" + $this.props.objectName + "-detail></" + $this.props.objectName + "-detail>'" +
-            "\n        })$1"
-          );
-          if (content == newContent) {
-            // http://regexr.com/3dt1i
-            newContent = content.replace(
-              new RegExp("(\\s*}\n\\s*][)];)", 'gm'),
-              "\n      $routeProvider" +
-              "\n        .when('/" + $this.props.objectUrl + "s/:" + $this.props.objectName + "Id', {" +
-              "\n          template: '<" + $this.props.objectName + "-detail></" + $this.props.objectName + "-detail>'" +
-              "\n        })" +
-              "\n        .otherwise('/" + $this.props.objectName + "s');$1"
-            );
-          }
-          return newContent;
+          return append.route(
+            content,
+            $this.props.objectUrl + 's/:' + $this.props.objectName + 'Id',
+            $this.props.objectName + '-detail');
         }
       });
   }

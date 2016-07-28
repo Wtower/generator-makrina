@@ -8,6 +8,7 @@ var lodash = require('lodash');
 var buildPrompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
+var append = require('../../services/append');
 var path = require('path');
 
 module.exports = yeoman.Base.extend({
@@ -50,22 +51,7 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
       this.destinationPath(templatePath), this.destinationPath(templatePath), {
         process: function (content) {
-          content = content.toString();
-          // first cover case where the dependencies are empty: replace `[\n]);` with `[\n  'core.object'\n]);`
-          // http://regexr.com/3dt1l
-          var newContent = content.replace(
-            new RegExp("[[](\n][)];)", 'gm'),
-            "[\n  'core." + $this.props.objectName + "'$1"
-          );
-          if (content == newContent) {
-            // otherwise if dependencies are not empty: replace `'\n]);` with `',\n  'core.object'\n]);`
-            // http://regexr.com/3dt19
-            newContent = content.replace(
-              new RegExp("'(\n][)];)", 'gm'),
-              "',\n  'core." + $this.props.objectName + "'$1"
-            );
-          }
-          return newContent;
+          return append.dependency(content, 'core.' + $this.props.objectName);
         }
       });
   }
