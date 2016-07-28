@@ -34,6 +34,7 @@ module.exports = yeoman.Base.extend({
     });
     this.composeWith('makrina:angular-core-service', { options: options });
     this.composeWith('makrina:angular-component-list', { options: options });
+    this.composeWith('makrina:angular-component-detail', { options: options });
   },
 
   writing: function () {

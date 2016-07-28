@@ -1,5 +1,5 @@
 /**
- * Created by gkarak on 27/7/2016.
+ * Created by gkarak on 28/7/2016.
  */
 'use strict';
 var yeoman = require('yeoman-generator');
@@ -12,7 +12,7 @@ var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
-    this.log('Generating ' + chalk.red('angular-component-list') + ' module');
+    this.log('Generating ' + chalk.red('angular-component-detail') + ' module');
 
     return this.prompt(this.options.objectName? []: buildPrompts(this))
       .then(function (props) {
@@ -22,10 +22,10 @@ module.exports = yeoman.Base.extend({
 
   writing: function () {
     var templatePaths = [
-      '_object-name_-list.module.js',
-      '_object-name_-list.component.js.ejs',
-      '_object-name_-list.component.spec.js.ejs',
-      '_object-name_-list.template.html'
+      '_object-name_-detail.module.js',
+      '_object-name_-detail.component.js.ejs',
+      '_object-name_-detail.component.spec.js.ejs',
+      '_object-name_-detail.template.html'
     ];
 
     if (this.options.objectName) lodash.extend(this.props, this.options);
@@ -36,7 +36,11 @@ module.exports = yeoman.Base.extend({
       objectUrl: this.props.objectUrl
     });
     var $this = this;
-    var destinationPrefix = path.join('public/javascripts/', this.props.angularAppName, this.props.objectUrl + '-list');
+    var destinationPrefix = path.join(
+      'public/javascripts/',
+      this.props.angularAppName,
+      this.props.objectUrl + '-detail'
+    );
 
     templatePaths.forEach(function (templatePath) {
       $this.fs.copyTpl(
@@ -46,7 +50,7 @@ module.exports = yeoman.Base.extend({
       );
     });
 
-    // Modify files: append object-list to app module
+    // Modify files: append object-detail to app module
     var templatePath = path.join(
       'public/javascripts/',
       this.props.angularAppName,
@@ -60,14 +64,14 @@ module.exports = yeoman.Base.extend({
           // http://regexr.com/3dt1l
           var newContent = content.replace(
             new RegExp("[[](\n][)];)", 'gm'),
-            "[\n  '" + $this.props.objectName + "List'$1"
+            "[\n  '" + $this.props.objectName + "Detail'$1"
           );
           if (content == newContent) {
             // otherwise if dependencies are not empty: replace `'\n]);` with `',\n  'objectList'\n]);`
             // http://regexr.com/3dt19
             newContent = content.replace(
               new RegExp("'(\n][)];)", 'gm'),
-              "',\n  '" + $this.props.objectName + "List'$1"
+              "',\n  '" + $this.props.objectName + "Detail'$1"
             );
           }
           return newContent;
@@ -87,8 +91,8 @@ module.exports = yeoman.Base.extend({
           // http://regexr.com/3dt32
           var newContent = content.replace(
             new RegExp("(\\s*\\.otherwise)", 'gm'),
-            "\n        .when('/" + $this.props.objectUrl + "s', {" +
-            "\n          template: '<" + $this.props.objectName + "-list></" + $this.props.objectName + "-list>'" +
+            "\n        .when('/" + $this.props.objectUrl + "s/:" + $this.props.objectName + "Id', {" +
+            "\n          template: '<" + $this.props.objectName + "-detail></" + $this.props.objectName + "-detail>'" +
             "\n        })$1"
           );
           if (content == newContent) {
@@ -96,8 +100,8 @@ module.exports = yeoman.Base.extend({
             newContent = content.replace(
               new RegExp("(\\s*}\n\\s*][)];)", 'gm'),
               "\n      $routeProvider" +
-              "\n        .when('/" + $this.props.objectUrl + "s', {" +
-              "\n          template: '<" + $this.props.objectName + "-list></" + $this.props.objectName + "-list>'" +
+              "\n        .when('/" + $this.props.objectUrl + "s/:" + $this.props.objectName + "Id', {" +
+              "\n          template: '<" + $this.props.objectName + "-detail></" + $this.props.objectName + "-detail>'" +
               "\n        })" +
               "\n        .otherwise('/" + $this.props.objectName + "s');$1"
             );

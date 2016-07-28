@@ -5,7 +5,7 @@
 angular
   .module('<%= objectName %>List')
   .component('<%= objectName %>List', {
-    templateUrl: 'javascripts/<%= angularAppName %>/<%= objectName %>-list/<%= objectName %>-list.template.html',
+    templateUrl: 'javascripts/<%= angularAppName %>/<%= objectUrl %>-list/<%= objectUrl %>-list.template.html',
     controller: ['<%= objectTitle %>',
       function <%= objectTitle %>ListController(<%= objectTitle %>) {
         this.<%= objectName %>s = <%= objectTitle %>.query();<% if (angularAppName == 'admin') { %>

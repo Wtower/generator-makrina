@@ -62,7 +62,7 @@ var prompts = function($this) {
 
 
   var angularAppPrompts = [{
-    // angular-app destinationPrefix, angular-core-service destinationPrefix
+    // angular-app: destinationPrefix, angular-core-service: destinationPrefix
     type: 'input',
     name: 'angularAppName',
     message: 'Angular app short name',
@@ -77,13 +77,22 @@ var prompts = function($this) {
 
 
   var angularObjectPrompts = [{
-    // angular-core-service: _object-name_.module.js, _object-name_.service.js, _object-name_.service.spec.js
+    // angular-core-service: _object-name_.module.js, _object-name_.service.js, _object-name_.service.spec.js,
+    //   angular-app: core/core.module.js
+    // angular-component-list: _object-name_-list.module.js, _object-name_-list.component.js.ejs,
+    //   _object-name_-list.component.spec.js.ejs, _object-name_-list.template.html,
+    //   angular-app: _angular-app-name_.module.js, angular-app: _angular-app-name_.config.js
+    // angular-component-detail: _object-name_-detail.module.js, _object-name_-detail.component.js.ejs,
+    //   _object-name_-detail.component.spec.js.ejs, _object-name_-detail.template.html,
+    //   angular-app: _angular-app-name_.module.js, angular-app: _angular-app-name_.config.js
     type: 'input',
     name: 'objectName',
     message: 'Object name (recommended camelCase)',
     default: 'node'
   }, {
     // angular-core-service: _object-name_.service.js
+    // angular-component-list: _object-name_-list.component.js.ejs, _object-name_-list.component.spec.js.ejs
+    // angular-component-detail: _object-name_-detail.component.js.ejs, _object-name_-detail.component.spec.js.ejs
     type: 'input',
     name: 'objectTitle',
     message: 'Object title (recommended PascalCase)',
@@ -93,6 +102,10 @@ var prompts = function($this) {
     }
   }, {
     // angular-core-service: _object-name_.service.js
+    // angular-component-list: _object-name_-list.component.js.ejs, _object-name_-list.template.html,
+    //   angular-app: _angular-app-name_.config.js
+    // angular-component-detail: _object-name_-detail.component.js.ejs, _object-name_-detail.template.html,
+    //   angular-app: _angular-app-name_.config.js
     type: 'input',
     name: 'objectUrl',
     message: 'Object API URL and directory name (recommended kebab-case)',
@@ -111,6 +124,7 @@ var prompts = function($this) {
       return angularAppPrompts;
     case 'makrina:angular-core-service':
     case 'makrina:angular-component-list':
+    case 'makrina:angular-component-detail':
       return angularAppPrompts.concat(angularObjectPrompts);
   }
 };

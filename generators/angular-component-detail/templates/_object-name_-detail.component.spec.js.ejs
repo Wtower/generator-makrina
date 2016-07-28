@@ -1,0 +1,27 @@
+/**
+ * Created by yeoman generator-makrina:angular-component-detail <%= version %> on <%= date %>.
+ */
+
+describe('<%= objectName %>Detail', function() {
+  beforeEach(module('<%= objectName %>Detail'));
+
+  describe('<%= objectTitle %>DetailController', function() {
+    var $httpBackend, ctrl, <%= objectName %>;
+
+    beforeEach(inject(function($componentController, _$httpBackend_, $routeParams) {
+      $httpBackend = _$httpBackend_;
+      <%= objectName %> = {};
+      $httpBackend
+        .expectGET('api/<%= objectUrl %>s?<%= objectName %>Id=2')
+        .respond(<%= objectName %>);
+      ctrl = $componentController('<%= objectName %>Detail', {$routeParams: {<%= objectName %>Id: '2'}});
+    }));
+
+    it('should fetch a `<%= objectName %>` model detail', function() {
+      jasmine.addCustomEqualityTester(angular.equals);
+      expect(ctrl.<%= objectName %>).toEqual({});
+      $httpBackend.flush();
+      expect(ctrl.<%= objectName %>).toEqual(<%= objectName %>);
+    });
+  });
+});
