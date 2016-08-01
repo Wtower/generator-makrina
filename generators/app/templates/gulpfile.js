@@ -16,7 +16,7 @@ var paths = {
   less: [],
   css: [
     'node_modules/bootstrap/dist/css/bootstrap*(|-theme).css',
-    'public/build/css/style.css' // sass build
+    'public/build/css/<%= name %>.css' // sass build
   ],
   js: '',
   js_watch: [
