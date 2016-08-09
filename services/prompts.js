@@ -128,6 +128,7 @@ var prompts = function ($this) {
    */
   switch ($this.options.namespace) {
     case 'makrina:angular-app':
+    case 'makrina:angular-controller-form':
       return angularAppPrompts;
     case 'makrina:angular-core-service':
     case 'makrina:angular-component-list':
