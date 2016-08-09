@@ -1,0 +1,14 @@
+<!-- Contact form sample -->
+<form id="contact-form" name="contactForm" novalidate>
+  <input name="name" type="text" placeholder="Your Name" data-ng-model="contact.name" required>
+  <input name="email" type="email" placeholder="Your Email" data-ng-model="contact.email" required>
+  <input name="subject" type="text" placeholder="Subject" data-ng-model="contact.subject" required>
+          <textarea name="message" placeholder="Your Message" rows="5" data-ng-model="contact.message" required>
+          </textarea>
+  <button type="submit"
+          class="btn btn-small"
+          data-ng-click="submit(contact)"
+          data-ng-disabled="contactForm.$invalid || !enable">
+    <i data-ng-attr-class="fa fa-{{ action.icon }}" aria-hidden="true"></i>{{ action.message }}
+  </button>
+</form>
