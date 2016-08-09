@@ -1,6 +1,6 @@
 {
   "name": "generator-makrina",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate MEAN boilerplate",
   "homepage": "https://github.com/Wtower/generator-makrina",
   "author": {
@@ -33,7 +33,7 @@
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^1.0.0",
     "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-mocha": "^2.0.0",
+    "gulp-mocha": "^3.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
     "yeoman-assert": "^2.0.0",
