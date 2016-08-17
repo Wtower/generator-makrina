@@ -9,6 +9,17 @@ Date: Wed Aug 17, 2016
 - Added development cycle to documentation
 - Added this changelog
 
+- Added unit tests
+  - Updated dependencies in `package.json` template
+  - Updated `gulpfile.js` template to facilitate tests
+  - Added ES lint, NSP, Mocha, Chai, Istanbul
+  - Update `app.js` template to ignore error handler coverage
+  - Update `gitignore` template to ignore coverage output
+  - Added `spec/` folder in app templates with all mocha tests
+  - Index, admin and contact form with stub transport are all covered
+  - Updated `karma.conf.js` template to use istanbul
+  - Added Gitlab CI conf file 
+
 v0.1.1
 ------
 
@@ -19,8 +30,8 @@ Date: Tue Aug 9, 2016
   - Added contact form router and view
   - Added sub-generator
 
-- Minor improvement in `gulpfile.js`
-- Fix minor typo in `views/login.ejs`
+- Minor improvement in `gulpfile.js` template
+- Fix minor typo in `views/login.ejs` template
 
 v0.1.0
 ------

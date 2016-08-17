@@ -23,7 +23,32 @@ var paths = {
     'node_modules/jquery/dist/jquery.js',
     'node_modules/bootstrap/dist/js/bootstrap.js'
   ],
-  mocha: [],
+  js_lint: [
+    'bin/*.js',
+    'e2e-tests/*.js',
+    'models/*.js',
+    'private/javascripts/*.js',
+    'public/javascripts/admin/*.js',
+    'routes/**/*.js',
+    'services/*.js',
+    'spec/**/*,js',
+    '*.js'
+  ],
+  js_cover: [
+    'models/*.js',
+    'routes/*.js',
+    'routes/**/*.js',
+    'services/*.js',
+    'spec/*.js',
+    'spec/helpers/*.js',
+    'spec/api/contact.stub.js',
+    'app.js'
+  ],
+  mocha: [
+    'spec/*.js',
+    // 'spec/api/contact.js',  // disable to prevent send e-mail
+    'spec/api/contact.stub.js'
+  ],
   build: 'public/build/',
   images: '',
 
@@ -155,8 +180,8 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
 // linting
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
+var eslint = require('gulp-eslint');
+var excludeGitignore = require('gulp-exclude-gitignore');
 // image optimization
 var imageResize = require('gulp-image-resize');
 var es = require('event-stream');
@@ -169,6 +194,11 @@ var changed = require('gulp-changed');
 var googleWebFonts = require('gulp-google-webfonts');
 // testing/mocha
 var mocha = require('gulp-mocha');
+var istanbul = require('gulp-istanbul');
+var nsp = require('gulp-nsp');
+var plumber = require('gulp-plumber');
+var karmaServer = require('karma').Server;
+var path = require('path');
 var fs = require('fs');
 
 // -------
@@ -291,10 +321,20 @@ var tasks = {
   // linting
   // --------------------------
   lintjs: function() {
-    return gulp.src(paths.js_watch)
-    // gulpfile lint returns many false errors for `require()`
-      .pipe(jshint())
-      .pipe(jshint.reporter(stylish))
+    return gulp.src(paths.js_lint)
+      .pipe(excludeGitignore())
+      .pipe(eslint({
+        rules: {
+          // control characters eg `\n` are required for file appends
+          'no-control-regex': 'off',
+          // allow double quotes to avoid escaping single
+          'quotes': ['error', 'single', {avoidEscape: true}],
+          // relax curly
+          'curly': ['error', 'multi-line']
+        }
+      }))
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError())
       .on('error', handleError('LINT'));
   },
   // --------------------------
@@ -348,16 +388,44 @@ var tasks = {
       .pipe(googleWebFonts())
       .pipe(gulp.dest(paths.build + 'fonts/'));
   },
+  // ----------------
+  // Testing with NSP
+  // ----------------
+  nsp: function(cb) {
+    nsp({package: path.resolve('package.json')}, cb);
+  },
+  // -----------
+  // Pre-Testing
+  // -----------
+  preTest: function() {
+    return gulp.src(paths.js_cover)
+      .pipe(excludeGitignore())
+      .pipe(istanbul({
+        includeUntested: true
+      }))
+      .pipe(istanbul.hookRequire());
+  },
   // --------------------------
   // Testing with mocha
   // --------------------------
   mocha: function() {
-    return gulp.src(paths.mocha, {read: false})
-      .pipe(mocha({
-          'ui': 'bdd',
-          'reporter': 'spec'
-        })
-      );
+    // https://github.com/sindresorhus/gulp-mocha/issues/54
+    return gulp.src(paths.mocha)
+      .pipe(plumber())
+      .pipe(mocha({reporter: 'spec', colors: true}))
+      .on('error', handleError('Mocha'))
+      .pipe(istanbul.writeReports());
+  },
+  // --------------------------
+  // Testing with karma
+  // --------------------------
+  karma: function(done) {
+    new karmaServer({
+      configFile: path.join(__dirname, '/karma.conf.js'),
+      singleRun: true
+    }, function () {
+      done();
+    }).start();
   },
 
 // --------------------------
@@ -440,7 +508,11 @@ gulp.task('concatJs', req, tasks.concatJs);
 gulp.task('images', req, tasks.images);
 gulp.task('clean_image_opts', req, tasks.clean_image_opts);
 gulp.task('fonts', req, tasks.fonts);
+gulp.task('nsp', tasks.nsp);
+gulp.task('preTest', tasks.preTest);
 gulp.task('mocha', tasks.mocha);
+gulp.task('karma', tasks.karma);
+gulp.task('istanbul', ['preTest'], tasks.mocha);
 gulp.task('adminAssets', req, tasks.adminAssets);
 gulp.task('adminCss', req.concat(['less', 'sass']), tasks.adminCss);
 gulp.task('adminSass', req, tasks.adminSass);
@@ -453,7 +525,6 @@ gulp.task('build', [
   'sass',
   'css',
   // 'browserify',
-  // 'lintjs',
   'concatJs',
   'images',
   'fonts',
@@ -462,6 +533,14 @@ gulp.task('build', [
   'adminSass',
   'adminCss',
   'adminConcatJs'
+]);
+
+// test task
+gulp.task('test', [
+  'lintjs',
+  'nsp',
+  'istanbul',
+  'karma'
 ]);
 
 // --------------------------
@@ -482,6 +561,11 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('default', ['watch']);
+
+// https://github.com/sindresorhus/gulp-mocha/issues/1#issuecomment-55710159
+gulp.doneCallback = function (err) {
+  process.exit(err ? 1 : 0);
+};
 
 // gulp (watch) : for development and livereload
 // gulp build : for a one off development build

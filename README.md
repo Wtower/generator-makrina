@@ -34,6 +34,7 @@ Makrina generates a starting project with the following stack and features.
 - API route endpoints for the models
 - An extended gulpfile for building and testing
 - [Test-ready](#tests) using mocha, chai, sinon, karma, protractor.
+- Generated code should have already 100% coverage or nearly.
 - [CSRF](#csrf) protection.
 
 

@@ -26,8 +26,20 @@ module.exports = function(config) {
     ],
     plugins: [
       'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-jasmine'
-    ]
+      // 'karma-firefox-launcher',
+      'karma-jasmine',
+      'karma-coverage'
+    ],
+    reporters: ['progress', 'coverage'],
+    preprocessors: {
+      '**/*.component.js': ['coverage']
+    },
+    coverageReporter: {
+      reporters: [
+        {type: 'lcov', dir: '../../coverage/'},
+        {type: 'text'},
+        {type: 'text-summary'}
+      ]
+    }
   });
 };
