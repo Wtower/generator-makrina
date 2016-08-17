@@ -72,8 +72,8 @@ describe('Routing: admin', function() {
             // now test logged in connection to increase coverage
             var cookies = res.headers['set-cookie']
               .map(function (r) {
-                return r.replace("; path=/; httponly", "")
-              }).join("; ");
+                return r.replace('; path=/; httponly', '')
+              }).join('; ');
             request(app)
               .get('/admin')
               .set({'Cookie': cookies})
