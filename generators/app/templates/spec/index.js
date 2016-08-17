@@ -1,7 +1,5 @@
 /**
  * Created by yeoman generator-makrina <%= version %> on <%= date %>.
- * http://developers.redhat.com/blog/2016/03/15/test-driven-development-for-building-apis-in-node-js-and-express/
- * https://codeforgeek.com/2015/07/unit-testing-nodejs-application-using-mocha/
  */
 var expect = require('chai').expect;
 var request = require('supertest');

@@ -1,3 +1,6 @@
+/**
+ * Created by yeoman generator-makrina <%= version %> on <%= date %>.
+ */
 var express = require('express');
 var router = express.Router();
 

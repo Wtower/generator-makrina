@@ -14,7 +14,7 @@ generator-makrina
 [daviddm-image]: https://david-dm.org/Wtower/generator-makrina.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/Wtower/generator-makrina
 
-Generate MEAN boilerplate.
+Generate MEAN boilerplate. Featuring model and route CRUD endpoint sub-generators and an admin interface.
 
 Makrina generates a starting project with the following stack and features.
 
@@ -435,6 +435,24 @@ Useful links
 - https://thinkster.io/mean-stack-tutorial
 - http://adrianmejia.com/blog/2014/10/01/creating-a-restful-api-tutorial-with-nodejs-and-mongodb/
 - https://scotch.io/tutorials/using-mongoosejs-in-node-js-and-mongodb-applications
+
+### Testing
+
+- http://developers.redhat.com/blog/2016/03/15/test-driven-development-for-building-apis-in-node-js-and-express/
+- https://codeforgeek.com/2015/07/unit-testing-nodejs-application-using-mocha/
+
+
+Updates
+-------
+
+Most generated code gets signed by the Makrina version and date in a comment at the top of file.
+All changes are documented in `CHANGELOG.md`. If you feel like using a latest feature or change,
+you can manually update the relevant files, and append the Makrina version in the comment for 
+future reference:
+
+    * Updated to yeoman generator-makrina <%= version %> on <%= date %>.
+
+Or re-run the generator by carefully selecting which files to replace when asked.
 
 
 License

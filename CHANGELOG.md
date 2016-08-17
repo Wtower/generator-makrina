@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-v0.1.2
+v0.2.0
 ------
 
 Date: Wed Aug 17, 2016
@@ -19,6 +19,10 @@ Date: Wed Aug 17, 2016
   - Index, admin and contact form with stub transport are all covered
   - Updated `karma.conf.js` template to use istanbul
   - Added Gitlab CI conf file 
+
+- Improved `gulpfile.js` template
+  - Moved all dependencies directly in `package.json` template.
+  - Improved code styling
 
 v0.1.1
 ------
