@@ -1,0 +1,15 @@
+image: node:4.4.7
+
+cache:
+  paths:
+  - node_modules/
+
+services:
+  - mongo:2.6.12
+
+all_tests:
+  script:
+   - npm install -g npm
+   - npm install -g gulp-cli
+   - npm install
+   - npm test

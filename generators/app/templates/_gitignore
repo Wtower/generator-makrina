@@ -1,4 +1,15 @@
+# IDE
 .idea/
+
+# Node.js
 node_modules/
+npm-debug.log
+
+# Gulp
 public/build/
+
+# New relic
 newrelic_agent.log
+
+# Coverage
+coverage/
