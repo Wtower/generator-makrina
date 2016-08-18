@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.2.1
+------
+
+- Fix route path in express route append used in model sub-generator
+- Fix missing express route for contact in `app.js` template
+- Comment out generated files that cannot be tested from `gulpfile.js` and `karma.conf.js` templates
+
 v0.2.0
 ------
 
