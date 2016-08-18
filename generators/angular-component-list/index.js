@@ -50,7 +50,7 @@ module.exports = yeoman.Base.extend({
 
     // Copy templates for e2e-tests
     // Could happen per component, but too much templating for regex append
-    var templatePath = 'e2e-tests/_angular-app-name_.scenarios.js.ejs';
+    var templatePath = 'e2e-tests/_angular-app-name_-_object-name_.scenarios.js.ejs';
     this.fs.copyTpl(
       this.templatePath(templatePath),
       this.destinationPath(pathNames(templatePath, this.props)),

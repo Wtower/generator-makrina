@@ -47,7 +47,7 @@ describe('generator-makrina:angular-component-list', function () {
       paths.forEach(function (p) {
         assert.file(path.join(destinationPrefix, 'node-list', p));
       });
-      assert.file('e2e-tests/admin.scenarios.js');
+      assert.file('e2e-tests/admin-node.scenarios.js');
     });
 
     it('updates files with ' + run.it, function () {

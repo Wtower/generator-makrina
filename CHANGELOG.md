@@ -4,13 +4,21 @@ CHANGELOG
 v0.2.1
 ------
 
+Fixes and improvements
+
+Date: upcoming
+
 - Fix route path in express route append used in model sub-generator
 - Fix missing express route for contact in `app.js` template
 - Comment out generated files that cannot be tested from `gulpfile.js` and `karma.conf.js` templates
 - Moved gulp `doneCallback` inside mocha task to stop preventing watch in template
+- Renamed angular-component-list sub-generator file `e2e-tests/_angular-app-name_.scenarios.js.ejs`
+  to include object name
 
 v0.2.0
 ------
+
+Generate unit tests and improve gulp
 
 Date: Wed Aug 17, 2016
 
@@ -35,6 +43,8 @@ Date: Wed Aug 17, 2016
 v0.1.1
 ------
 
+Added angular-controller-form
+
 Date: Tue Aug 9, 2016
 
 - Added `angular-controller-form` sub-generator
@@ -47,6 +57,8 @@ Date: Tue Aug 9, 2016
 
 v0.1.0
 ------
+
+First release
 
 Date: Fri Jul 29, 2016
 
