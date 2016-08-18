@@ -32,7 +32,7 @@ var append = {
     var newContent = content.replace(
       new RegExp('(\\s*\\.otherwise)', 'gm'),
       "\n        .when('/" + url + "', {" +
-      "\n          template: '<" + name + '></' + name + "'" +
+      "\n          template: '<" + name + '></' + name + ">'" +
       '\n        })$1'
     );
     if (content === newContent) {

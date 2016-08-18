@@ -8,7 +8,8 @@ Fixes and improvements
 
 Date: upcoming
 
-- Fix route path in express route append used in model sub-generator
+- Fix route path name in express route append, used in model sub-generator
+- Fixed angular route closing tag in append, used in component sub-generators
 - Fix missing express route for contact in `app.js` template
 - Comment out generated files that cannot be tested from `gulpfile.js` and `karma.conf.js` templates
 - Moved gulp `doneCallback` inside mocha task to stop preventing watch in template
