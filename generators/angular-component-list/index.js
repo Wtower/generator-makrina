@@ -79,7 +79,7 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
       this.destinationPath(templatePath), this.destinationPath(templatePath), {
         process: function (content) {
-          return append.angularRoute(content, $this.props.objectUrl + 's', $this.props.objectName + '-list');
+          return append.angularRoute(content, $this.props.objectUrl + 's', $this.props.objectUrl + '-list');
         }
       });
   }

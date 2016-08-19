@@ -76,7 +76,7 @@ module.exports = yeoman.Base.extend({
           return append.angularRoute(
             content,
             $this.props.objectUrl + 's/:' + $this.props.objectName + 'Id',
-            $this.props.objectName + '-detail');
+            $this.props.objectUrl + '-detail');
         }
       });
   }
