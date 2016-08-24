@@ -124,6 +124,40 @@ var prompts = function ($this) {
   }];
 
   /*
+   * Form fields
+   * angular-component-detail: _object-name_-detail.template.html
+   */
+  var formFields = [{
+    type: 'input',
+    name: 'fieldName',
+    message: 'Field name (camelCase)'
+  }, {
+    type: 'input',
+    name: 'fieldNameKebab',
+    message: 'Field name (kebab-case)',
+    default: function (response) {
+      return lodash.kebabCase(response.fieldName);
+    }
+  }, {
+    type: 'input',
+    name: 'labelName',
+    message: 'Label name',
+    default: function (response) {
+      return lodash.startCase(response.fieldName);
+    }
+  }, {
+    // https://www.npmjs.com/package/inquirer
+    type: 'expand',
+    name: 'fieldType',
+    message: 'Field type',
+    choices: [
+      {key: 't', name: 'Text box', value: 'text'},
+      {key: 's', name: 'Select combo box', value: 'select'}
+    ],
+    default: 'text'
+  }];
+
+  /*
    * SWITCH
    */
   switch ($this.options.namespace) {
@@ -136,6 +170,8 @@ var prompts = function ($this) {
       return angularAppPrompts.concat(angularObjectPrompts);
     case 'makrina:model':
       return angularObjectPrompts;
+    case 'makrina:form-field':
+      return angularAppPrompts.concat(angularObjectPrompts, formFields);
     case 'makrina:app':
     default:
       return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);
