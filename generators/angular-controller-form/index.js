@@ -7,7 +7,6 @@ var chalk = require('chalk');
 var buildPrompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
-var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -33,12 +32,16 @@ module.exports = yeoman.Base.extend({
       angularAppFullName: this.props.angularAppFullName
     });
     var $this = this;
-    var destinationPrefix = path.join('public/javascripts/', this.props.angularAppName, 'form');
 
     templatePaths.forEach(function (templatePath) {
       $this.fs.copyTpl(
         $this.templatePath(templatePath),
-        $this.destinationPath(path.join(destinationPrefix, pathNames(templatePath, $this.props))),
+        $this.destinationPath(
+          'public/javascripts/',
+          $this.props.angularAppName,
+          'form',
+          pathNames(templatePath, $this.props)
+        ),
         context
       );
     });

@@ -81,7 +81,7 @@ var append = {
     // http://regexr.com/3e2he
     return newContent.replace(
       new RegExp('(\n\\W+<!-- Buttons --)', 'gm'),
-      ""
+      name
     );
   }
 };
