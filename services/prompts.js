@@ -129,15 +129,13 @@ var prompts = function ($this) {
    */
   var formFields = [{
     type: 'input',
-    name: 'fieldName',
-    message: 'Field name (camelCase)'
+    name: 'angularAppName',
+    message: 'Angular app short name',
+    default: 'admin'
   }, {
     type: 'input',
-    name: 'fieldNameKebab',
-    message: 'Field name (kebab-case)',
-    default: function (response) {
-      return lodash.kebabCase(response.fieldName);
-    }
+    name: 'fieldName',
+    message: 'Field name (camelCase)'
   }, {
     type: 'input',
     name: 'labelName',
@@ -171,7 +169,7 @@ var prompts = function ($this) {
     case 'makrina:model':
       return angularObjectPrompts;
     case 'makrina:form-field':
-      return angularAppPrompts.concat(angularObjectPrompts, formFields);
+      return formFields.concat(angularObjectPrompts);
     case 'makrina:app':
     default:
       return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);

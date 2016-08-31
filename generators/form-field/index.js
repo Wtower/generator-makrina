@@ -7,9 +7,9 @@ var chalk = require('chalk');
 var lodash = require('lodash');
 var buildPrompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
+var ejs = require('ejs');
 var pathNames = require('../../services/path-names');
 var append = require('../../services/append');
-var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -23,25 +23,39 @@ module.exports = yeoman.Base.extend({
 
   writing: function () {
     if (this.options.objectName) lodash.extend(this.props, this.options);
+    var context = buildContext({
+      objectName: this.props.objectName,
+      objectTitle: this.props.objectTitle,
+      objectUrl: this.props.objectUrl,
+      fieldName: this.props.fieldName,
+      fieldNameKebab: lodash.kebabCase(this.props.fieldName),
+      fullName: this.props.objectName + lodash.upperFirst(this.props.fieldName),
+      labelName: this.props.labelName
+    });
     var $this = this;
+
     // Template
-    this.fs.copyTpl(
-      this.templatePath(templatePath),
-      this.destinationPath(path.join(destinationPrefix, pathNames(templatePath, $this.props))),
-      context
-    );
+    var templatePath;
+    switch (this.props.fieldType) {
+      case 's':
+      case 't':
+      default:
+            templatePath = 'text.ejs'
+    }
+    var tpl = this.fs.read(this.templatePath(templatePath));
+    tpl = ejs.render(tpl, context);
+
     // Modify files: append field to form
-    var templatePath = path.join(
+    templatePath = this.destinationPath(
       'public/javascripts/',
       this.props.angularAppName,
       this.props.objectUrl + '-detail',
       this.props.objectUrl + '-detail.template.html'
     );
-    this.fs.copy(
-      this.destinationPath(templatePath), this.destinationPath(templatePath), {
-        process: function (content) {
-          return append.formField(content, $this.props.objectName + 'Detail');
-        }
-      });
+    this.fs.copy(templatePath, templatePath, {
+      process: function (content) {
+        return append.formField(content, tpl);
+      }
+    });
   }
 });

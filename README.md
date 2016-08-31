@@ -86,6 +86,7 @@ Called by app generator:
 Not called by app generator: 
 
 - `angular-controller-form`: Generate a simple module with a controller to handle a form submit.
+- `form-field`: Append a field's HTML markup to a detail component angular template.
 
 How to use:
 
@@ -158,6 +159,10 @@ This is called after the angular list component (or stand-alone). It creates:
 A small controller to post a form such as a contact message and handle the form submit button status.
 Not called by main app generator.
 
+### Form field
+
+Use this to append HTML markup for a form field to a detail component angular template.
+
 Prompts
 -------
 
@@ -207,6 +212,16 @@ It has its own mongoose model, api endpoint and angular service and component.
 - Object name (recommended camelCase).
 - Object title (recommended PascalCase).
 - Object API URL and directory name (recommended kebab-case).
+
+
+### Form field
+
+- Field name (camelCase)
+- Label name
+- Field types:
+
+  - Textbox (default)
+  - Select combo box
 
 
 Development Cycle

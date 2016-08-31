@@ -4,10 +4,12 @@ CHANGELOG
 v0.2.1
 ------
 
-Fixes and improvements
+Added form-field sub-generator, fixes and improvements
 
 Date: upcoming
 
+- Added form-field sub-generator
+- Improved sub-generators code: removed path module
 - Fix route path name in express route append, used in model sub-generator
 - Fixed angular route closing tag in append, used in component sub-generators
 - Fixed angular route wrong object name format in component sub-generators for append
