@@ -8,6 +8,8 @@
                      id="<%= objectUrl %>-<%= fieldNameKebab %> %>"
                      name="<%= fullName %>"
                      class="form-control"
-                     ng-model="$ctrl.<%= objectName %>.<%= fieldName %>">
+                     placeholder="<%= labelName %>"
+                     <% if (readOnly) { %>readonly="readonly"
+                     <% } %>ng-model="$ctrl.<%= objectName %>.<%= fieldName %>">
             </div>
           </div>

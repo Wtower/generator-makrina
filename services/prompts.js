@@ -144,15 +144,33 @@ var prompts = function ($this) {
       return lodash.startCase(response.fieldName);
     }
   }, {
-    // https://www.npmjs.com/package/inquirer
-    type: 'expand',
+    type: 'list',
     name: 'fieldType',
     message: 'Field type',
     choices: [
-      {key: 't', name: 'Text box', value: 'text'},
-      {key: 's', name: 'Select combo box', value: 'select'}
+      {name: 'Text box', value: 'text'},
+      {name: 'Select combo box', value: 'select'}
+      // Future:
+      // {name: 'Date', value: 'date'},
+      // {name: 'Text area', value: 'text-area'},
+      // {name: 'Password', value: 'pass'},
+      // {name: 'Auto complete (requires jquery ajax)', value: 'auto-complete'},
+      // {name: 'Select custom with auto-complete (requires jquery, eg. States)', value: 'select-auto-complete'},
+      // {name: 'Select grouped (eg. States by time zone)', value: 'select-grouped'},
+      // {name: 'Select multiple (instead of checkboxes)', value: 'select-multiple'},
+      // {name: 'Input tags', value: 'tags'},
+      // {name: 'Checkboxes', value: 'checkbox'},
+      // {name: 'Radios', value: 'radio'},
+      // {name: 'Radio button twin group (eg. Gender)', value: 'radio-twin'},
+      // {name: 'Switches', value: 'switch'},
+      // {name: 'Stars', value: 'stars'}
     ],
     default: 'text'
+  }, {
+    type: 'confirm',
+    name: 'readOnly',
+    message: 'Read-only field',
+    default: false
   }];
 
   /*

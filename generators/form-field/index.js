@@ -21,26 +21,18 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    var context = buildContext({
+    // Template
+    var templatePath = this.templatePath(this.props.fieldType + '.ejs');
+    var tpl = ejs.render(this.fs.read(templatePath), buildContext({
       objectName: this.props.objectName,
       objectTitle: this.props.objectTitle,
       objectUrl: this.props.objectUrl,
       fieldName: this.props.fieldName,
       fieldNameKebab: lodash.kebabCase(this.props.fieldName),
       fullName: this.props.objectName + lodash.upperFirst(this.props.fieldName),
-      labelName: this.props.labelName
-    });
-
-    // Template
-    var templatePath;
-    switch (this.props.fieldType) {
-      case 's':
-      case 't':
-      default:
-        templatePath = 'text.ejs';
-    }
-    var tpl = this.fs.read(this.templatePath(templatePath));
-    tpl = ejs.render(tpl, context);
+      labelName: this.props.labelName,
+      readOnly: this.props.readOnly
+    }));
 
     // Modify files: append field to form
     templatePath = this.destinationPath(

@@ -8,7 +8,7 @@ Added form-field sub-generator, fixes and improvements
 
 Date: upcoming
 
-- Added form-field sub-generator
+- Added form-field sub-generator for textbox, select combo box
 - Improved sub-generators code: removed path module
 - Fix route path name in express route append, used in model sub-generator
 - Fixed angular route closing tag in append, used in component sub-generators
