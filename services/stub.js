@@ -1,12 +1,11 @@
 /**
  * Created by gkarak on 10/9/2016.
- * 
- * Stub function to return the appropriate run options each time called
+ * Stub function to return the appropriate run each time called
  * To be invoked by tests beforeEach function
  */
 var sinon = require('sinon');
 
-var stubOptions = function (runs, its) {
+var stubRuns = function (runs, its) {
   var stub = sinon.stub();
   runs.forEach(function (run, idx) {
     // beforeEach will be called runs * its times
@@ -14,6 +13,7 @@ var stubOptions = function (runs, its) {
       stub.onCall((idx * its) + i).returns(run);
     }
   });
+  return stub;
 };
 
-module.exports = stubOptions;
+module.exports = stubRuns;

@@ -1,5 +1,5 @@
 'use strict';
-var sinon = require('sinon');
+var stubRuns = require('../services/stub');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
@@ -10,11 +10,7 @@ describe('generator-makrina:app', function () {
     {it: 'no suffix in git prompt', git: 'https://github.com/Wtower/generator-makrina'},
     {it: 'suffix in git prompt', git: 'https://github.com/Wtower/generator-makrina.git'}
   ];
-
-  var stub = sinon.stub();
-  runs.forEach(function (run, idx) {
-    stub.onCall(idx).returns(run);
-  });
+  var stub = stubRuns(runs, 1);
 
   beforeEach(function () {
     var run = stub();

@@ -4,6 +4,7 @@
  * http://stackoverflow.com/questions/17144197/running-the-same-mocha-test-multiple-times-with-different-data/39286581#39286581
  */
 'use strict';
+var stubRuns = require('../services/stub');
 var sinon = require('sinon');
 var path = require('path');
 var assert = require('yeoman-assert');
@@ -36,11 +37,7 @@ describe('generator-makrina:form-field', function () {
     props: props('select'),
     expect: ['<select class="select2_single', 'disabled="disabled"']
   }];
-
-  var stub = sinon.stub();
-  runs.forEach(function (run, idx) {
-    stub.onCall(idx).returns(run);
-  });
+  var stub = stubRuns(runs, 1);
 
   beforeEach(function () {
     var run = stub();

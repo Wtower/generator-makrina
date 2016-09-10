@@ -2,7 +2,7 @@
  * Created by gkarak on 28/7/2016.
  */
 'use strict';
-var sinon = require('sinon');
+var stubRuns = require('../services/stub');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
@@ -20,14 +20,7 @@ describe('generator-makrina:angular-core-service', function () {
       objectTitle: 'Node',
       objectUrl: 'node'
     }}];
-
-  var stub = sinon.stub();
-  runs.forEach(function (run, idx) {
-    // beforeEach will be called runs * its times
-    for (var i = 0, its = 2; i < its; i++) {
-      stub.onCall((idx * its) + i).returns(run);
-    }
-  });
+  var stub = stubRuns(runs, 2);
 
   beforeEach(function () {
     var run = stub();
