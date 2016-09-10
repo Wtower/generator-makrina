@@ -1,4 +1,5 @@
 'use strict';
+var sinon = require('sinon');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
@@ -10,24 +11,30 @@ describe('generator-makrina:app', function () {
     {it: 'suffix in git prompt', git: 'https://github.com/Wtower/generator-makrina.git'}
   ];
 
-  runs.forEach(function (run) {
-    before(function () {
-      var dependencies = [
-        [helpers.createDummyGenerator(), 'makrina:angular-app'],
-        [helpers.createDummyGenerator(), 'makrina:angular-core-service'],
-        [helpers.createDummyGenerator(), 'makrina:angular-component-list'],
-        [helpers.createDummyGenerator(), 'makrina:angular-component-detail'],
-        [helpers.createDummyGenerator(), 'makrina:model']
-      ];
-      return helpers.run(path.join(__dirname, '../generators/app'))
-        .withGenerators(dependencies)
-        .withPrompts({
-          name: 'yeotests',
-          git: run.git
-        })
-        .toPromise();
-    });
+  var stub = sinon.stub();
+  runs.forEach(function (run, idx) {
+    stub.onCall(idx).returns(run);
+  });
 
+  beforeEach(function () {
+    var run = stub();
+    var dependencies = [
+      [helpers.createDummyGenerator(), 'makrina:angular-app'],
+      [helpers.createDummyGenerator(), 'makrina:angular-core-service'],
+      [helpers.createDummyGenerator(), 'makrina:angular-component-list'],
+      [helpers.createDummyGenerator(), 'makrina:angular-component-detail'],
+      [helpers.createDummyGenerator(), 'makrina:model']
+    ];
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withGenerators(dependencies)
+      .withPrompts({
+        name: 'yeotests',
+        git: run.git
+      })
+      .toPromise();
+  });
+
+  runs.forEach(function (run) {
     it('creates files with ' + run.it, function () {
       var paths = [
         'bin/',
@@ -55,6 +62,7 @@ describe('generator-makrina:app', function () {
         'public/images/'
       ];
       assert.file(paths);
+      assert.fileContent('package.json', run.git);
     });
   });
 });
