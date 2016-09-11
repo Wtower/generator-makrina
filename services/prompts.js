@@ -168,6 +168,11 @@ var prompts = function ($this) {
     default: 'text'
   }, {
     type: 'confirm',
+    name: 'required',
+    message: 'Required field',
+    default: false
+  }, {
+    type: 'confirm',
     name: 'readOnly',
     message: 'Read-only field',
     default: false

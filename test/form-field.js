@@ -21,6 +21,7 @@ describe('generator-makrina:form-field', function () {
       fieldName: 'description',
       labelName: 'Description',
       fieldType: fieldType,
+      required: true,
       readOnly: true,
       objectName: 'node',
       objectTitle: 'Node',
@@ -31,11 +32,21 @@ describe('generator-makrina:form-field', function () {
   var runs = [{
     it: 'textbox',
     props: props('text'),
-    expect: ['input type="text"', 'readonly="readonly"']
+    expect: [
+      'input type="text"',
+      'span class="required"',
+      'required="required"',
+      'readonly="readonly"'
+    ]
   }, {
     it: 'select combo box',
     props: props('select'),
-    expect: ['<select class="select2_single', 'disabled="disabled"']
+    expect: [
+      '<select class="select2_single',
+      'span class="required"',
+      'required="required"',
+      'disabled="disabled"'
+    ]
   }];
   var stub = stubRuns(runs, 1);
 

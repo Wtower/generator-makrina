@@ -4,10 +4,11 @@ CHANGELOG
 v0.2.2
 ------
 
-Style improvements
+Minor improvements
 
 Date: upcoming
 
+- Added `required` option to form-field sub-generator
 - Minor add to angular-app admin sass
 
 v0.2.1
