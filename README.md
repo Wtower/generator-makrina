@@ -86,6 +86,7 @@ Called by app generator:
 Not called by app generator: 
 
 - `angular-controller-form`: Generate a simple module with a controller to handle a form submit.
+- `form-field`: Append a field's HTML markup to a detail component angular template.
 
 How to use:
 
@@ -158,6 +159,10 @@ This is called after the angular list component (or stand-alone). It creates:
 A small controller to post a form such as a contact message and handle the form submit button status.
 Not called by main app generator.
 
+### Form field
+
+Use this to append HTML markup for a form field to a detail component angular template.
+
 Prompts
 -------
 
@@ -207,6 +212,16 @@ It has its own mongoose model, api endpoint and angular service and component.
 - Object name (recommended camelCase).
 - Object title (recommended PascalCase).
 - Object API URL and directory name (recommended kebab-case).
+
+
+### Form field
+
+- Field name (camelCase)
+- Label name
+- Field types:
+
+  - Textbox (default)
+  - Select combo box
 
 
 Development Cycle
@@ -377,6 +392,18 @@ Protractor is tested only for Chrome due to [#3044](https://github.com/angular/p
     npm start
     node_modules/protractor/bin/webdriver-manager update
     node_modules/protractor/bin/protractor e2e-tests/protractor.conf.js
+
+### Extend tests
+
+The generated unit tests cover 100% or nearly of the generated code. Nevertheless, the following files have been
+excluded out from testing and coverage:
+
+- The object api endpoint route `routes/api/object.js`. It needs further development and custom test.
+- The mongoose service `services/mongoose.js`. This will get indirectly covered by the above.
+- The object angular components need further development.
+
+Consequently, after developing the above, add the relevant files in the `gulpfile.js` `js_cover` section and
+`karma.conf.js` `files` and `preprocessors` section.
 
 Admin template
 --------------

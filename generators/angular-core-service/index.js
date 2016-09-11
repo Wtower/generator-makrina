@@ -9,7 +9,6 @@ var buildPrompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 var append = require('../../services/append');
-var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -35,24 +34,33 @@ module.exports = yeoman.Base.extend({
       objectUrl: this.props.objectUrl
     });
     var $this = this;
-    var destinationPrefix = path.join('public/javascripts/', this.props.angularAppName, 'core', this.props.objectUrl);
 
     templatePaths.forEach(function (templatePath) {
       $this.fs.copyTpl(
         $this.templatePath(templatePath),
-        $this.destinationPath(path.join(destinationPrefix, pathNames(templatePath, $this.props))),
+        $this.destinationPath(
+          'public/javascripts/',
+          $this.props.angularAppName,
+          'core',
+          $this.props.objectUrl,
+          pathNames(templatePath, $this.props)
+        ),
         context
       );
     });
 
     // Modify files: append core.object to core
     // http://stackoverflow.com/questions/19178523/can-yeoman-generators-update-existing-files
-    var templatePath = path.join('public/javascripts/', this.props.angularAppName, 'core', 'core.module.js');
-    this.fs.copy(
-      this.destinationPath(templatePath), this.destinationPath(templatePath), {
-        process: function (content) {
-          return append.dependency(content, 'core.' + $this.props.objectName);
-        }
-      });
+    var templatePath = this.destinationPath(
+      'public/javascripts/',
+      this.props.angularAppName,
+      'core',
+      'core.module.js'
+    );
+    this.fs.copy(templatePath, templatePath, {
+      process: function (content) {
+        return append.dependency(content, 'core.' + $this.props.objectName);
+      }
+    });
   }
 });

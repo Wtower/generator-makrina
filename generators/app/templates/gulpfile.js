@@ -50,8 +50,12 @@ var paths = {
   js_cover: [
     'models/*.js',
     'routes/*.js',
-    'routes/**/*.js',
-    'services/*.js',
+    // 'routes/**/*.js',
+    'routes/api/contact.js',
+    // 'services/*.js',
+    'services/email.js',
+    'services/i18n-config.js',
+    'services/session-config.js',
     'spec/*.js',
     'spec/helpers/*.js',
     'spec/api/contact.stub.js',
@@ -392,9 +396,12 @@ var tasks = {
 
   /*
    * Testing with mocha
-   * https://github.com/sindresorhus/gulp-mocha/issues/54
+   * https://github.com/sindresorhus/gulp-mocha/issues/54#issuecomment-240666300
    */
   mocha: function () {
+    gulp.doneCallback = function (err) {
+      process.exit(err ? 1 : 0);
+    };
     return gulp.src(paths.mocha)
       .pipe(plumber())
       .pipe(mocha({reporter: 'spec', colors: true}))
@@ -547,8 +554,3 @@ gulp.task('watch', ['build'], function () {
 });
 
 gulp.task('default', ['watch']);
-
-// https://github.com/sindresorhus/gulp-mocha/issues/1#issuecomment-55710159
-gulp.doneCallback = function (err) {
-  process.exit(err ? 1 : 0);
-};

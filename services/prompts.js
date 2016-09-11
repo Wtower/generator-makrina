@@ -124,6 +124,56 @@ var prompts = function ($this) {
   }];
 
   /*
+   * Form fields
+   * angular-component-detail: _object-name_-detail.template.html
+   */
+  var formFields = [{
+    type: 'input',
+    name: 'angularAppName',
+    message: 'Angular app short name',
+    default: 'admin'
+  }, {
+    type: 'input',
+    name: 'fieldName',
+    message: 'Field name (camelCase)'
+  }, {
+    type: 'input',
+    name: 'labelName',
+    message: 'Label name',
+    default: function (response) {
+      return lodash.startCase(response.fieldName);
+    }
+  }, {
+    type: 'list',
+    name: 'fieldType',
+    message: 'Field type',
+    choices: [
+      {name: 'Text box', value: 'text'},
+      {name: 'Select combo box', value: 'select'}
+      // Future:
+      // {name: 'Date', value: 'date'},
+      // {name: 'Text area', value: 'text-area'},
+      // {name: 'Password', value: 'pass'},
+      // {name: 'Auto complete (requires jquery ajax)', value: 'auto-complete'},
+      // {name: 'Select custom with auto-complete (requires jquery, eg. States)', value: 'select-auto-complete'},
+      // {name: 'Select grouped (eg. States by time zone)', value: 'select-grouped'},
+      // {name: 'Select multiple (instead of checkboxes)', value: 'select-multiple'},
+      // {name: 'Input tags', value: 'tags'},
+      // {name: 'Checkboxes', value: 'checkbox'},
+      // {name: 'Radios', value: 'radio'},
+      // {name: 'Radio button twin group (eg. Gender)', value: 'radio-twin'},
+      // {name: 'Switches', value: 'switch'},
+      // {name: 'Stars', value: 'stars'}
+    ],
+    default: 'text'
+  }, {
+    type: 'confirm',
+    name: 'readOnly',
+    message: 'Read-only field',
+    default: false
+  }];
+
+  /*
    * SWITCH
    */
   switch ($this.options.namespace) {
@@ -136,6 +186,8 @@ var prompts = function ($this) {
       return angularAppPrompts.concat(angularObjectPrompts);
     case 'makrina:model':
       return angularObjectPrompts;
+    case 'makrina:form-field':
+      return formFields.concat(angularObjectPrompts);
     case 'makrina:app':
     default:
       return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);

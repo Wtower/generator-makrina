@@ -2,6 +2,7 @@
  * Created by gkarak on 28/7/2016.
  */
 'use strict';
+var stubRuns = require('../services/stub');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
@@ -19,20 +20,22 @@ describe('generator-makrina:angular-core-service', function () {
       objectTitle: 'Node',
       objectUrl: 'node'
     }}];
+  var stub = stubRuns(runs, 2);
+
+  beforeEach(function () {
+    var run = stub();
+    return helpers.run(path.join(__dirname, '../generators/angular-core-service'))
+      .inTmpDir(function (dir) {
+        fs.copySync(
+          path.join(__dirname, '../generators/angular-app/templates/core/core.module.js'),
+          path.join(dir, destinationPrefix, 'core.module.js')
+        );
+      })
+      .withOptions(run.options)
+      .toPromise();
+  });
 
   runs.forEach(function (run) {
-    before(function () {
-      return helpers.run(path.join(__dirname, '../generators/angular-core-service'))
-        .inTmpDir(function (dir) {
-          fs.copySync(
-            path.join(__dirname, '../generators/angular-app/templates/core/core.module.js'),
-            path.join(dir, destinationPrefix, 'core.module.js')
-          );
-        })
-        .withOptions(run.options)
-        .toPromise();
-    });
-
     it('creates files with ' + run.it, function () {
       var paths = [
         'node.module.js',

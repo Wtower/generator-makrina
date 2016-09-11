@@ -9,7 +9,6 @@ var buildPrompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 var append = require('../../services/append');
-var path = require('path');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -51,12 +50,11 @@ module.exports = yeoman.Base.extend({
       });
 
     // Modify files: append model require to mongoose service
-    templatePath = path.join('services', 'mongoose.js');
-    this.fs.copy(
-      this.destinationPath(templatePath), this.destinationPath(templatePath), {
-        process: function (content) {
-          return append.mongoose(content, $this.props.objectUrl);
-        }
-      });
+    templatePath = this.destinationPath('services', 'mongoose.js');
+    this.fs.copy(templatePath, templatePath, {
+      process: function (content) {
+        return append.mongoose(content, $this.props.objectUrl);
+      }
+    });
   }
 });

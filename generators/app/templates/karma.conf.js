@@ -15,7 +15,7 @@ module.exports = function(config) {
       '**/*.module.js',
       '**/*.service.js',
       '**/*.component.js',
-      '**/*.spec.js',
+      // '**/*.spec.js',
       '**/*.jquery.js'
     ],
     autoWatch: true,
@@ -32,7 +32,7 @@ module.exports = function(config) {
     ],
     reporters: ['progress', 'coverage'],
     preprocessors: {
-      '**/*.component.js': ['coverage']
+      // '**/*.component.js': ['coverage']
     },
     coverageReporter: {
       reporters: [

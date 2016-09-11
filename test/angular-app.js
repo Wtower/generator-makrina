@@ -2,6 +2,7 @@
  * Created by gkarak on 28/7/2016.
  */
 'use strict';
+var stubRuns = require('../services/stub');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
@@ -14,14 +15,16 @@ describe('generator-makrina:angular-app', function () {
       angularAppName: 'admin',
       angularAppFullName: 'yeotestsAdminApp'
     }}];
+  var stub = stubRuns(runs, 1);
+
+  beforeEach(function () {
+    var run = stub();
+    return helpers.run(path.join(__dirname, '../generators/angular-app'))
+      .withOptions(run.options)
+      .toPromise();
+  });
 
   runs.forEach(function (run) {
-    before(function () {
-      return helpers.run(path.join(__dirname, '../generators/angular-app'))
-        .withOptions(run.options)
-        .toPromise();
-    });
-
     it('creates files with ' + run.it, function () {
       var paths = [
         'core/',

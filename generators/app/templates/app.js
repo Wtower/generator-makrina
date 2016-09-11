@@ -14,6 +14,7 @@ var i18nConfig = require('./services/i18n-config');
 var sessionConfig = require('./services/session-config');
 
 var routes = require('./routes/index');
+var apiContact = require('./routes/api/contact');
 var routesAdmin = require('./routes/admin');
 // var users = require('./routes/users');
 
@@ -42,6 +43,7 @@ app.use(function (req, res, next) {
 app.use(i18n.init);
 
 app.use('/', routes);
+app.use('/api/contact', apiContact);
 app.use('/admin', routesAdmin);
 // app.use('/users', users);
 

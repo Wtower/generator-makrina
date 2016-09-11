@@ -32,7 +32,7 @@ var append = {
     var newContent = content.replace(
       new RegExp('(\\s*\\.otherwise)', 'gm'),
       "\n        .when('/" + url + "', {" +
-      "\n          template: '<" + name + '></' + name + "'" +
+      "\n          template: '<" + name + '></' + name + ">'" +
       '\n        })$1'
     );
     if (content === newContent) {
@@ -55,7 +55,7 @@ var append = {
     // http://regexr.com/3dt49
     newContent = newContent.replace(
       new RegExp("(var routes = require\\('.\\/routes\\/index'\\);\n)", 'gm'),
-      '$1var api' + title + "s = require('./routes/api/" + name + "s');\n"
+      '$1var api' + title + "s = require('./routes/api/" + url + "s');\n"
     );
     // http://regexr.com/3dt4c
     newContent = newContent.replace(
@@ -72,6 +72,16 @@ var append = {
     return newContent.replace(
       new RegExp("(mongoose.Promise = require\\('bluebird'\\);\n)", 'gm'),
       "$1require('../models/" + name + "');\n"
+    );
+  },
+
+  // append a field to an angular template form
+  formField: function (content, tpl) {
+    var newContent = content.toString();
+    // http://regexr.com/3e2he
+    return newContent.replace(
+      new RegExp('\n(\\W+<!-- Buttons --)', 'gm'),
+      '\n\n' + tpl + '$1'
     );
   }
 };

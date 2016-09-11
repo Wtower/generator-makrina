@@ -1,0 +1,20 @@
+          <!-- Field: <%= labelName %> -->
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                   for="<%= objectUrl %>-<%= fieldNameKebab %> %>"><%= labelName %></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <select class="select2_single form-control select2-hidden-accessible"
+                      id="<%= objectUrl %>-<%= fieldNameKebab %> %>"
+                      name="<%= fullName %>"
+                      aria-hidden="true"
+                      <% if (readOnly) { %>disabled="disabled"
+                      <% } %>ng-model="$ctrl.<%= objectName %>.<%= fieldName %>">
+                <option></option>
+                <option ng-repeat="item in $ctrl.<%= objectName %>s | orderBy:''"
+                        value="{{ item._id }}">{{ item }}</option>
+              </select>
+            </div>
+            <div class="label-link col-md-1">
+              <a href="#"><i class="fa fa-external-link-square" title="Open relevant"></i></a>
+            </div>
+          </div>
