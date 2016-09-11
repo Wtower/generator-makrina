@@ -1,12 +1,21 @@
 CHANGELOG
 =========
 
+v0.2.2
+------
+
+Style improvements
+
+Date: upcoming
+
+- Minor add to angular-app admin sass
+
 v0.2.1
 ------
 
 Added form-field sub-generator, fixes and improvements
 
-Date: upcoming
+Date: Sun Sep 11, 2016
 
 - Added form-field sub-generator for textbox, select combo box
 - Improved sub-generators code: removed path module
