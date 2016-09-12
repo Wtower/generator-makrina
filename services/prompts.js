@@ -149,7 +149,8 @@ var prompts = function ($this) {
     message: 'Field type',
     choices: [
       {name: 'Text box', value: 'text'},
-      {name: 'Select combo box', value: 'select'}
+      {name: 'Select combo box (plain)', value: 'select'},
+      {name: 'Checkbox (plain)', value: 'checkbox'}
       // Future:
       // {name: 'Date', value: 'date'},
       // {name: 'Text area', value: 'text-area'},
@@ -159,9 +160,7 @@ var prompts = function ($this) {
       // {name: 'Select grouped (eg. States by time zone)', value: 'select-grouped'},
       // {name: 'Select multiple (instead of checkboxes)', value: 'select-multiple'},
       // {name: 'Input tags', value: 'tags'},
-      // {name: 'Checkboxes', value: 'checkbox'},
       // {name: 'Radios', value: 'radio'},
-      // {name: 'Radio button twin group (eg. Gender)', value: 'radio-twin'},
       // {name: 'Switches', value: 'switch'},
       // {name: 'Stars', value: 'stars'}
     ],

@@ -42,9 +42,16 @@ describe('generator-makrina:form-field', function () {
     it: 'select combo box',
     props: props('select'),
     expect: [
-      '<select class="select2_single',
+      'select class="select2_single',
       'span class="required"',
       'required="required"',
+      'disabled="disabled"'
+    ]
+  }, {
+    it: 'checkbox',
+    props: props('checkbox'),
+    expect: [
+      'input type="checkbox"',
       'disabled="disabled"'
     ]
   }];

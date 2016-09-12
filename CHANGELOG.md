@@ -8,6 +8,7 @@ Minor improvements
 
 Date: upcoming
 
+- Added checkbox field to form-field sub-generator
 - Added `required` option to form-field sub-generator
 - Minor add to angular-app admin sass
 
