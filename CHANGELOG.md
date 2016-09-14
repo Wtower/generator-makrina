@@ -4,10 +4,11 @@ CHANGELOG
 v0.3.0
 ------
 
-Additional form fields for admin interface
+Improved component detail sub-generator, additional form fields for admin interface
 
 Date: upcoming
 
+- :warning: Added submit button and handler for component detail
 - Minor fix in form name of component detail template
 - Added select fields to form-field sub-generator
 - :warning: Modified generated `gulpfile.js` to include admin form field scripts

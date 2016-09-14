@@ -29,7 +29,13 @@
           <div class="ln_solid"></div>
           <div class="form-group">
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <a href="#!/<%= objectUrl %>s" class="btn btn-primary">Close</a>
+              <button type="submit" class="btn btn-success">Submit</button>
+              <a href="#!/<%= objectUrl %>s"
+                 class="btn btn-danger"
+                 ng-if="$ctrl.<%= objectName %>Edit.$dirty">Cancel</a>
+              <a href="#!/<%= objectUrl %>s"
+                 class="btn btn-primary"
+                 ng-if="!$ctrl.<%= objectName %>Edit.$dirty">Close</a>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 text-right">
               <button type="button" class="btn btn-sm" ng-click="$ctrl.delete<%= objectTitle %>()">Delete</button>
