@@ -150,15 +150,14 @@ var prompts = function ($this) {
     choices: [
       {name: 'Text box', value: 'text'},
       {name: 'Select combo box (plain)', value: 'select'},
+      {name: 'Select with auto-complete (JS)', value: 'select2'},
+      {name: 'Select multiple (JS)', value: 'select-multiple'},
       {name: 'Checkbox (plain)', value: 'checkbox'}
       // Future:
       // {name: 'Date', value: 'date'},
       // {name: 'Text area', value: 'text-area'},
       // {name: 'Password', value: 'pass'},
       // {name: 'Auto complete (requires jquery ajax)', value: 'auto-complete'},
-      // {name: 'Select custom with auto-complete (requires jquery, eg. States)', value: 'select-auto-complete'},
-      // {name: 'Select grouped (eg. States by time zone)', value: 'select-grouped'},
-      // {name: 'Select multiple (instead of checkboxes)', value: 'select-multiple'},
       // {name: 'Input tags', value: 'tags'},
       // {name: 'Radios', value: 'radio'},
       // {name: 'Switches', value: 'switch'},

@@ -42,7 +42,26 @@ describe('generator-makrina:form-field', function () {
     it: 'select combo box',
     props: props('select'),
     expect: [
-      'select class="select2_single',
+      'select class="form-control"',
+      'span class="required"',
+      'required="required"',
+      'disabled="disabled"'
+    ]
+  }, {
+    it: 'select2 single',
+    props: props('select2'),
+    expect: [
+      'select class="select2 select2-single form-control"',
+      'span class="required"',
+      'required="required"',
+      'disabled="disabled"'
+    ]
+  }, {
+    it: 'select2 multiple',
+    props: props('select-multiple'),
+    expect: [
+      'select class="select2 select2-multiple form-control"',
+      'multiple="multiple"',
       'span class="required"',
       'required="required"',
       'disabled="disabled"'
