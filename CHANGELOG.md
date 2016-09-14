@@ -8,6 +8,7 @@ Additional form fields for admin interface
 
 Date: upcoming
 
+- Minor fix in form name of component detail template
 - Added select fields to form-field sub-generator
 - :warning: Modified generated `gulpfile.js` to include admin form field scripts
 - :warning: Modified generated `admin.jquery.js` to initialize form field scripts
