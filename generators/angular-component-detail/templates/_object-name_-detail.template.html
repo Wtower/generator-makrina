@@ -11,7 +11,10 @@
       </div>
       <div class="x_content">
         <br>
-        <form id="<%= objectUrl %>-edit" name="$ctrl.<%= objectName %>Edit" class="form-horizontal form-label-left">
+        <form id="<%= objectUrl %>-edit"
+              name="$ctrl.<%= objectName %>Edit"
+              class="form-horizontal form-label-left"
+              ng-submit="$ctrl.submit<%= objectTitle %>()">
 
           <!-- Field: Name -->
           <div class="form-group">
