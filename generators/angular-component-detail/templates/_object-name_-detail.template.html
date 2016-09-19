@@ -11,14 +11,17 @@
       </div>
       <div class="x_content">
         <br>
-        <form id="<%= objectName %>-edit" name="$ctrl.<%= objectName %>Edit" class="form-horizontal form-label-left">
+        <form id="<%= objectUrl %>-edit"
+              name="$ctrl.<%= objectName %>Edit"
+              class="form-horizontal form-label-left"
+              ng-submit="$ctrl.submit<%= objectTitle %>()">
 
           <!-- Field: Name -->
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="<%= objectName %>-name">Name</label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="<%= objectUrl %>-name">Name</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <input type="text"
-                     id="<%= objectName %>-name"
+                     id="<%= objectUrl %>-name"
                      name="<%= objectName %>Name"
                      class="form-control"
                      ng-model="$ctrl.<%= objectName %>.name">
@@ -29,7 +32,13 @@
           <div class="ln_solid"></div>
           <div class="form-group">
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <a href="#!/<%= objectUrl %>s" class="btn btn-primary">Close</a>
+              <button type="submit" class="btn btn-success">Submit</button>
+              <a href="#!/<%= objectUrl %>s"
+                 class="btn btn-danger"
+                 ng-if="$ctrl.<%= objectName %>Edit.$dirty">Cancel</a>
+              <a href="#!/<%= objectUrl %>s"
+                 class="btn btn-primary"
+                 ng-if="!$ctrl.<%= objectName %>Edit.$dirty">Close</a>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 text-right">
               <button type="button" class="btn btn-sm" ng-click="$ctrl.delete<%= objectTitle %>()">Delete</button>

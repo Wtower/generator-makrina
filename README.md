@@ -216,12 +216,19 @@ It has its own mongoose model, api endpoint and angular service and component.
 
 ### Form field
 
+- Angular app short name: used to locate existing template files
 - Field name (camelCase)
 - Label name
 - Field types:
 
   - Textbox (default)
-  - Select combo box
+  - Select combo box (simple)
+  - Select with auto-complete (JS)
+  - Select multiple (JS)
+  - Checkbox
+
+- Required field
+- Read-only field
 
 
 Development Cycle
@@ -473,7 +480,11 @@ Updates
 -------
 
 Most generated code gets signed by the Makrina version and date in a comment at the top of file.
-All changes are documented in `CHANGELOG.md`. If you feel like using a latest feature or change,
+All changes are documented in `CHANGELOG.md`. Any change that may affect existing generated files
+is marked with a warning sign. Usually changes in existing files that may have been generated
+in existing projects exist in minor releases (version numbering: major, minor, revision).
+
+If you feel like using a latest feature or change,
 you can manually update the relevant files, and append the Makrina version in the comment for 
 future reference:
 

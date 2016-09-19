@@ -10,19 +10,45 @@ angular
       function <%= objectTitle %>DetailController($routeParams, $location, <%= objectTitle %>) {
         var self = this;
 
-        if ($routeParams.<%= objectName %>Id != 'add') {
-          self.<%= objectName %>Id = $routeParams.<%= objectName %>Id;
+        var self.get<%= objectTitle %> = function () {
           self.<%= objectName %> = <%= objectTitle %>.get({<%= objectName %>Id: self.<%= objectName %>Id}, function(data) {
           }, function(error) {
-            $location.path("/<%= objectUrl %>s");
+          $location.path("/<%= objectUrl %>s");
+          new PNotify({
+          title: '<%= objectTitle %> not found',
+          text: 'The <%= objectName %> cannot be found.',
+          type: 'error',
+          styling: 'bootstrap3'
+          });
+          });
+        };
+
+        if ($routeParams.<%= objectName %>Id != 'add') {
+          self.<%= objectName %>Id = $routeParams.<%= objectName %>Id;
+          self.get<%= objectTitle %>();
+        }
+
+        self.submit<%= objectTitle %> = function() {
+          self.<%= objectName %> = <%= objectTitle %>.save(self.<%= objectName %>, function () {
+            if (!self.<%= objectName %>Id) $location.path("/<%= objectUrl %>s/" + self.<%= objectName %>._id);
             new PNotify({
-              title: '<%= objectTitle %> not found',
-              text: 'The <%= objectName %> cannot be found.',
+              title: '<%= objectTitle %> saved',
+              text: '<%= objectTitle %> saved successfully.',
+              type: 'success',
+              styling: 'bootstrap3'
+            });
+            self.<%= objectName %>Edit.$setPristine();
+            self.get<%= objectTitle %>();
+          }, function (error) {
+            new PNotify({
+              title: '<%= objectTitle %> not saved',
+              text: error.statusText,
               type: 'error',
               styling: 'bootstrap3'
             });
           });
-        }
+        };
+
         self.delete<%= objectTitle %> = function() {
           if (!confirm('Are you sure you want to delete this?')) return;
           <%= objectTitle %>.delete({<%= objectName %>Id: self.<%= objectName %>Id}, function() {
@@ -45,6 +71,7 @@ angular
         };
 
         panelToolbox();
+        select2();
       }
     ]
   });

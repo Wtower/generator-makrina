@@ -1,12 +1,37 @@
 CHANGELOG
 =========
 
+v0.3.1
+------
+
+Complete all admin interface form field types
+
+Date: Upcoming
+
+v0.3.0
+------
+
+Improved component detail sub-generator; additional form fields for admin interface; bug fixes
+
+Date: Mon Sep 19, 2016
+
+- Fix #7: error on project generation
+- :warning: Added submit button and handler for component detail
+- Minor fix in form name of component detail template
+- Added select fields to form-field sub-generator
+- :warning: Modified generated `gulpfile.js` to include admin form field scripts
+- :warning: Modified generated `admin.jquery.js` to initialize form field scripts
+- :warning: Modified generated `object-detail.component.js` to re-init form field scripts after angular template load
+- Added checkbox field to form-field sub-generator
+- Added `required` option to form-field sub-generator
+- Minor add to angular-app admin sass
+
 v0.2.1
 ------
 
 Added form-field sub-generator, fixes and improvements
 
-Date: upcoming
+Date: Sun Sep 11, 2016
 
 - Added form-field sub-generator for textbox, select combo box
 - Improved sub-generators code: removed path module
@@ -40,7 +65,7 @@ Date: Wed Aug 17, 2016
   - Updated `karma.conf.js` template to use istanbul
   - Added Gitlab CI conf file 
 
-- Improved `gulpfile.js` template
+- :warning: Improved `gulpfile.js` template
   - Moved all dependencies directly in `package.json` template.
   - Improved code styling
 

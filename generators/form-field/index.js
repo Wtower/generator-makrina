@@ -31,6 +31,7 @@ module.exports = yeoman.Base.extend({
       fieldNameKebab: lodash.kebabCase(this.props.fieldName),
       fullName: this.props.objectName + lodash.upperFirst(this.props.fieldName),
       labelName: this.props.labelName,
+      required: this.props.required,
       readOnly: this.props.readOnly
     }));
 

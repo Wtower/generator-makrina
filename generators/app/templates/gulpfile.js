@@ -86,6 +86,7 @@ var paths = {
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.css',
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.buttons.css',
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.nonblock.css',
+      'node_modules/gentelella/vendors/select2/dist/css/select2.min.css',
       'public/build/admin/css/admin.*.css' // sass build
     ],
     js_watch: [
@@ -117,6 +118,7 @@ var paths = {
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.js',
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.buttons.js',
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.nonblock.js',
+      'node_modules/gentelella/vendors/select2/dist/js/select2.full.js',
       'public/javascripts/admin/*.module.js',
       'public/javascripts/admin/*.config.js',
       'public/javascripts/admin/core/*.module.js',

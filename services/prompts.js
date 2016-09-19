@@ -149,23 +149,26 @@ var prompts = function ($this) {
     message: 'Field type',
     choices: [
       {name: 'Text box', value: 'text'},
-      {name: 'Select combo box', value: 'select'}
+      {name: 'Select combo box (plain)', value: 'select'},
+      {name: 'Select with auto-complete (JS)', value: 'select2'},
+      {name: 'Select multiple (JS)', value: 'select-multiple'},
+      {name: 'Checkbox (plain)', value: 'checkbox'}
       // Future:
       // {name: 'Date', value: 'date'},
       // {name: 'Text area', value: 'text-area'},
       // {name: 'Password', value: 'pass'},
       // {name: 'Auto complete (requires jquery ajax)', value: 'auto-complete'},
-      // {name: 'Select custom with auto-complete (requires jquery, eg. States)', value: 'select-auto-complete'},
-      // {name: 'Select grouped (eg. States by time zone)', value: 'select-grouped'},
-      // {name: 'Select multiple (instead of checkboxes)', value: 'select-multiple'},
       // {name: 'Input tags', value: 'tags'},
-      // {name: 'Checkboxes', value: 'checkbox'},
       // {name: 'Radios', value: 'radio'},
-      // {name: 'Radio button twin group (eg. Gender)', value: 'radio-twin'},
       // {name: 'Switches', value: 'switch'},
       // {name: 'Stars', value: 'stars'}
     ],
     default: 'text'
+  }, {
+    type: 'confirm',
+    name: 'required',
+    message: 'Required field',
+    default: false
   }, {
     type: 'confirm',
     name: 'readOnly',

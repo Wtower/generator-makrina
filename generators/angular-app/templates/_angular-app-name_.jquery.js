@@ -282,4 +282,19 @@ if (typeof NProgress != 'undefined') {
 
 })(jQuery,'smartresize');
 
+/**
+ * Initialize select2 combo boxes
+ */
+var select2 = function () {
+  $('.select2').each(function () {
+    $(this).select2({
+      placeholder: $(this).attr('data-placeholder'),
+      allowClear: $(this).attr('data-allow-clear'),
+      maximumSelectionLength: $(this).attr('data-maximum-selection-length')
+    });
+  });
+};
+
+$(document).ready(select2);
+
 /* <% } %>EOF */
