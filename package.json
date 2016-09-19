@@ -8,9 +8,6 @@
     "email": "gkarak@9-dev.com",
     "url": "https://github.com/Wtower"
   },
-  "files": [
-    "generators"
-  ],
   "main": "generators/index.js",
   "keywords": [
     "yeoman-generator"

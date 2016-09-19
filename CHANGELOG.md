@@ -1,13 +1,21 @@
 CHANGELOG
 =========
 
+v0.3.1
+------
+
+Complete all admin interface form field types
+
+Date: Upcoming
+
 v0.3.0
 ------
 
-Improved component detail sub-generator, additional form fields for admin interface
+Improved component detail sub-generator; additional form fields for admin interface; bug fixes
 
-Date: upcoming
+Date: Mon Sep 19, 2016
 
+- Fix #7: error on project generation
 - :warning: Added submit button and handler for component detail
 - Minor fix in form name of component detail template
 - Added select fields to form-field sub-generator
