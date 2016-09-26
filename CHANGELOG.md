@@ -8,6 +8,7 @@ Complete all admin interface form field types
 
 Date: Upcoming
 
+- Fixed minor error in generated detail component js
 - Updated generated package dependencies
 
 v0.3.0

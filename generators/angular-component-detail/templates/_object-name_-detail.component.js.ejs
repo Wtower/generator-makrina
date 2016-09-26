@@ -10,7 +10,7 @@ angular
       function <%= objectTitle %>DetailController($routeParams, $location, <%= objectTitle %>) {
         var self = this;
 
-        var self.get<%= objectTitle %> = function () {
+        self.get<%= objectTitle %> = function () {
           self.<%= objectName %> = <%= objectTitle %>.get({<%= objectName %>Id: self.<%= objectName %>Id}, function(data) {
           }, function(error) {
           $location.path("/<%= objectUrl %>s");
