@@ -13,13 +13,13 @@ angular
         self.get<%= objectTitle %> = function () {
           self.<%= objectName %> = <%= objectTitle %>.get({<%= objectName %>Id: self.<%= objectName %>Id}, function(data) {
           }, function(error) {
-          $location.path("/<%= objectUrl %>s");
-          new PNotify({
-          title: '<%= objectTitle %> not found',
-          text: 'The <%= objectName %> cannot be found.',
-          type: 'error',
-          styling: 'bootstrap3'
-          });
+            $location.path("/<%= objectUrl %>s");
+            new PNotify({
+              title: '<%= objectTitle %> not found',
+              text: 'The <%= objectName %> cannot be found.',
+              type: 'error',
+              styling: 'bootstrap3'
+            });
           });
         };
 
