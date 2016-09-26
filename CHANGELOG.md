@@ -8,6 +8,8 @@ Complete all admin interface form field types
 
 Date: Upcoming
 
+- Updated generated package dependencies
+
 v0.3.0
 ------
 
