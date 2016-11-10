@@ -37,7 +37,7 @@
     "connect-mongo": "^1.2.1",
     "cookie-parser": "~1.4.3",
     "csurf": "^1.9.0",
-    "debug": "~2.2.0",
+    "debug": "~2.3.0",
     "ejs": "~2.5.1",
     "express": "~4.14.0",
     "express-session": "^1.14.0",
@@ -78,7 +78,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
-    "gulp-sourcemaps": "^1.6.0",
+    "gulp-sourcemaps": "^2.2.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "jasmine-core": "^2.4.1",
@@ -96,6 +96,6 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
-    "yargs": "^5.0.0"
+    "yargs": "^6.3.0"
   }
 }

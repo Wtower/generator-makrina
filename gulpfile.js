@@ -17,9 +17,9 @@ gulp.task('static', function () {
         // control characters eg `\n` are required for file appends
         'no-control-regex': 'off',
         // allow double quotes to avoid escaping single
-        'quotes': ['error', 'single', {avoidEscape: true}],
+        quotes: ['error', 'single', {avoidEscape: true}],
         // relax curly
-        'curly': ['error', 'multi-line']
+        curly: ['error', 'multi-line']
       }
     }))
     .pipe(eslint.format())
