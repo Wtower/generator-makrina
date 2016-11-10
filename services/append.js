@@ -73,16 +73,6 @@ var append = {
       new RegExp("(mongoose.Promise = require\\('bluebird'\\);\n)", 'gm'),
       "$1require('../models/" + name + "');\n"
     );
-  },
-
-  // append a field to an angular template form
-  formField: function (content, tpl) {
-    var newContent = content.toString();
-    // http://regexr.com/3e2he
-    return newContent.replace(
-      new RegExp('\n(\\W+<!-- Buttons --)', 'gm'),
-      '\n\n' + tpl + '$1'
-    );
   }
 };
 

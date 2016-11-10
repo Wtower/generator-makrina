@@ -124,59 +124,6 @@ var prompts = function ($this) {
   }];
 
   /*
-   * Form fields
-   * angular-component-detail: _object-name_-detail.template.html
-   */
-  var formFields = [{
-    type: 'input',
-    name: 'angularAppName',
-    message: 'Angular app short name',
-    default: 'admin'
-  }, {
-    type: 'input',
-    name: 'fieldName',
-    message: 'Field name (camelCase)'
-  }, {
-    type: 'input',
-    name: 'labelName',
-    message: 'Label name',
-    default: function (response) {
-      return lodash.startCase(response.fieldName);
-    }
-  }, {
-    type: 'list',
-    name: 'fieldType',
-    message: 'Field type',
-    choices: [
-      {name: 'Text box', value: 'text'},
-      {name: 'Select combo box (plain)', value: 'select'},
-      {name: 'Select with auto-complete (JS)', value: 'select2'},
-      {name: 'Select multiple (JS)', value: 'select-multiple'},
-      {name: 'Checkbox (plain)', value: 'checkbox'}
-      // Future:
-      // {name: 'Date', value: 'date'},
-      // {name: 'Text area', value: 'text-area'},
-      // {name: 'Password', value: 'pass'},
-      // {name: 'Auto complete (requires jquery ajax)', value: 'auto-complete'},
-      // {name: 'Input tags', value: 'tags'},
-      // {name: 'Radios', value: 'radio'},
-      // {name: 'Switches', value: 'switch'},
-      // {name: 'Stars', value: 'stars'}
-    ],
-    default: 'text'
-  }, {
-    type: 'confirm',
-    name: 'required',
-    message: 'Required field',
-    default: false
-  }, {
-    type: 'confirm',
-    name: 'readOnly',
-    message: 'Read-only field',
-    default: false
-  }];
-
-  /*
    * SWITCH
    */
   switch ($this.options.namespace) {
@@ -189,8 +136,6 @@ var prompts = function ($this) {
       return angularAppPrompts.concat(angularObjectPrompts);
     case 'makrina:model':
       return angularObjectPrompts;
-    case 'makrina:form-field':
-      return formFields.concat(angularObjectPrompts);
     case 'makrina:app':
     default:
       return mainPrompts.concat(angularAppPrompts, angularObjectPrompts);
