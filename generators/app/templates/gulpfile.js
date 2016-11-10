@@ -44,7 +44,7 @@ var paths = {
     'public/javascripts/admin/*.js',
     'routes/**/*.js',
     'services/*.js',
-    'spec/**/*,js',
+    'spec/**/*.js',
     '*.js'
   ],
   js_cover: [
