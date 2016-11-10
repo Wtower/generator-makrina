@@ -53,6 +53,10 @@ router.post('/', function(req, res, next) {
 
 router.delete('/', function(req, res, next) {
   if (!req.session.login) return res.redirect('/admin/login');
+  <%= objectTitle %>.findByIdAndRemove(req.query.<%= objectName %>Id, function (err, <%= objectName %>) {
+    if (err) return next(err);
+    res.json(<%= objectName %>);
+  });
 });
 
 module.exports = router;
