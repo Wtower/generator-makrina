@@ -1,52 +1,26 @@
-<div class="row">
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>{{ $ctrl.<%= objectName %>.name }} <small><%= objectTitle %></small></h2>
-        <ul class="nav navbar-right panel_toolbox">
-          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-          <li><a class="close-link"><i class="fa fa-close"></i></a></li>
-        </ul>
-        <div class="clearfix"></div>
-      </div>
-      <div class="x_content">
+<form id="<%= objectUrl %>-edit"
+      name="$ctrl.<%= objectName %>Edit"
+      class="form-horizontal form-label-left"
+      ng-submit="$ctrl.submit<%= objectTitle %>()">
+
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+
+      <ga-panel panel-title="{{ $ctrl.<%= objectName %>.name }}" panel-sub-title="<%= objectTitle %>">
         <br>
-        <form id="<%= objectUrl %>-edit"
-              name="$ctrl.<%= objectName %>Edit"
-              class="form-horizontal form-label-left"
-              ng-submit="$ctrl.submit<%= objectTitle %>()">
+        <form-field-text field-id="<%= objectUrl %>-name"
+                         field-label="Name"
+                         field-placeholder="Name"
+                         field-required="true"
+                         field-value="$ctrl.<%= objectName %>.name"></form-field-text>
+      </ga-panel>
 
-          <!-- Field: Name -->
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="<%= objectUrl %>-name">Name</label>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="text"
-                     id="<%= objectUrl %>-name"
-                     name="<%= objectName %>Name"
-                     class="form-control"
-                     ng-model="$ctrl.<%= objectName %>.name">
-            </div>
-          </div>
-
-          <!-- Buttons -->
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-              <button type="submit" class="btn btn-success">Submit</button>
-              <a href="#!/<%= objectUrl %>s"
-                 class="btn btn-danger"
-                 ng-if="$ctrl.<%= objectName %>Edit.$dirty">Cancel</a>
-              <a href="#!/<%= objectUrl %>s"
-                 class="btn btn-primary"
-                 ng-if="!$ctrl.<%= objectName %>Edit.$dirty">Close</a>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 text-right">
-              <button type="button" class="btn btn-sm" ng-click="$ctrl.delete<%= objectTitle %>()">Delete</button>
-            </div>
-          </div>
-
-        </form>
-      </div>
+      <ga-panel panel-title="Actions">
+        <ga-panel-actions action-form="$ctrl.<%= objectName %>Edit"
+                          action-close-url="#!/<%= objectUrl %>s"
+                          action-allow-delete="$ctrl.<%= objectName %>Id"
+                          on-delete="$ctrl.delete<%= objectTitle %>()"></ga-panel-actions>
+      </ga-panel>
     </div>
   </div>
-</div>
+</form>

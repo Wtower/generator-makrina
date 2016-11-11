@@ -3,10 +3,12 @@
  */
 var express = require('express');
 var router = express.Router();
+var pack = require('../package.json');
 
 var context = {
   title: 'Administration',
-  name: '<%= verboseName %>'
+  name: '<%= verboseName %>',
+  version: pack.version
 };
 
 router.get('/', function(req, res, next) {
@@ -33,9 +35,15 @@ router.post('/login', function (req, res, next) {
       name: 'Administrator',
       image: 'images/9dev2sc.png'
     };
-    context.user = req.session.user;
-    context.loginError = false;
-    res.redirect('/admin');
+    req.session.save(function (err) {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      context.user = req.session.user;
+      context.loginError = false;
+      res.redirect('/admin');
+    });
   }
   else {
     context.loginError = true;

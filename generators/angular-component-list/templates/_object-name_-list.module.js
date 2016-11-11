@@ -3,5 +3,6 @@
  */
 
 angular.module('<%= objectName %>List', [
+  'gaPanel',
   'core.<%= objectName %>'
 ]);

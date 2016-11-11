@@ -86,7 +86,6 @@ Called by app generator:
 Not called by app generator: 
 
 - `angular-controller-form`: Generate a simple module with a controller to handle a form submit.
-- `form-field`: Append a field's HTML markup to a detail component angular template.
 
 How to use:
 
@@ -159,10 +158,6 @@ This is called after the angular list component (or stand-alone). It creates:
 A small controller to post a form such as a contact message and handle the form submit button status.
 Not called by main app generator.
 
-### Form field
-
-Use this to append HTML markup for a form field to a detail component angular template.
-
 Prompts
 -------
 
@@ -212,23 +207,6 @@ It has its own mongoose model, api endpoint and angular service and component.
 - Object name (recommended camelCase).
 - Object title (recommended PascalCase).
 - Object API URL and directory name (recommended kebab-case).
-
-
-### Form field
-
-- Angular app short name: used to locate existing template files
-- Field name (camelCase)
-- Label name
-- Field types:
-
-  - Textbox (default)
-  - Select combo box (simple)
-  - Select with auto-complete (JS)
-  - Select multiple (JS)
-  - Checkbox
-
-- Required field
-- Read-only field
 
 
 Development Cycle
@@ -386,6 +364,8 @@ All unit tests can be invoked from `npm test`, which essentially invokes `gulp t
 
 Unit tests involve front-end tests with karma and back-end tests with mocha.
 Both provide coverage report using istanbul.
+If browser is not starting, export `CHROME_BIN`. 
+For fish see [here](https://gist.github.com/Wtower/970bf009f0a9c3b0733a).
 
 ### End-to-end tests
 
@@ -422,6 +402,8 @@ The adaptations include:
 - Context is provided from `routes/admin.js`.
 - The main view is adopted for Angular route using `ng-view`.
 - Also, a `views/login.ejs` template has been added.
+
+Lastly, the [ng-gentelella](https://github.com/Wtower/ng-gentelella) package is used.
 
 Mongoose
 --------

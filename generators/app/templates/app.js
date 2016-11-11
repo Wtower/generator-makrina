@@ -15,6 +15,7 @@ var sessionConfig = require('./services/session-config');
 
 var routes = require('./routes/index');
 var apiContact = require('./routes/api/contact');
+var apiUploads = require('./routes/api/uploads');
 var routesAdmin = require('./routes/admin');
 // var users = require('./routes/users');
 
@@ -33,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, 'node_modules')));
+app.use('/media', express.static(path.join(__dirname, 'uploads')));
+app.use('/static/ng-gentelella', express.static(path.join(__dirname, 'node_modules', 'ng-gentelella', 'gentelella')));
 
 app.use(sessionConfig());
 app.use(csrf({ cookie: true }));
@@ -44,6 +47,7 @@ app.use(i18n.init);
 
 app.use('/', routes);
 app.use('/api/contact', apiContact);
+app.use('/api/uploads', apiUploads);
 app.use('/admin', routesAdmin);
 // app.use('/users', users);
 
