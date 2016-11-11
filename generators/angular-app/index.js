@@ -22,6 +22,7 @@ module.exports = yeoman.Base.extend({
   writing: function () {
     var templatePaths = [
       'core/',
+      'dashboard/',
       '_angular-app-name_.animations.sass',
       '_angular-app-name_.config.js',
       '_angular-app-name_.generic.sass',
