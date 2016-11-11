@@ -1,15 +1,24 @@
 CHANGELOG
 =========
 
-v0.3.1
+v0.4.0
 ------
 
-Complete all admin interface form field types
+Now using ng-gentelella and several improvements
 
-Date: Upcoming
+Date: Fri Nov 11, 2016
 
+- Fix #17: Generate dashboard
+- Fix #16: Add image resize feature
+- Fix #15: Fix set session before redirecting in admin login
+- Fix #14: Add uploads API
+- Fix #13: Invalidate caches for generated gulp built files
+- Fix #6: Remove form-field sub-generator and use ng-gentelella
+- Wire up REST delete action
+- Fix minor error in generated gulpfile
 - Fixed minor errors in generated detail component js
-- Updated generated package dependencies
+- Updated package dependencies
+- Minor fixes
 
 v0.3.0
 ------
