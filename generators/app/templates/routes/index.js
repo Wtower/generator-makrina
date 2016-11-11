@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
+var pack = require('../package.json');
 
 /* GET home page. */
 router.get('/:locale(el|en)?', function(req, res, next) {
@@ -10,7 +11,8 @@ router.get('/:locale(el|en)?', function(req, res, next) {
   res.render('index', {
     title: '<%= verboseName %>',
     lang: req.getLocale(),
-    description: '<%= description %>'
+    description: '<%= description %>',
+    version: pack.version
   });
 });
 
