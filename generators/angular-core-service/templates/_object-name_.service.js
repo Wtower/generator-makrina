@@ -4,7 +4,7 @@
 
 angular
   .module('core.<%= objectName %>')
-  .factory('<%= objectTitle %>', ['$resource',
+  .factory('<%= objectTitle %>', ['$gaResource',
     function ($resource) {
       return $resource('api/<%= objectUrl %>s');
     }

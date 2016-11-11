@@ -6,20 +6,18 @@ angular
   .module('<%= objectName %>Detail')
   .component('<%= objectName %>Detail', {
     templateUrl: 'javascripts/<%= angularAppName %>/<%= objectUrl %>-detail/<%= objectUrl %>-detail.template.html',
-    controller: ['$routeParams', '$location', '<%= objectTitle %>',
-      function <%= objectTitle %>DetailController($routeParams, $location, <%= objectTitle %>) {
+    controller: ['$routeParams', '$scope', '<%= objectTitle %>',
+      function <%= objectTitle %>DetailController($routeParams, $scope, <%= objectTitle %>) {
         var self = this;
 
         self.get<%= objectTitle %> = function () {
-          self.<%= objectName %> = <%= objectTitle %>.get({<%= objectName %>Id: self.<%= objectName %>Id}, function(data) {
-          }, function(error) {
-            $location.path("/<%= objectUrl %>s");
-            new PNotify({
+          self.<%= objectName %> = <%= objectTitle %>.getAndNotify({
+            getId: {<%= objectName %>Id: self.<%= objectName %>Id},
+            url: '/<%= objectUrl %>s',
+            error404: {
               title: '<%= objectTitle %> not found',
-              text: 'The <%= objectName %> cannot be found.',
-              type: 'error',
-              styling: 'bootstrap3'
-            });
+              body: 'The <%= objectName %> cannot be found.',
+            }
           });
         };
 
@@ -27,51 +25,43 @@ angular
           self.<%= objectName %>Id = $routeParams.<%= objectName %>Id;
           self.get<%= objectTitle %>();
         }
+        else self.<%= objectName %> = {
+          // default values
+        };
+
+        // Here populate combo boxes
 
         self.submit<%= objectTitle %> = function() {
-          self.<%= objectName %> = <%= objectTitle %>.save(self.<%= objectName %>, function () {
-            if (!self.<%= objectName %>Id) $location.path("/<%= objectUrl %>s/" + self.<%= objectName %>._id);
-            new PNotify({
+          self.<%= objectName %> = <%= objectTitle %>.submitAndNotify({
+            id: self.<%= objectName %>Id,
+            entity: self.<%= objectName %>,
+            form: self.<%= objectName %>Edit,
+            url: '/<%= objectUrl %>s/',
+            success: {
               title: '<%= objectTitle %> saved',
-              text: '<%= objectTitle %> saved successfully.',
-              type: 'success',
-              styling: 'bootstrap3'
-            });
-            self.<%= objectName %>Edit.$setPristine();
-            self.get<%= objectTitle %>();
-          }, function (error) {
-            new PNotify({
+              body: '<%= objectTitle %> saved successfully.',
+            },
+            error: {
               title: '<%= objectTitle %> not saved',
-              text: error.statusText,
-              type: 'error',
-              styling: 'bootstrap3'
-            });
+              conflict409: '<%= objectTitle %> already exists',
+            },
+            callbacks: {next: self.get<%= objectTitle %>}
           });
         };
 
         self.delete<%= objectTitle %> = function() {
-          if (!confirm('Are you sure you want to delete this?')) return;
-          <%= objectTitle %>.delete({<%= objectName %>Id: self.<%= objectName %>Id}, function() {
-            $location.path("/<%= objectUrl %>s");
-            new PNotify({
+          <%= objectTitle %>.deleteAndNotify({
+            getId: {<%= objectName %>Id: self.<%= objectName %>Id},
+            url: '/<%= objectUrl %>s',
+            success: {
               title: '<%= objectTitle %> deleted',
-              text: '<%= objectTitle %> deleted successfully.',
-              type: 'success',
-              styling: 'bootstrap3'
-            });
-          }, function(error) {
-            var statusText = error.statusText;
-            new PNotify({
-              title: '<%= objectTitle %> not deleted',
-              text: error.statusText,
-              type: 'error',
-              styling: 'bootstrap3'
-            });
+              body: '<%= objectTitle %> deleted successfully.',
+            },
+            error: {title: '<%= objectTitle %> not deleted'}
           });
         };
 
-        panelToolbox();
-        select2();
+        // select2();
       }
     ]
   });

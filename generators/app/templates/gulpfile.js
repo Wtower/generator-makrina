@@ -119,12 +119,21 @@ var paths = {
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.buttons.js',
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.nonblock.js',
       'node_modules/gentelella/vendors/select2/dist/js/select2.full.js',
+
+      'node_modules/ng-gentelella/gentelella/*.module.js',
+      'node_modules/ng-gentelella/gentelella/*.config.js',
+      'node_modules/ng-gentelella/gentelella/**/*.module.js',
+      'node_modules/ng-gentelella/gentelella/**/*.component.js',
+      'node_modules/ng-gentelella/gentelella/**/*.service.js',
+
       'public/javascripts/admin/*.module.js',
       'public/javascripts/admin/*.config.js',
       'public/javascripts/admin/core/*.module.js',
       'public/javascripts/admin/core/*.filter.js',
       'public/javascripts/admin/core/**/*.module.js',
       'public/javascripts/admin/core/**/*.service.js',
+      'public/javascripts/admin/dashboard*/*.module.js',
+      'public/javascripts/admin/dashboard*/*.component.js',
       'public/javascripts/admin/*list/*.module.js',
       'public/javascripts/admin/*list/*.component.js',
       'public/javascripts/admin/*detail/*.module.js',
@@ -512,8 +521,8 @@ gulp.task('mocha', tasks.mocha);
 gulp.task('karma', tasks.karma);
 gulp.task('istanbul', ['preTest'], tasks.mocha);
 gulp.task('adminAssets', req, tasks.adminAssets);
-gulp.task('adminCss', req.concat(['less', 'sass']), tasks.adminCss);
 gulp.task('adminSass', req, tasks.adminSass);
+gulp.task('adminCss', req.concat(['adminSass']), tasks.adminCss);
 gulp.task('adminConcatJs', req, tasks.adminConcatJs);
 
 // build task

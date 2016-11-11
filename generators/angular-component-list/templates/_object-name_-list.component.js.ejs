@@ -6,10 +6,12 @@ angular
   .module('<%= objectName %>List')
   .component('<%= objectName %>List', {
     templateUrl: 'javascripts/<%= angularAppName %>/<%= objectUrl %>-list/<%= objectUrl %>-list.template.html',
+    bindings: {
+      'viewLink': '@',
+      'viewLimit': '@'
+    },
     controller: ['<%= objectTitle %>',
       function <%= objectTitle %>ListController(<%= objectTitle %>) {
-        this.<%= objectName %>s = <%= objectTitle %>.query();<% if (angularAppName == 'admin') { %>
-        panelToolbox();<% } %>
-      }
+        this.<%= objectName %>s = <%= objectTitle %>.query();      }
     ]
   });
