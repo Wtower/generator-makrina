@@ -4,5 +4,6 @@
 
 angular.module('<%= angularAppFullName %>', [
   'ngRoute',
-  'ngAnimate'
+  'ngAnimate',
+  'dashboard'
 ]);
