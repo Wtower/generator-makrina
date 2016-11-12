@@ -6,6 +6,7 @@ v0.4.1
 
 Date: upcoming
 
+- Fix cache invalidate version token in generated index and admin ejs
 - Added ga-dashboard-counter in generated dashboard
 - Minor fix in generated admin.ejs
 
