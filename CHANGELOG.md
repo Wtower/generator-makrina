@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+v0.4.1
+------
+
+Date: upcoming
+
+- Added ga-dashboard-counter in generated dashboard
+- Minor fix in generated admin.ejs
+
 v0.4.0
 ------
 
