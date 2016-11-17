@@ -34,3 +34,14 @@ tr
     opacity: 1
   to
     opacity: 0
+
+.fadein
+  transition: 2s linear all
+  opacity: 1
+
+  &.ng-hide-remove, &.ng-hide-add
+    display: block !important
+
+  &.ng-hide
+    display: block !important
+    opacity: 0
