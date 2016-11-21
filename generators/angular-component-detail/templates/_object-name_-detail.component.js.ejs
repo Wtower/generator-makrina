@@ -16,7 +16,7 @@ angular
             url: '/<%= objectUrl %>s',
             error404: {
               title: '<%= objectTitle %> not found',
-              body: 'The <%= objectName %> cannot be found.',
+              body: 'The <%= objectName %> cannot be found.'
             }
           });
         };
@@ -39,11 +39,11 @@ angular
             url: '/<%= objectUrl %>s/',
             success: {
               title: '<%= objectTitle %> saved',
-              body: '<%= objectTitle %> saved successfully.',
+              body: '<%= objectTitle %> saved successfully.'
             },
             error: {
               title: '<%= objectTitle %> not saved',
-              conflict409: '<%= objectTitle %> already exists',
+              conflict409: '<%= objectTitle %> already exists'
             },
             callbacks: {next: self.get<%= objectTitle %>}
           });
@@ -55,7 +55,7 @@ angular
             url: '/<%= objectUrl %>s',
             success: {
               title: '<%= objectTitle %> deleted',
-              body: '<%= objectTitle %> deleted successfully.',
+              body: '<%= objectTitle %> deleted successfully.'
             },
             error: {title: '<%= objectTitle %> not deleted'}
           });

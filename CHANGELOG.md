@@ -6,6 +6,7 @@ v0.4.1
 
 Date: upcoming
 
+- Fixed minor typos in generated angular detail component
 - Added limit to generated angular lists
 - Added opengraph tags in generated index
 - Add fade animation for ng-show
