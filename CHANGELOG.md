@@ -6,6 +6,7 @@ v0.4.1
 
 Date: upcoming
 
+- Added limit to generated angular lists
 - Added opengraph tags in generated index
 - Add fade animation for ng-show
 - Fix cache invalidate version token in generated index and admin ejs
