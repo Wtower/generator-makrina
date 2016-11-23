@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%%= title %> | <%%= name %></title>
-  <link rel='stylesheet' href='/build/admin/css/style.min.css?v=<%= version %>'/>
+  <link rel='stylesheet' href='/build/admin/css/style.min.css?v=<%%= version %>'/>
   <link href="/static/gentelella/build/css/custom.min.css" rel="stylesheet">
-  <script src="build/admin/js/index.min.js?v=<%= version %>"></script>
+  <script src="build/admin/js/index.min.js?v=<%%= version %>"></script>
 </head>
 
 <body class="nav-md admin-page" ng-app="<%= angularAppFullName %>">
@@ -50,7 +50,7 @@
                 </ul>
               </li>
               <li>
-                <a><div class="ng-collapse" data-target="#nav-products">
+                <a><div class="ng-collapse" data-target="#nav-<%= objectUrl %>">
                     <i class="fa fa-sitemap"></i> <%= objectTitle %> <span class="fa fa-chevron-down"></span></div></a>
                 <ul id="nav-<%= objectUrl %>s" class="nav child_menu">
                   <li><a href="/admin#!/<%= objectUrl %>s"><%= objectTitle %>s</a></li>

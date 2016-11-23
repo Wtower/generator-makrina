@@ -10,7 +10,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="<%= objectName %> in $ctrl.<%= objectName %>s | filter:$ctrl.query">
+    <tr ng-repeat="<%= objectName %> in $ctrl.<%= objectName %>s | filter:$ctrl.query | limitTo:$ctrl.viewLimit">
       <th scope="row"><a href="#!/<%= objectUrl %>s/{{ <%= objectName %>._id }}">{{ $index + 1 }}</a></th>
       <td><a href="#!/<%= objectUrl %>s/{{ <%= objectName %>._id }}">{{ <%= objectName %>.name }}</a></td>
     </tr>

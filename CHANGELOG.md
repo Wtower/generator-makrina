@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+v0.4.1
+------
+
+Date: upcoming
+
+- Fixed minor typos in generated angular detail component
+- Added limit to generated angular lists
+- Added opengraph tags in generated index
+- Add fade animation for ng-show
+- Fix cache invalidate version token in generated index and admin ejs
+- Added ga-dashboard-counter in generated dashboard
+- Minor fix in generated admin.ejs
+
 v0.4.0
 ------
 
