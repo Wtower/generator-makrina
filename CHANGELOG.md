@@ -4,9 +4,12 @@ CHANGELOG
 v0.4.1
 ------
 
-Date: upcoming
+Added dashboard counter, minor improvements
 
-- Fixed minor typos in generated angular detail component
+Date: Wed Nov 23, 2016
+
+- Updated node-uuid to uuid
+- Fixed minor typos in generated angular detail and list component
 - Added limit to generated angular lists
 - Added opengraph tags in generated index
 - Add fade animation for ng-show

@@ -1,6 +1,6 @@
 {
   "name": "generator-makrina",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Generate MEAN boilerplate. Featuring model and route CRUD endpoint sub-gens and an admin interface.",
   "homepage": "https://github.com/Wtower/generator-makrina",
   "author": {
