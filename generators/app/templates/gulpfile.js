@@ -56,9 +56,6 @@ var paths = {
     'services/email.js',
     'services/i18n-config.js',
     'services/session-config.js',
-    'spec/*.js',
-    'spec/helpers/*.js',
-    'spec/api/contact.stub.js',
     'app.js'
   ],
   mocha: [

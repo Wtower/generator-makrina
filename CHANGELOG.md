@@ -7,6 +7,7 @@ v0.4.2
 Date: upcoming
 
 - Added ng-gentelella sass files in generated gulpfile.js
+- Remove test files from coverage in generated gulpfile.js
 
 v0.4.1
 ------
