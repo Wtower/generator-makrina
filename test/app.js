@@ -5,9 +5,10 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 describe('generator-makrina:app', function () {
-  // test both branches to increase coverage
+  // test branches to increase coverage
   var runs = [
     {it: 'no suffix in git prompt', git: 'https://github.com/Wtower/generator-makrina'},
+    {it: 'prefix in git prompt', git: 'git+https://github.com/Wtower/generator-makrina.git'},
     {it: 'suffix in git prompt', git: 'https://github.com/Wtower/generator-makrina.git'}
   ];
   var stub = stubRuns(runs, 1);

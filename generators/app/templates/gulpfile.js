@@ -4,7 +4,7 @@
  * Gulp configuration
  * Adapted from gulpfile-ninecms
  *
- * gulp (watch) : for development and livereload
+ * gulp (watch) : for development
  * gulp build : for a one off development build
  * gulp build --production : for a minified production build
  */
@@ -56,9 +56,6 @@ var paths = {
     'services/email.js',
     'services/i18n-config.js',
     'services/session-config.js',
-    'spec/*.js',
-    'spec/helpers/*.js',
-    'spec/api/contact.stub.js',
     'app.js'
   ],
   mocha: [
@@ -75,7 +72,8 @@ var paths = {
       'node_modules/font-awesome/*fonts/*'
     ],
     sass: [
-      'public/javascripts/admin/**/*.s?ss'
+      'public/javascripts/admin/**/*.s?ss',
+      'node_modules/ng-gentelella/gentelella/*.s?ss'
     ],
     css: [
       'node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.css',
@@ -87,7 +85,8 @@ var paths = {
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.buttons.css',
       'node_modules/gentelella/vendors/pnotify/dist/pnotify.nonblock.css',
       'node_modules/gentelella/vendors/select2/dist/css/select2.min.css',
-      'public/build/admin/css/admin.*.css' // sass build
+      'public/build/admin/css/admin.*.css',
+      'public/build/admin/css/gentelella.*.css'
     ],
     js_watch: [
       'node_modules/jquery/dist/jquery.js',

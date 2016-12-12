@@ -4,7 +4,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var lodash = require('lodash');
 var uuid = require('uuid');
-var randomString = require('randomstring');
+var password = require('xkcd-pass-plus');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 var buildPrompts = require('../../services/prompts');
@@ -70,7 +70,8 @@ module.exports = yeoman.Base.extend({
 
     // Template context variables
     var git = this.props.git;
-    // Remove suffix from git repo to add in template
+    // Remove prefix/suffix from git repo to add in template
+    if (git.startsWith('git+')) git = git.substring(4, git.length - 4);
     if (git.endsWith('.git')) git = git.substring(0, git.length - 4);
 
     var context = buildContext({
@@ -82,7 +83,10 @@ module.exports = yeoman.Base.extend({
       deployHost: this.props.deployHost,
       newRelicLicense: this.props.newRelicLicense,
       uuid: uuid.v4(),
-      pass: randomString.generate(12),
+      pass: password({
+        paddingDigits: {before: 0, after: 0},
+        paddingSymbols: {before: 0, after: 0}
+      }),
       organization: this.props.organization,
       organizationUrl: this.props.organizationUrl,
       angularAppFullName: this.props.angularAppFullName,
