@@ -4,7 +4,7 @@
  * Gulp configuration
  * Adapted from gulpfile-ninecms
  *
- * gulp (watch) : for development and livereload
+ * gulp (watch) : for development
  * gulp build : for a one off development build
  * gulp build --production : for a minified production build
  */

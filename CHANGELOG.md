@@ -4,8 +4,13 @@ CHANGELOG
 v0.4.2
 ------
 
+Improvements in prompt values and password
+
 Date: Tue Dec 13, 2016
 
+- Updated generated dependencies
+- Improved default prompt git value
+- Improved default prompt project name values
 - Replaced randomstring with xkcd-pass-plus for password generation
 - Added ng-gentelella sass files in generated gulpfile.js
 - Remove test files from coverage in generated gulpfile.js
