@@ -4,8 +4,9 @@ CHANGELOG
 v0.4.2
 ------
 
-Date: upcoming
+Date: Tue Dec 13, 2016
 
+- Replaced randomstring with xkcd-pass-plus for password generation
 - Added ng-gentelella sass files in generated gulpfile.js
 - Remove test files from coverage in generated gulpfile.js
 

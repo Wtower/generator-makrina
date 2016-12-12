@@ -19,13 +19,17 @@ var prompts = function ($this) {
     type: 'input',
     name: 'verboseName',
     message: 'Verbose name',
-    default: $this.appname
+    default: function (response) {
+      return lodash.startCase(response.name);
+    }
   }, {
     // package.json, README.md, routes/index.js, views/index.ejs
     type: 'input',
     name: 'description',
     message: 'Description',
-    default: $this.appname
+    default: function (response) {
+      return lodash.startCase(response.name);
+    }
   }, {
     // package.json
     type: 'input',
