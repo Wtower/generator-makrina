@@ -35,7 +35,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(path.join(__dirname, 'node_modules')));
 app.use('/media', express.static(path.join(__dirname, 'uploads')));
-app.use('/static/ng-gentelella', express.static(path.join(__dirname, 'node_modules', 'ng-gentelella', 'gentelella')));
 
 app.use(sessionConfig());
 app.use(csrf({ cookie: true }));
