@@ -69,7 +69,9 @@ var paths = {
   admin: {
     assets: [
       'node_modules/bootstrap/dist/*fonts/*',
-      'node_modules/font-awesome/*fonts/*'
+      'node_modules/font-awesome/*fonts/*',
+      'node_modules/gentelella/vendors/bootstrap/dist/*js/bootstrap.min.js',
+      'node_modules/ng-gentelella/*gentelella/gentelella.jquery.js'
     ],
     sass: [
       'public/javascripts/admin/**/*.s?ss',
@@ -137,7 +139,13 @@ var paths = {
       'public/javascripts/admin/*list/*.component.js',
       'public/javascripts/admin/*detail/*.module.js',
       'public/javascripts/admin/*detail/*.component.js',
-      'public/javascripts/admin/*detail/*.filter.js'
+      'public/javascripts/admin/*detail/*.filter.js',
+
+      'public/build/admin/partials.js'
+    ],
+    partials: [
+      'node_modules/*ng-gentelella/gentelella/**/*.html',
+      'public/*javascripts/admin/**/*.html'
     ],
     build: 'public/build/admin/'
   }
@@ -171,6 +179,9 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
+// partials
+var minifyHtml = require('gulp-minify-html');
+var ngHtml2Js = require('gulp-ng-html2js');
 // linting
 var eslint = require('gulp-eslint');
 var excludeGitignore = require('gulp-exclude-gitignore');
@@ -494,6 +505,29 @@ var tasks = {
       .pipe(gulpif(production, uglify({preserveComments: 'license', mangle: false})))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest(paths.admin.build + 'js/'));
+  },
+
+  /*
+   * Pre-load angular templates
+   */
+  preloadNgHtml: function () {
+    return gulp.src(paths.admin.partials)
+      .pipe(minifyHtml({
+        empty: true,
+        spare: true,
+        quotes: true
+      }))
+      .pipe(ngHtml2Js({
+        moduleName: function (file) {
+          var pathParts = file.path.split('/');
+          var folder = pathParts[pathParts.length - 2];
+          return folder.replace(/-[a-z]/g, function (match) {
+            return match.substr(1).toUpperCase();
+          });
+        }
+      }))
+      .pipe(concat('partials.js'))
+      .pipe(gulp.dest(paths.admin.build));
   }
 };
 
@@ -522,7 +556,8 @@ gulp.task('istanbul', ['preTest'], tasks.mocha);
 gulp.task('adminAssets', req, tasks.adminAssets);
 gulp.task('adminSass', req, tasks.adminSass);
 gulp.task('adminCss', req.concat(['adminSass']), tasks.adminCss);
-gulp.task('adminConcatJs', req, tasks.adminConcatJs);
+gulp.task('preloadNgHtml', req, tasks.preloadNgHtml);
+gulp.task('adminConcatJs', req.concat(['preloadNgHtml']), tasks.adminConcatJs);
 
 // build task
 gulp.task('build', [
@@ -559,6 +594,7 @@ gulp.task('watch', ['build'], function () {
   gulp.watch(paths.admin.css, ['adminCss']);
   gulp.watch(paths.admin.sass, ['adminSass', 'adminCss']);
   gulp.watch(paths.admin.js_watch, ['adminConcatJs']);
+  gulp.watch(paths.admin.partials, ['adminConcatJs']);
   gulp.watch(['./fonts.list'], ['fonts']);
   gutil.log(gutil.colors.bgGreen('Watching for changes...'));
 });
