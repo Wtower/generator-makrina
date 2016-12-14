@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+v0.5.0
+------
+
+Improved generated gulpfile
+
+Date: Wed Dec 14, 2016
+
+- Added html2js build for angular templates in generated gulp
+- Updated dependencies including ng-gentelella v2.0
+- Removed admin jquery code and use ng-gentelella code
+
 v0.4.2
 ------
 
