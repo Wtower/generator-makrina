@@ -13,7 +13,8 @@ describe('generator-makrina:angular-app', function () {
     {it: 'no options', options: {}},
     {it: 'options', options: {
       angularAppName: 'admin',
-      angularAppFullName: 'yeotestsAdminApp'
+      angularAppFullName: 'yeotestsAdminApp',
+      angularAppPath: 'public/javascripts'
     }}];
   var stub = stubRuns(runs, 1);
 

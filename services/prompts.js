@@ -90,6 +90,12 @@ var angularAppPrompts = function ($this) {
     name: 'angularAppFullName',
     message: 'Angular app name',
     default: $this.config.get('angularAppFullName') || $this.appname + 'AdminApp'
+  }, {
+    // all angular sub-generators
+    type: 'input',
+    name: 'angularAppPath',
+    message: 'Angular app path',
+    default: $this.config.get('angularAppPath') || 'public/javascripts'
   }];
 };
 

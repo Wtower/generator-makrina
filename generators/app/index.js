@@ -47,6 +47,7 @@ module.exports = yeoman.Base.extend({
     this.config.set('git', this.props.git);
     this.config.set('angularAppName', this.props.angularAppName);
     this.config.set('angularAppFullName', this.props.angularAppFullName);
+    this.config.set('angularAppPath', this.props.angularAppPath);
     this.config.set('objectName', this.props.objectName);
     this.config.set('objectTitle', this.props.objectTitle);
     this.config.set('objectUrl', this.props.objectUrl);

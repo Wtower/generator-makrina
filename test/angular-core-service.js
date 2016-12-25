@@ -16,6 +16,7 @@ describe('generator-makrina:angular-core-service', function () {
     {it: 'options', options: {
       angularAppName: 'admin',
       angularAppFullName: 'yeotestsAdminApp',
+      angularAppPath: 'public/javascripts',
       objectName: 'node',
       objectTitle: 'Node',
       objectUrl: 'node'

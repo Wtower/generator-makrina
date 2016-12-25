@@ -24,6 +24,7 @@ module.exports = yeoman.Base.extend({
   saveConfig: function () {
     this.config.set('angularAppName', this.props.angularAppName);
     this.config.set('angularAppFullName', this.props.angularAppFullName);
+    this.config.set('angularAppPath', this.props.angularAppPath);
     this.config.set('objectName', this.props.objectName);
     this.config.set('objectTitle', this.props.objectTitle);
     this.config.set('objectUrl', this.props.objectUrl);
@@ -51,7 +52,7 @@ module.exports = yeoman.Base.extend({
       $this.fs.copyTpl(
         $this.templatePath(templatePath),
         $this.destinationPath(
-          'public/javascripts/',
+          $this.props.angularAppPath,
           $this.props.angularAppName,
           $this.props.objectUrl + '-list',
           pathNames(templatePath, $this.props)
