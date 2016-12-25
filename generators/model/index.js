@@ -5,7 +5,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var lodash = require('lodash');
-var buildPrompts = require('../../services/prompts');
+var prompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 var append = require('../../services/append');
@@ -14,7 +14,7 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     this.log('Generating ' + chalk.red('model') + ' for mongoose and api endpoints');
 
-    return this.prompt(this.options.objectName ? [] : buildPrompts(this))
+    return this.prompt(this.options.objectName ? [] : prompts.angularObjectPrompts())
       .then(function (props) {
         this.props = props;
       }.bind(this));

@@ -7,7 +7,7 @@ var uuid = require('uuid');
 var password = require('xkcd-pass-plus');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
-var buildPrompts = require('../../services/prompts');
+var prompts = require('../../services/prompts');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -15,7 +15,8 @@ module.exports = yeoman.Base.extend({
       'Welcome to the ' + chalk.red('generator-makrina') + ' MEAN generator'
     ));
 
-    return this.prompt(buildPrompts(this)).then(function (props) {
+    var appPrompts = prompts.mainPrompts(this).concat(prompts.angularAppPrompts(this), prompts.angularObjectPrompts());
+    return this.prompt(appPrompts).then(function (props) {
       this.props = props;
     }.bind(this));
   },

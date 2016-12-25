@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.5.1
+------
+
+Date: upcoming
+
+- Moved documentation to read-the-docs
+
 v0.5.0
 ------
 

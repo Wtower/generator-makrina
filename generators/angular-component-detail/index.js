@@ -5,7 +5,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var lodash = require('lodash');
-var buildPrompts = require('../../services/prompts');
+var prompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 var append = require('../../services/append');
@@ -14,7 +14,8 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     this.log('Generating ' + chalk.red('angular-component-detail') + ' module');
 
-    return this.prompt(this.options.objectName ? [] : buildPrompts(this))
+    var componentPrompts = prompts.angularAppPrompts(this).concat(prompts.angularObjectPrompts());
+    return this.prompt(this.options.objectName ? [] : componentPrompts)
       .then(function (props) {
         this.props = props;
       }.bind(this));
