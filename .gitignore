@@ -1,3 +1,11 @@
+# Node.js
 node_modules
+
+# Test coverage
 coverage
+
+# IDE
 .idea/
+
+# Docs
+docs/_build
