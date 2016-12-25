@@ -13,7 +13,8 @@ describe('generator-makrina:angular-controller-form', function () {
     // {it: 'no options', options: {}},
     {it: 'options', options: {
       angularAppName: 'admin',
-      angularAppFullName: 'yeotestsAdminApp'
+      angularAppFullName: 'yeotestsAdminApp',
+      angularAppPath: 'public/javascripts'
     }}];
 
   runs.forEach(function (run) {

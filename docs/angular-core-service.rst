@@ -8,7 +8,7 @@ Execute
 
 The sub-generator is invoked with::
 
-  yo makrina:angular-core
+  yo makrina:angular-core-service
 
 The sub-generator is also invoked by the main_ generator.
 

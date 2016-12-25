@@ -4,7 +4,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var buildPrompts = require('../../services/prompts');
+var prompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 
@@ -13,11 +13,16 @@ module.exports = yeoman.Base.extend({
     this.log('Generating ' + chalk.red('angular-controller-form') + ' controller');
 
     // sub-generator only runs stand-alone
-    // return this.prompt(this.options.objectName ? [] : buildPrompts(this))
-    return this.prompt(buildPrompts(this))
+    return this.prompt(prompts.angularAppPrompts(this))
       .then(function (props) {
         this.props = props;
       }.bind(this));
+  },
+
+  saveConfig: function () {
+    this.config.set('angularAppName', this.props.angularAppName);
+    this.config.set('angularAppFullName', this.props.angularAppFullName);
+    this.config.set('angularAppPath', this.props.angularAppPath);
   },
 
   writing: function () {
@@ -37,7 +42,7 @@ module.exports = yeoman.Base.extend({
       $this.fs.copyTpl(
         $this.templatePath(templatePath),
         $this.destinationPath(
-          'public/javascripts/',
+          $this.props.angularAppPath,
           $this.props.angularAppName,
           'form',
           pathNames(templatePath, $this.props)

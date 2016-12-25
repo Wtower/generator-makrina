@@ -23,6 +23,7 @@ The generator creates a new project featuring:
 - Standard karma and protractor (e2e) configuration.
 - A ``services`` folder with most configuration scripts: mongoose, session, i18n, email.
 - Default routes & views for index, admin interface and contact form.
+- A ``.yo-rc.json`` local yeoman configuration file with the options used to generate the project.
 
 It then calls the following sub-generators for an angular application with basic REST CRUD functionality
 for a single object. Repeat calling the sub-generators on their own to add more objects.

@@ -13,7 +13,8 @@ describe('generator-makrina:angular-app', function () {
     {it: 'no options', options: {}},
     {it: 'options', options: {
       angularAppName: 'admin',
-      angularAppFullName: 'yeotestsAdminApp'
+      angularAppFullName: 'yeotestsAdminApp',
+      angularAppPath: 'private/javascripts'
     }}];
   var stub = stubRuns(runs, 1);
 
@@ -35,6 +36,9 @@ describe('generator-makrina:angular-app', function () {
         'admin.module.js'
       ];
       var destinationPrefix = 'public/javascripts/admin';
+      if (run.options.angularAppName) {
+        destinationPrefix = path.join(run.options.angularAppPath, run.options.angularAppName);
+      }
       paths.forEach(function (p) {
         assert.file(path.join(destinationPrefix, p));
       });

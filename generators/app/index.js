@@ -7,7 +7,7 @@ var uuid = require('uuid');
 var password = require('xkcd-pass-plus');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
-var buildPrompts = require('../../services/prompts');
+var prompts = require('../../services/prompts');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -15,7 +15,9 @@ module.exports = yeoman.Base.extend({
       'Welcome to the ' + chalk.red('generator-makrina') + ' MEAN generator'
     ));
 
-    return this.prompt(buildPrompts(this)).then(function (props) {
+    var appPrompts = prompts.mainPrompts(this)
+      .concat(prompts.angularAppPrompts(this), prompts.angularObjectPrompts(this));
+    return this.prompt(appPrompts).then(function (props) {
       this.props = props;
     }.bind(this));
   },
@@ -36,6 +38,19 @@ module.exports = yeoman.Base.extend({
     this.composeWith('makrina:angular-component-list', {options: options});
     this.composeWith('makrina:angular-component-detail', {options: options});
     this.composeWith('makrina:model', {options: options});
+  },
+
+  saveConfig: function () {
+    this.config.set('name', this.props.name);
+    this.config.set('verboseName', this.props.verboseName);
+    this.config.set('description', this.props.description);
+    this.config.set('git', this.props.git);
+    this.config.set('angularAppName', this.props.angularAppName);
+    this.config.set('angularAppFullName', this.props.angularAppFullName);
+    this.config.set('angularAppPath', this.props.angularAppPath);
+    this.config.set('objectName', this.props.objectName);
+    this.config.set('objectTitle', this.props.objectTitle);
+    this.config.set('objectUrl', this.props.objectUrl);
   },
 
   writing: function () {

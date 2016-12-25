@@ -39,3 +39,6 @@ The generator asks the following input:
 
 - **Angular app name**: the full name for the app, eg ``myProjectAdminApp``.
   Used in: ``_angular-app-name_.module.js, views/admin.ejs``.
+
+- **Angular app path**: the relative destination path for the app, eg. ``public/javascripts``.
+  Used in: destination path for the files.
