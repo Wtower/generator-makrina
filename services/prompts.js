@@ -15,14 +15,14 @@ var mainPrompts = function ($this) {
     type: 'input',
     name: 'name',
     message: 'Project name',
-    default: $this.appname
+    default: $this.config.get('name') || $this.appname
   }, {
     // newrelic.js, routes/index.js, routes/admin.js
     type: 'input',
     name: 'verboseName',
     message: 'Verbose name',
     default: function (response) {
-      return lodash.startCase(response.name);
+      return $this.config.get('verboseName') || lodash.startCase(response.name);
     }
   }, {
     // package.json, README.md, routes/index.js, views/index.ejs
@@ -30,13 +30,14 @@ var mainPrompts = function ($this) {
     name: 'description',
     message: 'Description',
     default: function (response) {
-      return lodash.startCase(response.name);
+      return $this.config.get('description') || lodash.startCase(response.name);
     }
   }, {
     // package.json
     type: 'input',
     name: 'git',
-    message: 'Git repository URL'
+    message: 'Git repository URL',
+    default: $this.config.get('git')
   }, {
     // package.json, LICENSE, CONTRIBUTING.md, views/index.ejs
     type: 'input',
@@ -82,13 +83,13 @@ var angularAppPrompts = function ($this) {
     type: 'input',
     name: 'angularAppName',
     message: 'Angular app short name',
-    default: 'admin'
+    default: $this.config.get('angularAppName') || 'admin'
   }, {
     // _angular-app-name_.module.js, views/admin.ejs
     type: 'input',
     name: 'angularAppFullName',
     message: 'Angular app name',
-    default: $this.appname + 'AdminApp'
+    default: $this.config.get('angularAppFullName') || $this.appname + 'AdminApp'
   }];
 };
 
@@ -97,7 +98,7 @@ var angularAppPrompts = function ($this) {
  * Used in main generator, model sub-generator and some angular sub-generators
  * @returns {*[]}
  */
-var angularObjectPrompts = function () {
+var angularObjectPrompts = function ($this) {
   return [{
     // angular-core-service
     // angular-component-list
@@ -106,7 +107,7 @@ var angularObjectPrompts = function () {
     type: 'input',
     name: 'objectName',
     message: 'Object name (recommended camelCase)',
-    default: 'node'
+    default: $this.config.get('objectName') || 'node'
   }, {
     // angular-core-service
     // angular-component-list
@@ -116,7 +117,7 @@ var angularObjectPrompts = function () {
     name: 'objectTitle',
     message: 'Object title (recommended PascalCase)',
     default: function (response) {
-      return lodash.upperFirst(lodash.camelCase(response.objectName));
+      return $this.config.get('objectTitle') || lodash.upperFirst(lodash.camelCase(response.objectName));
     }
   }, {
     // angular-core-service
@@ -127,7 +128,7 @@ var angularObjectPrompts = function () {
     name: 'objectUrl',
     message: 'Object API URL and directory name (recommended kebab-case)',
     default: function (response) {
-      return lodash.kebabCase(response.objectName);
+      return $this.config.get('objectUrl') || lodash.kebabCase(response.objectName);
     }
   }];
 };

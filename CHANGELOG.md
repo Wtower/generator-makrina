@@ -7,6 +7,7 @@ v0.5.1
 Date: upcoming
 
 - Moved documentation to read-the-docs
+- Storing configuration to file #3
 
 v0.5.0
 ------

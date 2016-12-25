@@ -14,11 +14,19 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     this.log('Generating ' + chalk.red('angular-component-detail') + ' module');
 
-    var componentPrompts = prompts.angularAppPrompts(this).concat(prompts.angularObjectPrompts());
+    var componentPrompts = prompts.angularAppPrompts(this).concat(prompts.angularObjectPrompts(this));
     return this.prompt(this.options.objectName ? [] : componentPrompts)
       .then(function (props) {
         this.props = props;
       }.bind(this));
+  },
+
+  saveConfig: function () {
+    this.config.set('angularAppName', this.props.angularAppName);
+    this.config.set('angularAppFullName', this.props.angularAppFullName);
+    this.config.set('objectName', this.props.objectName);
+    this.config.set('objectTitle', this.props.objectTitle);
+    this.config.set('objectUrl', this.props.objectUrl);
   },
 
   writing: function () {

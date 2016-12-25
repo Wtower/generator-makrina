@@ -14,10 +14,16 @@ module.exports = yeoman.Base.extend({
   prompting: function () {
     this.log('Generating ' + chalk.red('model') + ' for mongoose and api endpoints');
 
-    return this.prompt(this.options.objectName ? [] : prompts.angularObjectPrompts())
+    return this.prompt(this.options.objectName ? [] : prompts.angularObjectPrompts(this))
       .then(function (props) {
         this.props = props;
       }.bind(this));
+  },
+
+  saveConfig: function () {
+    this.config.set('objectName', this.props.objectName);
+    this.config.set('objectTitle', this.props.objectTitle);
+    this.config.set('objectUrl', this.props.objectUrl);
   },
 
   writing: function () {

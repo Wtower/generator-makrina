@@ -56,7 +56,8 @@ describe('generator-makrina:app', function () {
         'newrelic.js',
         'package.json',
         'README.md',
-        'public/images/'
+        'public/images/',
+        '.yo-rc.json'
       ];
       assert.file(paths);
       assert.fileContent('package.json', run.git);

@@ -19,6 +19,11 @@ module.exports = yeoman.Base.extend({
       }.bind(this));
   },
 
+  saveConfig: function () {
+    this.config.set('angularAppName', this.props.angularAppName);
+    this.config.set('angularAppFullName', this.props.angularAppFullName);
+  },
+
   writing: function () {
     var templatePaths = [
       'core/',
