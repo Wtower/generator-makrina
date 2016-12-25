@@ -62,7 +62,7 @@ module.exports = yeoman.Base.extend({
 
     // Modify files: append object-detail to app module
     var templatePath = this.destinationPath(
-      'public/javascripts/',
+      $this.props.angularAppPath,
       this.props.angularAppName,
       this.props.angularAppName + '.module.js'
     );
@@ -74,7 +74,7 @@ module.exports = yeoman.Base.extend({
 
     // Modify files: append object-list route to app config
     templatePath = this.destinationPath(
-      'public/javascripts/',
+      $this.props.angularAppPath,
       this.props.angularAppName,
       this.props.angularAppName + '.config.js'
     );

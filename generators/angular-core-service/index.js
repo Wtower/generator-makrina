@@ -62,7 +62,7 @@ module.exports = yeoman.Base.extend({
     // Modify files: append core.object to core
     // http://stackoverflow.com/questions/19178523/can-yeoman-generators-update-existing-files
     var templatePath = this.destinationPath(
-      'public/javascripts/',
+      $this.props.angularAppPath,
       this.props.angularAppName,
       'core',
       'core.module.js'
