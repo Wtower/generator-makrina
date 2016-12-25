@@ -4,10 +4,14 @@ CHANGELOG
 v0.5.1
 ------
 
-Date: upcoming
+Added full documentation, configuration store and new path option 
+
+Date: Mon Dec 26, 2016
 
 - Moved documentation to read-the-docs
 - Storing configuration to file #3
+- Refactored prompts
+- Added angular app path option #26
 
 v0.5.0
 ------
