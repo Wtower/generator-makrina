@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.5.2
+------
+
+Fix #30: Error during generation with angular path
+
+Date: Mon 2 Jan, 2017
+
 v0.5.1
 ------
 

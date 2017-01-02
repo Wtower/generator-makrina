@@ -26,7 +26,8 @@ module.exports = yeoman.Base.extend({
   composing: function () {
     var options = {
       angularAppName: this.props.angularAppName,
-      angularAppFullName: this.props.angularAppFullName
+      angularAppFullName: this.props.angularAppFullName,
+      angularAppPath: this.props.angularAppPath
     };
     this.composeWith('makrina:angular-app', {options: options});
     lodash.extend(options, {
