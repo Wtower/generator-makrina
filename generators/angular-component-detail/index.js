@@ -9,6 +9,7 @@ var prompts = require('../../services/prompts');
 var buildContext = require('../../services/build-context');
 var pathNames = require('../../services/path-names');
 var append = require('../../services/append');
+var fs = require('fs');
 
 module.exports = yeoman.Base.extend({
   prompting: function () {
@@ -78,13 +79,15 @@ module.exports = yeoman.Base.extend({
       this.props.angularAppName,
       this.props.angularAppName + '.config.js'
     );
-    this.fs.copy(templatePath, templatePath, {
-      process: function (content) {
-        return append.angularRoute(
-          content,
-          $this.props.objectUrl + 's/:' + $this.props.objectName + 'Id',
-          $this.props.objectUrl + '-detail');
-      }
-    });
+    if (fs.existsSync(templatePath)) {
+      this.fs.copy(templatePath, templatePath, {
+        process: function (content) {
+          return append.angularRoute(
+            content,
+            $this.props.objectUrl + 's/:' + $this.props.objectName + 'Id',
+            $this.props.objectUrl + '-detail');
+        }
+      });
+    }
   }
 });

@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.5.3
+------
+
+Date: Upcoming
+
+- Check if config.js exists before attempting to modify in angular sub-generators
+
 v0.5.2
 ------
 

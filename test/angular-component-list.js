@@ -12,7 +12,8 @@ describe('generator-makrina:angular-component-list', function () {
   var destinationPrefix = 'public/javascripts/admin';
   // run with and without options to increase branch coverage
   var runs = [
-    {it: 'no options', options: {}},
+    {it: 'no options', options: {}, configFile: true},
+    {it: 'no options, no config file', options: {}, configFile: false},
     {it: 'options', options: {
       angularAppName: 'admin',
       angularAppFullName: 'yeotestsAdminApp',
@@ -20,7 +21,8 @@ describe('generator-makrina:angular-component-list', function () {
       objectName: 'node',
       objectTitle: 'Node',
       objectUrl: 'node'
-    }}];
+    }, configFile: true}
+  ];
   var stub = stubRuns(runs, 2);
 
   beforeEach(function () {
@@ -31,10 +33,12 @@ describe('generator-makrina:angular-component-list', function () {
           path.join(__dirname, '../generators/angular-app/templates/_angular-app-name_.module.js'),
           path.join(dir, destinationPrefix, 'admin.module.js')
         );
-        fs.copySync(
-          path.join(__dirname, '../generators/angular-app/templates/_angular-app-name_.config.js'),
-          path.join(dir, destinationPrefix, 'admin.config.js')
-        );
+        if (run.configFile) {
+          fs.copySync(
+            path.join(__dirname, '../generators/angular-app/templates/_angular-app-name_.config.js'),
+            path.join(dir, destinationPrefix, 'admin.config.js')
+          );
+        }
       })
       .withOptions(run.options)
       .toPromise();
@@ -56,7 +60,8 @@ describe('generator-makrina:angular-component-list', function () {
 
     it('updates files with ' + run.it, function () {
       assert.fileContent(path.join(destinationPrefix, 'admin.module.js'), 'nodeList');
-      assert.fileContent(path.join(destinationPrefix, 'admin.config.js'), 'node-list');
+      if (run.configFile) assert.fileContent(path.join(destinationPrefix, 'admin.config.js'), 'node-list');
+      else assert.noFile(path.join(destinationPrefix, 'admin.config.js'));
     });
   });
 });
