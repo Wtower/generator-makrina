@@ -36,6 +36,7 @@ var paths = {
     // 'public/javascripts/<%= name %>/*.module.js',
     // 'public/javascripts/<%= name %>/**/*.controller.js'
   ],
+  partials: [],
   js_lint: [
     'bin/*.js',
     'e2e-tests/*.js',
@@ -161,381 +162,34 @@ var images = [];
 'use strict';
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var del = require('del');
-var gulpif = require('gulp-if');
-var notify = require('gulp-notify');
 var argv = require('yargs').argv;
-// css
-var concat = require('gulp-concat');
-var minifyCSS = require('gulp-minify-css');
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
-// sass/less
-var less = require('gulp-less');
-var sass = require('gulp-sass');
-// js
-var watchify = require('watchify');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
-// partials
-var minifyHtml = require('gulp-minify-html');
-var ngHtml2Js = require('gulp-ng-html2js');
-// linting
-var eslint = require('gulp-eslint');
-var excludeGitignore = require('gulp-exclude-gitignore');
-// image optimization
-var imageResize = require('gulp-image-resize');
-var es = require('event-stream');
-var rename = require('gulp-rename');
-var parallel = require('concurrent-transform');
-var os = require('os');
-var changed = require('gulp-changed');
-// google fonts
-var googleWebFonts = require('gulp-google-webfonts');
-// testing/mocha
-var mocha = require('gulp-mocha');
-var istanbul = require('gulp-istanbul');
-var nsp = require('gulp-nsp');
-var plumber = require('gulp-plumber');
-var karmaServer = require('karma').Server;
-var path = require('path');
-var fs = require('fs');
+var taskMethods = require('gulpfile-ninecms');
 
-/*
- * Prepare
- */
-// gulp build --production
-var production = !!argv.production;
-// determine if we're doing a build
-// and if so, bypass the livereload
-var build = argv._.length ? argv._[0] === 'build' : false;
-var watch = argv._.length ? argv._[0] === 'watch' : true;
-
-/*
- * Error notification methods
- */
-var handleError = function (task) {
-  return function (err) {
-    notify.onError({
-      message: task + ' failed, check the logs',
-      sound: false
-    })(err);
-    gutil.log(gutil.colors.bgRed(task + ' error:'), gutil.colors.red(err));
-  };
-};
-
-/**
- * CUSTOM TASK METHODS
- */
 var tasks = {
-  /*
-   * Delete build folder
-   */
-  clean: function () {
-    return del([paths.build]);
-  },
+  clean: function () { return taskMethods.clean(paths); },
+  assets: function () { return taskMethods.assets(paths); },
+  css: function () { return taskMethods.css(paths); },
+  less: function () { return taskMethods.less(paths); },
+  sass: function () { return taskMethods.sass(paths); },
+  browserify: function () { return taskMethods.browserify(paths); },
+  lintJs: function () { return taskMethods.lintJs(paths); },
+  concatJs: function () { return taskMethods.concatJs(paths); },
+  preloadNgHtml: function () { return taskMethods.preloadNgHtml(paths); },
+  images: function () { return taskMethods.images(paths, images); },
+  clean_image_opts: function () { return taskMethods.clean_image_opts() },
+  fonts: function () { return taskMethods.fonts(paths); },
+  nsp: function () { return taskMethods.nsp(); },
 
-  /*
-   * Copy static assets
-   */
-  assets: function () {
-    return gulp.src(paths.assets)
-      .on('error', handleError('Assets'))
-      .pipe(gulp.dest(paths.build));
-  },
-
-  /*
-   * CSS
-   */
-  css: function () {
-    return gulp.src(paths.css)
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .on('error', handleError('CSS'))
-      .pipe(concat('style.min.css'))
-      .pipe(gulpif(production, autoprefixer(config.autoprefixer_versions)))
-      .pipe(gulpif(production, minifyCSS()))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.build + 'css/'));
-  },
-
-  /*
-   * LESS
-   */
-  less: function () {
-    return gulp.src(paths.less)
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .on('error', handleError('LESS'))
-      .pipe(less())
-      .pipe(gulpif(production, autoprefixer(config.autoprefixer_versions)))
-      .pipe(gulpif(production, minifyCSS()))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.build + 'css/'));
-  },
-
-  /*
-   * SASS
-   */
-  sass: function () {
-    return gulp.src(paths.sass)
-    // sourcemaps + sass + error handling
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .pipe(sass({
-        sourceComments: !production,
-        outputStyle: production ? 'compressed' : 'nested'
-      }))
-      .on('error', handleError('SASS'))
-      // generate .maps
-      .pipe(gulpif(!production, sourcemaps.write({
-        'includeContent': false,
-        'sourceRoot': '.'
-      })))
-      .pipe(gulpif(!production, sourcemaps.init({'loadMaps': true})))
-      .pipe(gulpif(production, autoprefixer(config.autoprefixer_versions)))
-      // we don't serve the source files so include scss content inside the sourcemaps
-      .pipe(sourcemaps.write({'includeContent': true}))
-      .pipe(gulp.dest(paths.build + 'css/'));
-  },
-
-  /*
-   * Browserify
-   */
-  browserify: function () {
-    var bundler = browserify(paths.js, {
-      debug: !production,
-      cache: {}
-    });
-    if (watch) {
-      bundler = watchify(bundler);
-    }
-    var rebundle = function () {
-      return bundler.bundle()
-        .on('error', handleError('Browserify'))
-        .pipe(source('build.js'))
-        .pipe(gulpif(production, buffer()))
-        .pipe(gulpif(production, uglify()))
-        .pipe(gulp.dest(paths.build + 'js/'));
-    };
-    bundler.on('update', rebundle);
-    return rebundle();
-  },
-
-  /*
-   * linting
-   */
-  lintjs: function () {
-    return gulp.src(paths.js_lint)
-      .pipe(excludeGitignore())
-      .pipe(eslint({
-        rules: {
-          // control characters eg `\n` are required for file appends
-          'no-control-regex': 'off',
-          // allow double quotes to avoid escaping single
-          'quotes': ['error', 'single', {avoidEscape: true}],
-          // relax curly
-          'curly': ['error', 'multi-line']
-        }
-      }))
-      .pipe(eslint.format())
-      .pipe(eslint.failAfterError())
-      .on('error', handleError('LINT'));
-  },
-
-  /*
-   * Concatenate js
-   */
-  concatJs: function () {
-    return gulp.src(paths.js_watch)
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .on('error', handleError('JS'))
-      .pipe(concat('index.min.js'))
-      .pipe(gulpif(production, uglify({preserveComments: 'license', mangle: false})))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.build + 'js/'));
-  },
-
-  /*
-   * Optimize asset images
-   */
-  images: function () {
-    var streams = [];
-    for (var i = 0; i < images.length; i++) {
-      var img = images[i];
-      img['imageMagick'] = true; // better quality
-      streams.push(gulp.src(img.src, {base: paths.images})
-        .pipe(parallel(
-          imageResize(img),
-          os.cpus().length
-        ))
-        // http://stackoverflow.com/questions/16724620/mutable-variable-is-accessible-from-closure-how-can-i-fix-this
-        .pipe(rename((function (img_path) {
-          return function (path) {
-            path.dirname += img_path;
-          }
-        })(img.build))));
-    }
-    return es.merge(streams)
-      .pipe(gulp.dest(paths.images));
-  },
-
-  /*
-   * Delete optimized image styles
-   * ATTENTION: make sure the path form pagetype/field/style/img is used
-   */
-  clean_image_opts: function () {
-    return del([paths.images + '/*/image/*/*']);
-  },
-
-  /*
-   * Google web fonts
-   */
-  fonts: function () {
-    return gulp.src('./fonts.list')
-      .pipe(googleWebFonts())
-      .pipe(gulp.dest(paths.build + 'fonts/'));
-  },
-
-  /*
-   * Testing security exploits with NSP
-   */
-  nsp: function (cb) {
-    nsp({package: path.resolve('package.json')}, cb);
-  },
-
-  /*
-   * Pre-Testing
-   */
-  preTest: function () {
-    return gulp.src(paths.js_cover)
-      .pipe(excludeGitignore())
-      .pipe(istanbul({
-        includeUntested: true
-      }))
-      .pipe(istanbul.hookRequire());
-  },
-
-  /*
-   * Testing with mocha
-   * https://github.com/sindresorhus/gulp-mocha/issues/54#issuecomment-240666300
-   */
-  mocha: function () {
-    gulp.doneCallback = function (err) {
-      process.exit(err ? 1 : 0);
-    };
-    return gulp.src(paths.mocha)
-      .pipe(plumber())
-      .pipe(mocha({reporter: 'spec', colors: true}))
-      .on('error', handleError('Mocha'))
-      .pipe(istanbul.writeReports());
-  },
-
-  /*
-   * Testing with karma
-   */
-  karma: function (done) {
-    new karmaServer({
-      configFile: path.join(__dirname, '/karma.conf.js'),
-      singleRun: true
-    }, function () {
-      done();
-    }).start();
-  },
-
-  /**
-   * ADMIN
-   */
-
-  /*
-   * Copy static assets
-   */
-  adminAssets: function () {
-    return gulp.src(paths.admin.assets)
-      .on('error', handleError('Assets'))
-      .pipe(gulp.dest(paths.admin.build));
-  },
-
-  /*
-   * CSS
-   */
-  adminCss: function () {
-    return gulp.src(paths.admin.css)
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .on('error', handleError('CSS'))
-      .pipe(concat('style.min.css'))
-      .pipe(gulpif(production, autoprefixer(config.autoprefixer_versions)))
-      .pipe(gulpif(production, minifyCSS()))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.admin.build + 'css/'));
-  },
-
-  /*
-   * SASS
-   */
-  adminSass: function () {
-    return gulp.src(paths.admin.sass)
-    // sourcemaps + sass + error handling
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .pipe(sass({
-        sourceComments: !production,
-        outputStyle: production ? 'compressed' : 'nested'
-      }))
-      .on('error', handleError('SASS'))
-      // generate .maps
-      .pipe(gulpif(!production, sourcemaps.write({
-        'includeContent': false,
-        'sourceRoot': '.'
-      })))
-      .pipe(gulpif(!production, sourcemaps.init({'loadMaps': true})))
-      .pipe(gulpif(production, autoprefixer(config.autoprefixer_versions)))
-      // we don't serve the source files so include scss content inside the sourcemaps
-      .pipe(sourcemaps.write({'includeContent': true}))
-      .pipe(gulp.dest(paths.admin.build + 'css/'));
-  },
-
-  /*
-   * Concatenate js
-   */
-  adminConcatJs: function () {
-    // paths.admin.js_watch.forEach(fs.statSync);
-    return gulp.src(paths.admin.js_watch)
-      .pipe(gulpif(!production, sourcemaps.init()))
-      .on('error', handleError('JS'))
-      .pipe(concat('index.min.js'))
-      .pipe(gulpif(production, uglify({preserveComments: 'license', mangle: false})))
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.admin.build + 'js/'));
-  },
-
-  /*
-   * Pre-load angular templates
-   */
-  preloadNgHtml: function () {
-    return gulp.src(paths.admin.partials)
-      .pipe(minifyHtml({
-        empty: true,
-        spare: true,
-        quotes: true
-      }))
-      .pipe(ngHtml2Js({
-        moduleName: function (file) {
-          var pathParts = file.path.split('/');
-          var folder = pathParts[pathParts.length - 2];
-          return folder.replace(/-[a-z]/g, function (match) {
-            return match.substr(1).toUpperCase();
-          });
-        }
-      }))
-      .pipe(concat('partials.js'))
-      .pipe(gulp.dest(paths.admin.build));
-  }
+  adminAssets: function () { return taskMethods.assets(paths.admin); },
+  adminCss: function () { return taskMethods.css(paths.admin); },
+  adminSass: function () { return taskMethods.sass(paths.admin); },
+  adminConcatJs: function () { return taskMethods.concatJs(paths.admin); },
+  adminPreloadNgHtml: function () { return taskMethods.preloadNgHtml(paths.admin); }
 };
 
-/*
- * CUSTOMS TASKS
- */
 gulp.task('clean', tasks.clean);
 // for production we require the clean method on every individual task
+var build = argv._.length ? argv._[0] === 'build' : false;
 var req = build ? ['clean'] : [];
 // individual tasks
 gulp.task('assets', req, tasks.assets);
@@ -565,7 +219,7 @@ gulp.task('build', [
   'less',
   'sass',
   'css',
-  // 'browserify',
+  'browserify',
   'concatJs',
   'images',
   'fonts',
@@ -583,9 +237,7 @@ gulp.task('test', [
   'karma'
 ]);
 
-/*
- * DEV/WATCH TASK
- */
+// watch task
 gulp.task('watch', ['build'], function () {
   gulp.watch(paths.css, ['css']);
   gulp.watch(paths.less, ['less', 'css']);

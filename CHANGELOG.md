@@ -4,8 +4,9 @@ CHANGELOG
 v0.5.3
 ------
 
-Date: Upcoming
+Date: Fri 6 Jan, 2017
 
+- Utilize gulpfile-ninecms in generated gulpfile #29
 - Check if config.js exists before attempting to modify in angular sub-generators
 
 v0.5.2
