@@ -64,6 +64,7 @@ var paths = {
     // 'spec/api/contact.js',  // disable to prevent send e-mail
     'spec/api/contact.stub.js'
   ],
+  fonts: 'private/',
   build: 'public/build/',
   images: '',
 

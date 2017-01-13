@@ -59,7 +59,7 @@
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
-    "gulpfile-ninecms": "^0.3.0",
+    "gulpfile-ninecms": "^0.4.0",
     "nodemailer-stub-transport": "^1.0.0",
     "protractor": "^4.0.2",
     "proxyquire": "^1.7.10",

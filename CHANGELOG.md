@@ -1,8 +1,17 @@
 CHANGELOG
 =========
 
+v0.5.4
+------
+
+Date: upcoming
+
+- Update gulpfile-ninecms to v0.4.0
+
 v0.5.3
 ------
+
+Improve sun-generators and generated gulpfile
 
 Date: Fri 6 Jan, 2017
 
