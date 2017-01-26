@@ -4,9 +4,12 @@ CHANGELOG
 v0.5.4
 ------
 
-Date: upcoming
+Minor updates and fixes
+
+Date: Thu 26 Jan, 2017
 
 - Update gulpfile-ninecms to v0.4.0
+- Fix generated image styles path
 
 v0.5.3
 ------

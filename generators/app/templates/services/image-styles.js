@@ -5,7 +5,7 @@
 var Promise = require('bluebird');
 var path = require('path');
 var fs = Promise.promisifyAll(require('fs'));
-var gm = require('gm').subClass({imageMagick: true});
+var gm = require('gm');
 Promise.promisifyAll(gm.prototype);
 
 /**
@@ -29,6 +29,7 @@ var outputFilename = function(name, image) {
  * @returns {*|Promise}
  */
 var check = function(images, options) {
+  options.path = path.join(__dirname, '..', options.path);
   return Promise.map(images, function(image) {
     return fs.statAsync(path.join(options.path, outputFilename(options.name, image.image)))
       .catch(function () {
