@@ -4,15 +4,12 @@ generator-makrina
 [![NPM version][npm-image]][npm-url] 
 [![Build Status][travis-image]][travis-url] 
 [![Coverage Status](https://coveralls.io/repos/github/Wtower/generator-makrina/badge.svg?branch=master)](https://coveralls.io/github/Wtower/generator-makrina?branch=master) 
-[![Dependency Status][daviddm-image]][daviddm-url] 
 [![npm](https://img.shields.io/npm/dt/generator-makrina.svg?maxAge=2592000)](https://www.npmjs.com/package/generator-makrina)
 
 [npm-image]: https://badge.fury.io/js/generator-makrina.svg
 [npm-url]: https://npmjs.org/package/generator-makrina
 [travis-image]: https://travis-ci.org/Wtower/generator-makrina.svg?branch=master
 [travis-url]: https://travis-ci.org/Wtower/generator-makrina
-[daviddm-image]: https://david-dm.org/Wtower/generator-makrina.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/Wtower/generator-makrina
 
 Generate MEAN boilerplate. Featuring model and route CRUD endpoint sub-generators and an admin interface.
 

@@ -1,6 +1,6 @@
 {
   "name": "generator-makrina",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Generate MEAN boilerplate. Featuring model and route CRUD endpoint sub-gens and an admin interface.",
   "homepage": "https://github.com/Wtower/generator-makrina",
   "author": {
@@ -19,7 +19,7 @@
     "uuid": "^3.0.0",
     "xkcd-pass-plus": "^0.1.0",
     "yeoman-generator": "^0.24.1",
-    "yosay": "^1.0.0"
+    "yosay": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^3.1.1",
@@ -35,7 +35,7 @@
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
     "sinon": "^1.17.5",
-    "yeoman-assert": "^2.0.0",
+    "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.0.0"
   },
   "eslintConfig": {

@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.5.5
+------
+
+Updated dependencies
+
+Date: Fri 17 Feb 2017
+
 v0.5.4
 ------
 
