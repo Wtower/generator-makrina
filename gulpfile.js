@@ -19,7 +19,8 @@ gulp.task('static', function () {
         // allow double quotes to avoid escaping single
         quotes: ['error', 'single', {avoidEscape: true}],
         // relax curly
-        curly: ['error', 'multi-line']
+        curly: ['error', 'multi-line'],
+        'capitalized-comments': 'off'
       }
     }))
     .pipe(eslint.format())
