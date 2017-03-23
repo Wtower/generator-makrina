@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+v0.5.6
+------
+
+Extended angular app animations
+
+Date: Thu 232 Mar 2017
+
 v0.5.5
 ------
 
